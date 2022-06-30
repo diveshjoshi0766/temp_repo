@@ -11,11 +11,15 @@ import {
     PixelRatio
 } from "react-native";
 import {Avatar} from 'react-native-paper';
+import { StatusBar } from 'expo-status-bar';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+// import { SocialIcon } from 'react-native-elements'
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
+import company_logo from '../assets/company_logo.png'
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -31,9 +35,14 @@ export function normalize(size) {
     }
 }
 
-export default function ForgotPasswordScreen({navigation}) {
+export default function ReferFriendToFollow({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [isSelected, setSelection] = useState(false);
     const [data, setData] = React.useState({
         username: '',
         password: '',
@@ -42,9 +51,8 @@ export default function ForgotPasswordScreen({navigation}) {
         isValidUser: true,
         isValidPassword: true,
     });
-   
+
     return (
-        
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -52,69 +60,11 @@ export default function ForgotPasswordScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
-            />
-        </View>
-        
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Forgot Password</Text>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <FontAwesome 
-                name="user-o"
-                color={colors.text}
-                size={20}
-            />
-            <TextInput 
-                placeholder="Email"
-                placeholderTextColor="#666666"
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-            />
-            <Animatable.View
-                animation="bounceIn"
-            >
-                <Feather 
-                    name="check-circle"
-                    color="green"
-                    size={20}
-                />
-            </Animatable.View>
-        </View>
-
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
-
-        <View style={styles.button}>
-
-            <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
-                style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: '#fff'
-                }]}>Submit</Text>
-            </TouchableOpacity>
-        </View>
-            
-        
-        <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN IN</Text></Text>
-        </TouchableOpacity>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', textAlign: "center"}}>Refer a Friend Screen to follow</Text>
     </Animatable.View>
   </View>
-    );
-  }
+);
+}
 
 
 const styles = StyleSheet.create({
@@ -128,8 +78,8 @@ const styles = StyleSheet.create({
         height: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.5,
-        height: SCREEN_WIDTH*0.5,
+        width: SCREEN_WIDTH*0.20,
+        height: SCREEN_WIDTH*0.20,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -158,7 +108,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     action: {
-        marginTop: normalize(30),
+        marginTop: normalize(10),
         minHeight: 40,
         flex:1,
         flexDirection:'row',
@@ -186,7 +136,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: normalize(30),
+        marginTop: normalize(10),
     },
     signIn: {
         width: '100%',
@@ -200,3 +150,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
   });
+

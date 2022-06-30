@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    ImageBackground
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -16,6 +17,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
+import background from '../assets/background.jpeg'
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -31,7 +33,8 @@ export function normalize(size) {
     }
 }
 
-export default function ForgotPasswordScreen({navigation}) {
+
+export default function FAQs({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [data, setData] = React.useState({
@@ -44,7 +47,6 @@ export default function ForgotPasswordScreen({navigation}) {
     });
    
     return (
-        
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -56,61 +58,15 @@ export default function ForgotPasswordScreen({navigation}) {
         <View style={{alignItems: 'center', marginTop: '0'}}>
             <Image
                 style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
+                source={require('../assets/icon_logo.png')}
             />
+        </View>
+        <View style={[styles.shadow_container, {alignItems: 'center'}]}>
+        <Text style={{fontWeight: 'bold', fontSize: "30"}}>Frequently Asked Questions</Text>   
+        <Text>Last Updated: Feburary 12, 2020</Text>   
         </View>
         
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Forgot Password</Text>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <FontAwesome 
-                name="user-o"
-                color={colors.text}
-                size={20}
-            />
-            <TextInput 
-                placeholder="Email"
-                placeholderTextColor="#666666"
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-            />
-            <Animatable.View
-                animation="bounceIn"
-            >
-                <Feather 
-                    name="check-circle"
-                    color="green"
-                    size={20}
-                />
-            </Animatable.View>
-        </View>
-
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
-
-        <View style={styles.button}>
-
-            <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
-                style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: '#fff'
-                }]}>Submit</Text>
-            </TouchableOpacity>
-        </View>
-            
         
-        <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN IN</Text></Text>
-        </TouchableOpacity>
     </Animatable.View>
   </View>
     );
@@ -120,16 +76,23 @@ export default function ForgotPasswordScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: 'rgb(235 235 235)',
+        backgroundColor: '#f7f7f7',
         flexDirection:'row',
-        alignItems:'center',
+        // alignItems:'center',
         justifyContent:'center',
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.5,
-        height: SCREEN_WIDTH*0.5,
+        width: SCREEN_WIDTH * 0.5,
+        height: 60,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    robot_img: {
+        width: SCREEN_WIDTH * 0.5,
+        height: 60,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -158,13 +121,15 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     action: {
-        marginTop: normalize(30),
-        minHeight: 40,
+        marginTop: normalize(5),
+        maxHeight: 50,
         flex:1,
         flexDirection:'row',
         alignItems:'center',
-        justifyContent:'center',
+        // justifyContent:'center',
         borderRadius: normalize(10),
+        borderWidth: 1,
+        borderColor: "black",
         paddingLeft: 3,
         paddingRight: 3,
     },
@@ -199,4 +164,17 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
+    shadow_container:{
+        marginTop: 10,
+        padding:20,
+        backgroundColor:'#e6e6e6',
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+    },
+    image: {
+        flex: 1,
+        justifyContent: "center"
+      },
   });

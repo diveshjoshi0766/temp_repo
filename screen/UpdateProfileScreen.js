@@ -19,6 +19,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 import company_logo from '../assets/company_logo.png'
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -34,7 +35,7 @@ export function normalize(size) {
     }
 }
 
-export default function SignInScreen({navigation}) {
+export default function UpdateProfileScreen({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -60,18 +61,18 @@ export default function SignInScreen({navigation}) {
         }]}
     >
 
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20)}}>Good Afternoon {}</Text>
-        <Text style={{color: '#000000', marginTop:normalize(5)}}>Presonal Details</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20)}}>Presonal Details</Text>
 
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
-            />
+            <View style={{alignItems: 'center'}}>
+                <Icon name="user" size={50}></Icon>
+                <Text style={{color:'red'}}>Change avatar</Text>
+            </View>
             <View style={{paddingLeft: normalize(10)}}>
                 <Text style={styles.label}>SOID: </Text>
                 <Text style={styles.label}>Profile Completion: </Text>
                 <Text style={styles.label}>Email: </Text>
+                <Text style={styles.label}>Earned Points: </Text>
             </View>
         </View>
 
@@ -202,7 +203,6 @@ export default function SignInScreen({navigation}) {
         </View>
 
         <View style={styles.button}>
-
             <TouchableOpacity
                 onPress={() => navigation.navigate('SignUpScreen')}
                 style={[styles.signIn, {
@@ -211,7 +211,7 @@ export default function SignInScreen({navigation}) {
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
-                }]}>Next</Text>
+                }]}>Update Profile</Text>
             </TouchableOpacity>
         </View>
     </Animatable.View>

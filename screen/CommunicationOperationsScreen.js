@@ -18,6 +18,7 @@ import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 
 import { useTheme } from 'react-native-paper';
+import Icon from "react-native-vector-icons/FontAwesome";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -31,7 +32,7 @@ export function normalize(size) {
     }
 }
 
-export default function ForgotPasswordScreen({navigation}) {
+export default function CommunicationOperationsScreen({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [data, setData] = React.useState({
@@ -52,65 +53,44 @@ export default function ForgotPasswordScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
+       
+        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
+            <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 5}}>Email Opt out</Text>
+            <Text style={{marginTop: 10,  textAlign: 'center'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
+            <View style={[styles.button]}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUpScreen')}
+                    style={[styles.signIn, {
+                        backgroundColor: '#378C3C',
+                        color: '#fff'
+                    }]}
+                >
+                    <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}>Unsubscribe</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
 
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
-            />
+        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
+            <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 5}}>Deactivate Account</Text>
+            <Text style={{marginTop: 10, textAlign: 'center'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
+            <View style={[styles.button]}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUpScreen')}
+                    style={[styles.signIn, {
+                        backgroundColor: '#378C3C',
+                        color: '#fff'
+                    }]}
+                >
+                    <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}>Deactivate</Text>
+                </TouchableOpacity>
+            </View>
         </View>
         
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Forgot Password</Text>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <FontAwesome 
-                name="user-o"
-                color={colors.text}
-                size={20}
-            />
-            <TextInput 
-                placeholder="Email"
-                placeholderTextColor="#666666"
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-            />
-            <Animatable.View
-                animation="bounceIn"
-            >
-                <Feather 
-                    name="check-circle"
-                    color="green"
-                    size={20}
-                />
-            </Animatable.View>
-        </View>
-
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
-
-        <View style={styles.button}>
-
-            <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
-                style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: '#fff'
-                }]}>Submit</Text>
-            </TouchableOpacity>
-        </View>
-            
         
-        <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN IN</Text></Text>
-        </TouchableOpacity>
     </Animatable.View>
   </View>
     );
@@ -120,9 +100,9 @@ export default function ForgotPasswordScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: 'rgb(235 235 235)',
+        backgroundColor: '#eeeeee',
         flexDirection:'row',
-        alignItems:'center',
+        // alignItems:'center',
         justifyContent:'center',
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT
@@ -158,15 +138,17 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     action: {
-        marginTop: normalize(30),
-        minHeight: 40,
-        flex:1,
-        flexDirection:'row',
+        marginTop: normalize(5),
+        maxHeight: "justifyContent",
+        flexDirection:'col',
         alignItems:'center',
-        justifyContent:'center',
+        // justifyContent:'center',
         borderRadius: normalize(10),
         paddingLeft: 3,
         paddingRight: 3,
+        borderWidth: 1,
+        borderColor: '#000000',
+        padding: 5,
     },
     actionError: {
         flexDirection: 'row',
@@ -185,15 +167,19 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     button: {
+        width: '50%',
+        display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
-        marginTop: normalize(30),
+        marginTop: normalize(10),
+        borderRadius: '50%'
     },
     signIn: {
         width: '100%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 11
     },
     textSign: {
         fontSize: 18,

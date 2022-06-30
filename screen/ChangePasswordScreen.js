@@ -19,6 +19,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 import company_logo from '../assets/company_logo.png'
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -34,10 +35,13 @@ export function normalize(size) {
     }
 }
 
-export default function SignInScreen({navigation}) {
+export default function ChangePasswordScreen({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [isSelected, setSelection] = useState(false);
     const [data, setData] = React.useState({
         username: '',
@@ -48,9 +52,7 @@ export default function SignInScreen({navigation}) {
         isValidPassword: true,
     });
 
-    
     return (
-        
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -59,25 +61,16 @@ export default function SignInScreen({navigation}) {
         }]}
     >
 
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
-            />
-        </View>
-
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text><Text style={{ textAlign: "center", fontSize:normalize(15)}}>it's quick and easy</Text>
-        </TouchableOpacity>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'gray'}}>Change Password</Text>
+        
+        <View style={[styles.action, {backgroundColor: '#ffffff', marginTop: 20}]}>
             <FontAwesome 
-                name="user-o"
+                name="lock"
                 color={colors.text}
                 size={20}
             />
             <TextInput 
-                placeholder="Username"
+                placeholder="Current Password"
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -104,7 +97,7 @@ export default function SignInScreen({navigation}) {
                 size={20}
             />
             <TextInput 
-                placeholder="Password"
+                placeholder="New Password"
                 placeholderTextColor="#666666"
                 secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
@@ -131,11 +124,40 @@ export default function SignInScreen({navigation}) {
             </TouchableOpacity>
         </View>
 
-        <TouchableOpacity>
-            <Text style={{color: '#009387', marginTop:15, paddingRight: 0}}>Forgot password?</Text>
-        </TouchableOpacity>
+        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+            <Feather 
+                name="lock"
+                color={colors.text}
+                size={20}
+            />
+            <TextInput 
+                placeholder="Confirm Password"
+                placeholderTextColor="#666666"
+                secureTextEntry={data.secureTextEntry ? true : false}
+                style={[styles.textInput, {
+                    color: colors.text
+                }]}
+                autoCapitalize="none"
+                onChangeText={(val) => handlePasswordChange(val)}
+            />
+            <TouchableOpacity
+            >
+                {data.secureTextEntry ? 
+                <Feather 
+                    name="eye-off"
+                    color="grey"
+                    size={20}
+                />
+                :
+                <Feather 
+                    name="eye"
+                    color="grey"
+                    size={20}
+                />
+                }
+            </TouchableOpacity>
+        </View>
         <View style={styles.button}>
-
             <TouchableOpacity
                 onPress={() => navigation.navigate('SignUpScreen')}
                 style={[styles.signIn, {
@@ -144,30 +166,13 @@ export default function SignInScreen({navigation}) {
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
-                }]}>Sign In</Text>
+                }]}>Set Password</Text>
             </TouchableOpacity>
         </View>
-            
-        <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center"}}>Or continue with</Text>
-        </TouchableOpacity>
-        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-around', marginTop: 20}}>
-            <Avatar.Image 
-                source={facebook}
-                size={50}
-            />
-            <Avatar.Image 
-                source={google}
-                size={50}
-            />
-        </View>
-        <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
-        </TouchableOpacity>
     </Animatable.View>
   </View>
-    );
-  }
+);
+}
 
 
 const styles = StyleSheet.create({
@@ -181,8 +186,8 @@ const styles = StyleSheet.create({
         height: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.5,
-        height: SCREEN_WIDTH*0.5,
+        width: SCREEN_WIDTH*0.20,
+        height: SCREEN_WIDTH*0.20,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -253,3 +258,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
   });
+

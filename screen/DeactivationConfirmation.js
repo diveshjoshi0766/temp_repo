@@ -31,7 +31,7 @@ export function normalize(size) {
     }
 }
 
-export default function ForgotPasswordScreen({navigation}) {
+export default function DeactivationConfirmation({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [data, setData] = React.useState({
@@ -52,65 +52,19 @@ export default function ForgotPasswordScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
-            />
-        </View>
-        
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Forgot Password</Text>
-
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <FontAwesome 
-                name="user-o"
-                color={colors.text}
-                size={20}
-            />
-            <TextInput 
-                placeholder="Email"
-                placeholderTextColor="#666666"
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-            />
-            <Animatable.View
-                animation="bounceIn"
-            >
-                <Feather 
-                    name="check-circle"
-                    color="green"
-                    size={20}
-                />
-            </Animatable.View>
-        </View>
-
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
-
-        <View style={styles.button}>
-
-            <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
-                style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: '#fff'
-                }]}>Submit</Text>
-            </TouchableOpacity>
-        </View>
             
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Are you sure?</Text>
+            <Text>After cancellation of your SurveyOptimus account, you will no longer be able to take part in survey, Spinners, access your account information. All your points will be erased and any rewards request will be cancelled.</Text>
+            <Text>Please follow the below steps to Delete Account.</Text>
+            <Text>1. Login to your account on web browser.</Text>
+            <Text>2. GOTO "My Account".</Text>
+            <Text>3. Click on "Manage Account".</Text>
+            <Text>4. Click on "Click to Deactivate" button under Deactivate Account.</Text>
+            <Text>5. Share FeedBack.</Text>
+            <Text>6. Click "Yes, Deactivate" button.</Text>
+        </View>
         
-        <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN IN</Text></Text>
-        </TouchableOpacity>
     </Animatable.View>
   </View>
     );
@@ -120,10 +74,10 @@ export default function ForgotPasswordScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: 'rgb(235 235 235)',
+        backgroundColor: '#FAFAFA',
         flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
+        // alignItems:'center',
+        // justifyContent:'center',
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT
     },
@@ -158,15 +112,15 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     action: {
-        marginTop: normalize(30),
-        minHeight: 40,
-        flex:1,
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
+        marginTop: normalize(5),
+        maxHeight: 'justifyContent',
+        // flex:1,
+        // alignItems:'center',
+        // justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        borderWidth: 1,
+        borderColor: "black",
+        padding: 4
     },
     actionError: {
         flexDirection: 'row',
