@@ -9,9 +9,7 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    ScrollView,
-    Container,
-    stylesGrid 
+    ScrollView
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -35,15 +33,7 @@ export function normalize(size) {
     }
 }
 
-const rows = 3;
-const cols = 2;
-const marginHorizontal = 4;
-const marginVertical = 4;
-const width = (Dimensions.get('window').width / cols) - (marginHorizontal * (cols + 1));
-const height = (Dimensions.get('window').height / rows) - (marginVertical * (rows + 1));
-
-
-export default function RewardScreen({navigation}) {
+export default function RewardHistory({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [data, setData] = React.useState({
@@ -56,9 +46,6 @@ export default function RewardScreen({navigation}) {
     });
    
     return (
-
-        
-
     <ScrollView>
     <View style={styles.container}>
     <Animatable.View 
@@ -68,112 +55,159 @@ export default function RewardScreen({navigation}) {
         }]}
     >
 
-
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Good Morning, Vimal</Text>
-        </TouchableOpacity>
-
-        {/* heading */}
-        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between'}}>
-            <View>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Reward</Text>
+        <View style={styles.products}>
+            <View style={[styles.center, {width: "50%"}]}>
+                <View style={{alignItems: 'center', marginTop: '0'}}>
+                    <Image
+                        style={[styles.stretch]}
+                        source={require("../assets/amazon_gift.png")}
+                    />
+                    <View style={styles.button}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('SignUpScreen')}
+                            style={[styles.signIn, {
+                                backgroundColor: '#8C6E63',
+                            }]}
+                        >
+                            <Text style={[styles.textSign, {
+                                color: '#fff'
+                            }]}>Processing</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-            <View style={{display: 'flex', flexDirection: 'row' }}>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}><Icon name="user" size={20} color="black"/> Profile  </Text>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}><Icon name="history" size={20} color="black"/> History</Text>
+            <View style={styles.center}>
+                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
+                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
+                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
+                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
+                <Text style={{textAlign: 'center'}}>Date : </Text>
             </View>
         </View>
-        <View style={styles.points}>
-            <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Points</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>1355</Text>
-            </View>
-            <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Profile</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>100%</Text>
-            </View>
-        </View>
+
         
-       
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 5}}>
-            <View style={[styles.center, styles.card, {width: SCREEN_WIDTH*0.4, padding: 5, margin: 2}]}>
+        <View style={styles.products}>
+            <View style={[styles.center, {width: "50%"}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
                     <Image
                         style={[styles.stretch]}
                         source={require("../assets/amazon_gift.png")}
                     />
-                </View>
-                <Text style={{fontWeight: 'bold'}}>Amazon</Text>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View style={[styles.cardElement, {marginLeft: '1'}]}>
-                        <Text>2500 <Icon name="star" size={10} color="black"/></Text>
-                    </View>
-                    <View style={styles.cardElement}>
-                        <Text>5000 <Icon name="star" size={10} color="black"/></Text>
+                    <View style={styles.button}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('SignUpScreen')}
+                            style={[styles.signIn, {
+                                backgroundColor: '#8C6E63',
+                            }]}
+                        >
+                            <Text style={[styles.textSign, {
+                                color: '#fff'
+                            }]}>Processing</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
-
-
-            <View style={[styles.center, styles.card, {width: SCREEN_WIDTH*0.4, padding: 5, margin: 2}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/amazon_gift.png")}
-                    />
-                </View>
-                <Text style={{fontWeight: 'bold'}}>Amazon</Text>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View style={[styles.cardElement, {marginLeft: '1'}]}>
-                        <Text>2500 <Icon name="star" size={10} color="black"/></Text>
-                    </View>
-                    <View style={styles.cardElement}>
-                        <Text>5000 <Icon name="star" size={10} color="black"/></Text>
-                    </View>
-                </View>
+            <View style={styles.center}>
+                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
+                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
+                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
+                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
+                <Text style={{textAlign: 'center'}}>Date : </Text>
             </View>
         </View>
 
-        <View style={{display: 'flex', flexDirection: 'row'}}>
-            <View style={[styles.center, styles.card, {width: SCREEN_WIDTH*0.4, padding: 5, margin: 2}]}>
+        
+        <View style={styles.products}>
+            <View style={[styles.center, {width: "50%"}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
                     <Image
                         style={[styles.stretch]}
                         source={require("../assets/amazon_gift.png")}
                     />
-                </View>
-                <Text style={{fontWeight: 'bold'}}>Amazon</Text>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View style={[styles.cardElement, {marginLeft: '1'}]}>
-                        <Text>2500 <Icon name="star" size={10} color="black"/></Text>
-                    </View>
-                    <View style={styles.cardElement}>
-                        <Text>5000 <Icon name="star" size={10} color="black"/></Text>
+                    <View style={styles.button}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('SignUpScreen')}
+                            style={[styles.signIn, {
+                                backgroundColor: '#8C6E63',
+                            }]}
+                        >
+                            <Text style={[styles.textSign, {
+                                color: '#fff'
+                            }]}>Processing</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
-
-
-            <View style={[styles.center, styles.card, {width: SCREEN_WIDTH*0.4, padding: 5, margin: 2}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/amazon_gift.png")}
-                    />
-                </View>
-                <Text style={{fontWeight: 'bold'}}>Amazon</Text>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View style={[styles.cardElement, {marginLeft: '1'}]}>
-                        <Text>2500 <Icon name="star" size={10} color="black"/></Text>
-                    </View>
-                    <View style={styles.cardElement}>
-                        <Text>5000 <Icon name="star" size={10} color="black"/></Text>
-                    </View>
-                </View>
+            <View style={styles.center}>
+                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
+                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
+                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
+                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
+                <Text style={{textAlign: 'center'}}>Date : </Text>
             </View>
         </View>
 
+        
+        <View style={styles.products}>
+            <View style={[styles.center, {width: "50%"}]}>
+                <View style={{alignItems: 'center', marginTop: '0'}}>
+                    <Image
+                        style={[styles.stretch]}
+                        source={require("../assets/amazon_gift.png")}
+                    />
+                    <View style={styles.button}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('SignUpScreen')}
+                            style={[styles.signIn, {
+                                backgroundColor: '#8C6E63',
+                            }]}
+                        >
+                            <Text style={[styles.textSign, {
+                                color: '#fff'
+                            }]}>Processing</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+            <View style={styles.center}>
+                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
+                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
+                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
+                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
+                <Text style={{textAlign: 'center'}}>Date : </Text>
+            </View>
+        </View>
 
+        
+        <View style={styles.products}>
+            <View style={[styles.center, {width: "50%"}]}>
+                <View style={{alignItems: 'center', marginTop: '0'}}>
+                    <Image
+                        style={[styles.stretch]}
+                        source={require("../assets/amazon_gift.png")}
+                    />
+                    <View style={styles.button}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('SignUpScreen')}
+                            style={[styles.signIn, {
+                                backgroundColor: '#8C6E63',
+                            }]}
+                        >
+                            <Text style={[styles.textSign, {
+                                color: '#fff'
+                            }]}>Processing</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+            <View style={styles.center}>
+                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
+                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
+                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
+                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
+                <Text style={{textAlign: 'center'}}>Date : </Text>
+            </View>
+        </View>
     </Animatable.View>
   </View>
   </ScrollView>
@@ -186,17 +220,18 @@ const styles = StyleSheet.create({
         flex: 1, 
         backgroundColor: '#FAFAFA',
         flexDirection:'row',
-        // alignItems:'center',
-        // justifyContent:'center',
+        alignItems:'center',
+        justifyContent:'center',
         width: SCREEN_WIDTH,
-        minHeight: SCREEN_HEIGHT
+        height: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.35,
+        width: SCREEN_WIDTH*0.3,
         height: 100,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 7
     },
     header: {
         flex: 1,
@@ -252,14 +287,15 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: normalize(30),
+        marginTop: normalize(5),
+        height: 40,
     },
     signIn: {
         width: '100%',
-        height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 3,
+        padding: 5,
     },
     textSign: {
         fontSize: 18,
@@ -269,17 +305,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center', //Centered vertically
         alignItems: 'center', // Centered horizontally
         flex:1, 
-    },
-    card : {
-        borderColor: 'black',
-        borderRadius: 10,
-        shadowColor: '#000000',
-        shadowOffset: {
-        width: 0,
-        height: 1
-        },
-        shadowRadius: 5,
-        shadowOpacity: 0.1
     },
     points: {
         display:'flex', 
@@ -291,7 +316,6 @@ const styles = StyleSheet.create({
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 10,
-        padding: 10,
     },
     items:{
         display:'flex', 
@@ -316,12 +340,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0
     },
     products: {
+        height: 'justifyContent',
         display:'flex',
         flexDirection:'row', 
         borderRadius: 10,
         marginTop: normalize(10),
         borderColor: 'black',
-        borderRadius: 10,
+        borderRadius: 4,
         shadowColor: '#000000',
         shadowOffset: {
         width: 0,
@@ -329,36 +354,5 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 5,
         shadowOpacity: 0.1
-    },
-    cardElement: {
-        backgroundColor: 'gray',
-        height: 30,
-        justifyContent: 'center',
-        borderRadius: 5 ,
-    },
-
-
-
-    scrollContainer: {
-        flex: 1,
-      },
-      sectionContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      boxContainer: {
-        marginTop: marginVertical,
-        marginBottom: marginVertical,
-        marginLeft: marginHorizontal,
-        marginRight: marginHorizontal,
-        width: width,
-        height: height,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'gold',
-      },
-    
+    }
   });

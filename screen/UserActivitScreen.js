@@ -33,7 +33,7 @@ export function normalize(size) {
     }
 }
 
-export default function SpinnerScreen({navigation}) {
+export default function UserActivityScreen({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [data, setData] = React.useState({
@@ -75,50 +75,47 @@ export default function SpinnerScreen({navigation}) {
                 <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>100%</Text>
             </View>
         </View>
-        
-        <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center'}}>Opertunity to Earn 75 point every 2 hour</Text>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}>
-                {/* <Image source={require("../assets/spinner2.png")}></Image> */}
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/spinner2.png")}
-                    />
-                </View>
-            </View>
+
+        <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-evenly', backgroundColor: 'gray', marginTop: '10'}]}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Date</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Description</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Points</Text>
         </View>
         
-
-        <View style={styles.products}>
-            <View style={[styles.center, {width: "50%"}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/spinner1.png")}
-                    />
-                </View>
-            </View>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center'}}>Opertunity to Earn 100 point every 3 hour</Text>
-            </View>
+        <View style={[styles.products, {justifyContent: 'space-evenly', textAlign: 'center'}]}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
         </View>
 
-        <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center'}}>Opertunity to Earn 50 point every hour</Text>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}>
-                {/* <Image source={require("../assets/spinner2.png")}></Image> */}
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/spinner3.png")}
-                    />
-                </View>
-            </View>
+        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
+        </View>
+
+        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
+        </View>
+
+        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
+        </View>
+
+        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
+        </View>
+        
+        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
         </View>
 
     </Animatable.View>
@@ -252,10 +249,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0
     },
     products: {
+        marginTop: 3,
+        minHeight: normalize(40),
+        justifyContent: 'center',
         display:'flex',
         flexDirection:'row', 
         borderRadius: 10,
-        marginTop: normalize(10),
+        // marginTop: normalize(10),
         borderColor: 'black',
         borderRadius: 10,
         shadowColor: '#000000',

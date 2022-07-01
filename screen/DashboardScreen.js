@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    ScrollView
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -45,7 +46,7 @@ export default function DashboardScreen({navigation}) {
     });
    
     return (
-        
+    <ScrollView>
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -75,17 +76,7 @@ export default function DashboardScreen({navigation}) {
             </View>
         </View>
         
-        <View style={{display:'flex',flexDirection:'row', borderRadius: 10,
-        marginTop: normalize(10),
-        borderColor: 'black',
-        borderRadius: 10,
-        shadowColor: '#000000',
-        shadowOffset: {
-        width: 0,
-        height: 1
-        },
-        shadowRadius: 5,
-        shadowOpacity: 1.0}}>
+        <View style={styles.products}>
             <View style={styles.center}>
                 <Text style={{fontWeight: 'bold'}}>Health Care</Text>
                 <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
@@ -245,10 +236,104 @@ export default function DashboardScreen({navigation}) {
             </View>
         </View>
 
+        <View style={styles.products}>
+            <View style={styles.center}>
+                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
+                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
+                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+                    </View>
+                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    </View>
+                </View>
+                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignUpScreen')}
+                        style={[styles.signIn, {
+                            backgroundColor: '#378C3C',
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Take Survey</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={[styles.center, {width: "50%"}]}>
+            <Icon name="group" size={70} color="#378C3C"/>
+            </View>
+        </View>
+
+        <View style={styles.products}>
+            <View style={styles.center}>
+                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
+                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
+                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+                    </View>
+                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    </View>
+                </View>
+                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignUpScreen')}
+                        style={[styles.signIn, {
+                            backgroundColor: '#378C3C',
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Take Survey</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={[styles.center, {width: "50%"}]}>
+            <Icon name="group" size={70} color="#378C3C"/>
+            </View>
+        </View>
+
+        <View style={styles.products}>
+            <View style={styles.center}>
+                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
+                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
+                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+                    </View>
+                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    </View>
+                </View>
+                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignUpScreen')}
+                        style={[styles.signIn, {
+                            backgroundColor: '#378C3C',
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Take Survey</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={[styles.center, {width: "50%"}]}>
+            <Icon name="group" size={70} color="#378C3C"/>
+            </View>
+        </View>
+
 
 
     </Animatable.View>
   </View>
+  </ScrollView>
     );
   }
 
@@ -352,6 +437,7 @@ const styles = StyleSheet.create({
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 10,
+        padding: 10,
     },
     items:{
         display:'flex', 
@@ -376,6 +462,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0
     },
     products: {
+        backgroundColor: '#fff',
         display:'flex',flexDirection:'row', borderRadius: 10,
         marginTop: normalize(10),
         borderColor: 'black',
@@ -386,6 +473,6 @@ const styles = StyleSheet.create({
         height: 1
         },
         shadowRadius: 5,
-        shadowOpacity: 1.0
+        shadowOpacity: 0.1
     }
   });

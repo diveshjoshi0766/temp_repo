@@ -34,7 +34,7 @@ export function normalize(size) {
 }
 
 
-export default function SpinnerEndPages({navigation}) {
+export default function SurveyEndPages({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [data, setData] = React.useState({

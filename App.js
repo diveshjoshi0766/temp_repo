@@ -12,9 +12,8 @@ import ProfileSurvey1 from './screen/ProfileSurvey1';
 import ProfileSurvey2 from './screen/ProfileSurvey2';
 import ProfileSurvey3 from './screen/ProfileSurvey3';
 import EndOfProfileSurveyScreen from './screen/EndOfProfileSurveyScreen';
-import MyTabScreen from './screen/MyTabScreen'
 import DashboardScreen from './screen/DashboardScreen';
-import SpinnerEndPages from './screen/SpinnerEndPages';
+import SurveyEndPages from './screen/SurveyEndPages';
 import MyAccountScreen from './screen/MyAccountScreen';
 import UpdateProfileScreen from './screen/UpdateProfileScreen';
 import ChangePasswordScreen from './screen/ChangePasswordScreen';
@@ -25,6 +24,15 @@ import ReferFriendToFollow from './screen/ReferFriendToFollow';
 import PrivacyPolicyScreen from './screen/PrivacyPolicyScreen';
 import TermsAndConditions from './screen/TermsAndConditions';
 import FAQs from './screen/FAQs';
+import SpinnerScreen from './screen/SpinnerScreen';
+import BestPracticeScreen from './screen/BestPracticeScreen';
+import RewardScreen from './screen/RewardScreen';
+import RewardHistory from './screen/RewardHistory';
+import UserActivityScreen from './screen/UserActivitScreen';
+import LoadingScreen from './screen/LoadingScreen';
+
+// My Screen Tab
+import MyTabScreen from './screen/MyTabScreen';
 
 function HomeScreen({ navigation }) {
   return (
@@ -58,8 +66,8 @@ export default function App({ navigation }) {
   return (
   <NavigationContainer>
     <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={TermsAndConditions} />
-      <Stack.Screen name="Details" component={TermsAndConditions} />
+      <Stack.Screen name="Home" component={LoadingScreen} />
+      <Stack.Screen name="Details" component={LoadingScreen} />
     </Stack.Navigator>
   </NavigationContainer>
   );

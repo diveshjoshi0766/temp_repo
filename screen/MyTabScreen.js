@@ -1,40 +1,64 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import DashboardScreen from './DashboardScreen';
+import SpinnerScreen from './SpinnerScreen';
+import RewardScreen from './RewardScreen';
+import UserActivityScreen from './UserActivitScreen';
+import MyAccountScreen from './MyAccountScreen';
 const Tab = createMaterialBottomTabNavigator();
 
 export default function MyTabScreen() {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
-      activeColor="#e91e63"
-      barStyle={{ backgroundColor: 'tomato' }}
+      initialRouteName="DashboardScreen"
+      activeColor="#000000"
+      barStyle={{ backgroundColor: '#fff' }}
     >
       <Tab.Screen
-        name="Feed"
-        component={Feed}
+        name="Home"
+        component={DashboardScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="star" color={color} size={26} />
           ),
         }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={Notifications}
+        name="Spinner"
+        component={SpinnerScreen}
         options={{
-          tabBarLabel: 'Updates',
+          tabBarLabel: 'circle',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
+            <MaterialCommunityIcons name="filmstrip-box-multiple" color={color} size={26} />
           ),
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Reward"
+        component={RewardScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Reward',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="menu" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Activity"
+        component={UserActivityScreen}
+        options={{
+          tabBarLabel: 'Activity',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="calendar-today" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="My Account"
+        component={MyAccountScreen}
+        options={{
+          tabBarLabel: 'My Account',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
