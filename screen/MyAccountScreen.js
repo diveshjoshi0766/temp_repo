@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    ScrollView
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -46,144 +47,236 @@ export default function MyAccountScreen({navigation}) {
    
     return (
         
-    <View style={styles.container}>
-    <Animatable.View 
-        animation="fadeInUpBig"
-        style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
-        }]}
-    >
-        {/* heading */}
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Good Afternoon, Vimal21</Text>
+        <ScrollView showsVerticalScrollIndicator ={false}>
+        <View style={styles.container}>
+            <View>
+            <Text style={styles.header}>Good Morning, Vimal</Text>
+            </View>
+            {/* heading */}
+            <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>My Account</Text>
+            </View>
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="user" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
 
-        {/* Question */}
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontWeight: 'bold'}}>My Account</Text>
+            
+            
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="user" color="#378C3C" size={30}></Icon>
-                </View>
-                <View>
-                    <Text style={{fontWeight: 'bold'}}>Personal Details</Text>
-                    <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
-                </View>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-        </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="group" color="#378C3C" size={30}></Icon>
-                </View>
-                <View>
-                    <Text style={{fontWeight: 'bold'}}>Profile Survey</Text>
-                    <Text style={{fontStyle: 'italic'}}>your demographic information</Text>
-                </View>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-        </View>
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-                <View style={{marginLeft: '0'}}>
-                    <Text style={{fontWeight: 'bold'}}>Change Password</Text>
-                    <Text style={{fontStyle: 'italic'}}>Manage your sign-in settings</Text>
-                </View>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-        </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-                <View>
-                    <Text style={{fontWeight: 'bold'}}>Communication preference</Text>
-                    <Text style={{fontStyle: 'italic'}}>Prefered means of Communication</Text>
-                </View>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-        </View>
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-                <View>
-                    <Text style={{fontWeight: 'bold'}}>Refer a friend</Text>
-                    <Text style={{fontStyle: 'italic'}}>Invite your friends to join</Text>
-                </View>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-        </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-                <View>
-                    <Text style={{fontWeight: 'bold'}}>Privacy Policy</Text>
-                    <Text style={{fontStyle: 'italic'}}>how we have to manage the policy</Text>
-                </View>
-                <View style={{width: "15%", alignItems: 'center'}}>
-                    <Icon name="adduser" color="#378C3C" size={30}></Icon>
-                </View>
-        </View>
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
 
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
 
-        <View style={styles.button}>
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
-                style={[styles.signIn, {
-                    backgroundColor: '#fff',
-                    color: 'black',
-                    borderWidth: 1,
-                    borderColor: 'black'
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: 'black'
-                }]}> Back </Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
-                style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: '#fff'
-                }]}> Next </Text>
-            </TouchableOpacity>
-        </View>
-        
-    </Animatable.View>
-  </View>
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
+
+
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View>
+
+
+            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                    </View>
+                    <View style={{flex:0.6,
+                        flexDirection:'col',
+                        justifyContent:'center'
+                    }}>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                    </View>
+                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                    </View>
+            </View> 
+
+            
+            <View style={styles.button}>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUpScreen')}
+                    style={[styles.signIn, {
+                        backgroundColor: '#fff',
+                        color: 'black',
+                        borderWidth: 1,
+                        borderColor: 'black'
+                    }]}
+                >
+                    <Text style={[styles.textSign, {
+                        color: 'black'
+                    }]}> Back </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUpScreen')}
+                    style={[styles.signIn, {
+                        backgroundColor: '#378C3C',
+                    }]}
+                >
+                    <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}> Next </Text>
+                </TouchableOpacity>
+            </View>
+    </View>
+    </ScrollView>
     );
   }
 
 
 const styles = StyleSheet.create({
+    header:{
+        color: '#000000', 
+        marginTop:10, 
+        fontSize:normalize(25),
+        fontWeight: 'bold',
+        // fontFamily: 'Poppins_Black900' 
+    },
     container: {
-        flex: 1, 
-        backgroundColor: '#eeeeee',
-        flexDirection:'row',
-        // alignItems:'center',
-        justifyContent:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        backgroundColor: '#FAFAFA',
+        padding: 10,
+        flexDirection:'col',
+        minHeight: SCREEN_HEIGHT,
+        minWidth: SCREEN_WIDTH,
+    },
+    text_box_black_header: {
+        color: '#fff', 
+        marginTop:10, 
+        fontWeight: '300',
+        textAlign: "center", 
+        fontSize:normalize(18),
+        fontFamily: 'Poppins_Thin100'
+    },
+    icon_size:{
+        height: 30,
+        width: 30,
+    },
+    text_box_black_points: {
+        color: '#fff', 
+        marginTop:5, 
+        // fontWeight: '500',
+        textAlign: "center", 
+        fontSize: normalize(30),
+        // fontFamily: 'Poppins_Black900'
     },
     stretch: {
         width: SCREEN_WIDTH*0.5,
@@ -191,12 +284,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    header: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
     },
     footer: {
         flex: 1,
@@ -217,7 +304,7 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(5),
-        maxHeight: "justifyContent",
+        maxHeight: SCREEN_HEIGHT*0.8,
         flex:1,
         flexDirection:'row',
         alignItems:'center',

@@ -46,7 +46,7 @@ export default function RewardHistory({navigation}) {
     });
    
     return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -56,7 +56,7 @@ export default function RewardHistory({navigation}) {
     >
 
         <View style={styles.products}>
-            <View style={[styles.center, {width: "50%"}]}>
+            <View style={[styles.center, {width: "50%", padding: 5}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
                     <Image
                         style={[styles.stretch]}
@@ -86,9 +86,10 @@ export default function RewardHistory({navigation}) {
         </View>
 
         
+        
         <View style={styles.products}>
             <View style={[styles.center, {width: "50%"}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
+                <View style={{alignItems: 'center'}}>
                     <Image
                         style={[styles.stretch]}
                         source={require("../assets/amazon_gift.png")}
@@ -116,98 +117,7 @@ export default function RewardHistory({navigation}) {
             </View>
         </View>
 
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {width: "50%"}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/amazon_gift.png")}
-                    />
-                    <View style={styles.button}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('SignUpScreen')}
-                            style={[styles.signIn, {
-                                backgroundColor: '#8C6E63',
-                            }]}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#fff'
-                            }]}>Processing</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
-                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
-                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
-                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
-                <Text style={{textAlign: 'center'}}>Date : </Text>
-            </View>
-        </View>
 
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {width: "50%"}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/amazon_gift.png")}
-                    />
-                    <View style={styles.button}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('SignUpScreen')}
-                            style={[styles.signIn, {
-                                backgroundColor: '#8C6E63',
-                            }]}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#fff'
-                            }]}>Processing</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
-                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
-                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
-                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
-                <Text style={{textAlign: 'center'}}>Date : </Text>
-            </View>
-        </View>
-
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {width: "50%"}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/amazon_gift.png")}
-                    />
-                    <View style={styles.button}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('SignUpScreen')}
-                            style={[styles.signIn, {
-                                backgroundColor: '#8C6E63',
-                            }]}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#fff'
-                            }]}>Processing</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
-                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
-                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
-                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
-                <Text style={{textAlign: 'center'}}>Date : </Text>
-            </View>
-        </View>
     </Animatable.View>
   </View>
   </ScrollView>
@@ -219,14 +129,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: '#FAFAFA',
-        flexDirection:'row',
-        alignItems:'center',
         justifyContent:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        mimWidth: SCREEN_WIDTH,
+        minHeight: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.3,
+        width: SCREEN_WIDTH*0.4,
         height: 100,
         textAlign: 'center',
         justifyContent: 'center',
@@ -299,7 +207,7 @@ const styles = StyleSheet.create({
     },
     textSign: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 500,
     },
     center :{
         justifyContent: 'center', //Centered vertically
@@ -340,6 +248,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0
     },
     products: {
+        marginTop: 10,
+        backgroundColor: '#fff',
         height: 'justifyContent',
         display:'flex',
         flexDirection:'row', 

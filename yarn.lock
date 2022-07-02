@@ -1078,6 +1078,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/poppins@^0.2.2":
+  "integrity" "sha512-x0SzC8nWTC2pInIcBDiAuMJxhoglwqCGJYMM8ylI8HKDqBxMrfRTripB3xMGo6UtzROTcL+OX1w9nEcM5FK0PQ=="
+  "resolved" "https://registry.npmmirror.com/@expo-google-fonts/poppins/-/poppins-0.2.2.tgz"
+  "version" "0.2.2"
+
 "@expo/bunyan@^4.0.0", "@expo/bunyan@4.0.0":
   "integrity" "sha512-Ydf4LidRB/EBI+YrB+cVLqIseiRfjUI/AeHBgjGMtq3GroraDu81OV7zqophRgupngoL3iS3JUMDMnxO7g39qA=="
   "resolved" "https://registry.npmmirror.com/@expo/bunyan/-/bunyan-4.0.0.tgz"
@@ -5591,6 +5596,11 @@
     "jscodeshift" "^0.13.1"
     "nullthrows" "^1.1.1"
 
+"react-native-confetti-cannon@^1.5.2":
+  "integrity" "sha512-IZuWjlW7QsdxEGNnvpD6W+7iKCCQhnd5BvuNvMtirU7Nxm8WS2N6LPGMBz1ZYDuusG+GRZkoXXTNCdoAAGpCTg=="
+  "resolved" "https://registry.npmmirror.com/react-native-confetti-cannon/-/react-native-confetti-cannon-1.5.2.tgz"
+  "version" "1.5.2"
+
 "react-native-datepicker@^1.7.2":
   "integrity" "sha512-ses0N1y44fYBmlejYwR2i+dGnQQ8v5/gacX2CrbFJiWxbcQaRuxexsZPB9YQuQkAy+uKz5Gti3Lrp3dh9BfkzA=="
   "resolved" "https://registry.npmmirror.com/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz"
@@ -5670,6 +5680,11 @@
   "integrity" "sha512-UEJxd1O6FW0IrEhdnHD/LwpksgkvHvqifpBqHmPuLhHmB/8oRLBQDLaXCodNTPu1nDQ/ARYOjUNxNuNIel9N6Q=="
   "resolved" "https://registry.npmmirror.com/react-native-select-dropdown/-/react-native-select-dropdown-2.0.3.tgz"
   "version" "2.0.3"
+
+"react-native-table-component@^1.2.2":
+  "integrity" "sha512-7bbsi5431iWcjj3toASh8lFHGi6AG/+MTd4M7GuksXKxx/CFs/Qwv1Ys7D2wgyuYKe3hxWNfSVrteFj0tOYXYw=="
+  "resolved" "https://registry.npmmirror.com/react-native-table-component/-/react-native-table-component-1.2.2.tgz"
+  "version" "1.2.2"
 
 "react-native-vector-icons@*", "react-native-vector-icons@^9.2.0", "react-native-vector-icons@>= 6.0.0":
   "integrity" "sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA=="

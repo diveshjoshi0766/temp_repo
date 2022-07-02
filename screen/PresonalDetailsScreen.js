@@ -8,7 +8,10 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    CheckBox,
+    Animated,
+    Easing 
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
@@ -19,6 +22,28 @@ import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 import company_logo from '../assets/company_logo.png'
+import {
+    useFonts,
+    Poppins_100Thin,
+    Poppins_100Thin_Italic,
+    Poppins_200ExtraLight,
+    Poppins_200ExtraLight_Italic,
+    Poppins_300Light,
+    Poppins_300Light_Italic,
+    Poppins_400Regular,
+    Poppins_400Regular_Italic,
+    Poppins_500Medium,
+    Poppins_500Medium_Italic,
+    Poppins_600SemiBold,
+    Poppins_600SemiBold_Italic,
+    Poppins_700Bold,
+    Poppins_700Bold_Italic,
+    Poppins_800ExtraBold,
+    Poppins_800ExtraBold_Italic,
+    Poppins_900Black,
+    Poppins_900Black_Italic,
+  } from '@expo-google-fonts/poppins';
+
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -33,8 +58,23 @@ export function normalize(size) {
       return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
     }
 }
+const spinValue = new Animated.Value(0);
 
-export default function SignInScreen({navigation}) {
+export default function PresonalDetailsScreen({navigation}) {
+    
+    React.useEffect(() => {
+        Animated.timing(spinValue, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();
+        }, []);
+
+        const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+    });
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -60,8 +100,8 @@ export default function SignInScreen({navigation}) {
         }]}
     >
 
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20)}}>Good Afternoon {}</Text>
-        <Text style={{color: '#000000', marginTop:normalize(5)}}>Presonal Details</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins_900Black'}}>Good Afternoon {}</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontSize: normalize(20), fontFamily: 'Poppins_500Medium'}}>Presonal Details</Text>
 
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
             <Image
@@ -69,9 +109,9 @@ export default function SignInScreen({navigation}) {
                 source={require('../assets/logo_comp.png')}
             />
             <View style={{paddingLeft: normalize(10)}}>
-                <Text style={styles.label}>SOID: </Text>
-                <Text style={styles.label}>Profile Completion: </Text>
-                <Text style={styles.label}>Email: </Text>
+                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins_500Medium'}]}>SOID: </Text>
+                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins_500Medium'}]}>Profile Completion: </Text>
+                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins_500Medium'}]}>Email: </Text>
             </View>
         </View>
 

@@ -8,7 +8,10 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    CheckBox,
+    Animated,
+    Easing 
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
@@ -33,7 +36,7 @@ export function normalize(size) {
       return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
     }
 }
-
+const spinValue = new Animated.Value(0);
 export default function SignInScreen({navigation}) {
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
@@ -47,7 +50,19 @@ export default function SignInScreen({navigation}) {
         isValidUser: true,
         isValidPassword: true,
     });
+    React.useEffect(() => {
+        Animated.timing(spinValue, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();
+        }, []);
 
+        const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+    });
     
     return (
         
@@ -60,15 +75,19 @@ export default function SignInScreen({navigation}) {
     >
 
         <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
+            <Animated.Image
+                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.5, height: SCREEN_WIDTH*0.5 }}
                 source={require('../assets/logo_comp.png')}
             />
         </View>
-
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text><Text style={{ textAlign: "center", fontSize:normalize(15)}}>it's quick and easy</Text>
-        </TouchableOpacity>
+        <View style={{alignItems: "center"}}>
+            <View style={{width: 'fit-content'}}>
+                <TouchableOpacity>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
+                    <Text style={{ textAlign: "right", fontSize:normalize(15), fontFamily:'Poppins_500Medium_Italic'}}>it's quick and easy</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <FontAwesome 
@@ -134,8 +153,8 @@ export default function SignInScreen({navigation}) {
         <TouchableOpacity>
             <Text style={{color: '#009387', marginTop:15, paddingRight: 0}}>Forgot password?</Text>
         </TouchableOpacity>
-        <View style={styles.button}>
 
+        <View style={styles.button}>
             <TouchableOpacity
                 onPress={() => navigation.navigate('SignUpScreen')}
                 style={[styles.signIn, {
@@ -144,12 +163,12 @@ export default function SignInScreen({navigation}) {
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
-                }]}>Sign In</Text>
+                }]}>SIGN IN</Text>
             </TouchableOpacity>
         </View>
             
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center"}}>Or continue with</Text>
+        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins_400Regular', fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-around', marginTop: 20}}>
             <Avatar.Image 
@@ -162,7 +181,7 @@ export default function SignInScreen({navigation}) {
             />
         </View>
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>

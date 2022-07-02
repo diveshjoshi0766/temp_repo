@@ -9,7 +9,10 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    CheckBox
+    CheckBox,
+    Animated,
+    Easing ,
+    ScrollView
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
@@ -20,6 +23,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 import company_logo from '../assets/company_logo.png'
+import {useFonts, Poppins_400Regular, Poppins_500Medium_Italic, Poppins_700Bold} from '@expo-google-fonts/poppins';
+
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -34,8 +39,25 @@ export function normalize(size) {
       return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
     }
 }
+const spinValue = new Animated.Value(0);
 
 export default function DefaultScreen({navigation}) {
+    
+    React.useEffect(() => {
+        Animated.timing(spinValue, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();
+        }, []);
+
+        const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+    });
+    
+
     const { colors } = useTheme();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -53,7 +75,7 @@ export default function DefaultScreen({navigation}) {
     });
    
     return (
-        
+    <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -61,18 +83,20 @@ export default function DefaultScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-
         <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
+            <Animated.Image
+                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28}}
+                source={require('../assets/logo_remove_bg.png')}
             />
         </View>
-
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text><Text style={{ textAlign: "center", fontSize:normalize(15)}}>it's quick and easy</Text>
-        </TouchableOpacity>
-
+        <View style={{alignItems: "center"}}>
+            <View style={{width: 'fit-content'}}>
+                <TouchableOpacity>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
+                    <Text style={{ textAlign: "right", fontSize:normalize(15), fontFamily:'Poppins_500Medium_Italic'}}>it's quick and easy</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <FontAwesome 
                 name="user-o"
@@ -204,7 +228,7 @@ export default function DefaultScreen({navigation}) {
             />
         </View>
 
-        <View style={styles.container}>
+        {/* <View style={styles.container}> */}
             <View style={styles.checkboxContainer}>
                 <CheckBox
                 value={isSelected}
@@ -213,7 +237,7 @@ export default function DefaultScreen({navigation}) {
                 />
                 <Text style={styles.label}>I accept the <Text style={{color: '#1E96F0'}}>terms and aggrement</Text></Text>
             </View>
-        </View>
+        {/* </View> */}
 
         <View style={styles.button}>
             <TouchableOpacity
@@ -224,12 +248,12 @@ export default function DefaultScreen({navigation}) {
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
-                }]}>Sign In</Text>
+                }]}>SIGN IN</Text>
             </TouchableOpacity>
         </View>
             
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center"}}>Or continue with</Text>
+        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins_400Regular', fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-around', marginTop: 20}}>
             <Avatar.Image 
@@ -242,10 +266,11 @@ export default function DefaultScreen({navigation}) {
             />
         </View>
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN IN</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
-    </Animatable.View>
-  </View>
+        </Animatable.View>
+    </View>
+    </ScrollView>
     );
   }
 
@@ -257,8 +282,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        // width: SCREEN_WIDTH,
+        // height: SCREEN_HEIGHT
     },
     stretch: {
         width: SCREEN_WIDTH*0.5,
@@ -335,6 +360,8 @@ const styles = StyleSheet.create({
     checkboxContainer: {
         flexDirection: "row",
         marginBottom: 20,
+        alignItems:'center',
+        justifyContent:'center',
     },
     checkbox: {
         alignSelf: "center",

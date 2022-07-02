@@ -8,7 +8,9 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    Animated,
+    Easing 
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -16,8 +18,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
-
+// import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import { useTheme } from 'react-native-paper';
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -30,37 +33,40 @@ export function normalize(size) {
       return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
     }
 }
-
+const spinValue = new Animated.Value(0);
 export default function LoadingScreen({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
+
+    React.useEffect(() => {
+    Animated.timing(spinValue, {
+        toValue: 1,
+        duration: 1500,
+        easing: Easing.linear,
+        useNativeDriver: true,
+    }).start();
+    }, []);
+
+    const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
     });
-   
+
     return (
         
     <View style={styles.container}>
-    <Animatable.View 
-        animation="fadeInUpBig"
-        style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
-        }]}
-    >
 
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Image
-                style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
+        <View style={{alignItems: 'center', marginTop: SCREEN_HEIGHT*0.2}}>
+            <Animated.Image
+                style={{ transform: [{ rotate: spin }], width: SCREEN_HEIGHT*0.2, height: SCREEN_HEIGHT*0.2 }}
+                source={require('../assets/logo_remove_bg.png')}
             />
         </View>
 
-    </Animatable.View>
+        <View style={{ padding: '20', marginTop: SCREEN_HEIGHT*0.6 - 100}}>
+            <Image
+                style={styles.stretch}
+                source={require('../assets/icon_new_logo.png')}
+            />
+        </View>
   </View>   
     );
   }
@@ -68,20 +74,15 @@ export default function LoadingScreen({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
         backgroundColor: '#fff',
-        flexDirection:'row',
+        flexDirection:'col',
         alignItems:'center',
-        justifyContent:'center',
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.5,
-        height: SCREEN_WIDTH*0.5,
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: SCREEN_WIDTH * 0.5,
+        height: 60,
     },
     header: {
         flex: 1,

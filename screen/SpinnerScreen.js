@@ -9,7 +9,8 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    ScrollView
+    ScrollView,
+    ImageBackground
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -46,82 +47,77 @@ export default function SpinnerScreen({navigation}) {
     });
    
     return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
-    <Animatable.View 
-        animation="fadeInUpBig"
-        style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
-        }]}
-    >
-
-
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Good Morning, Vimal</Text>
-        </TouchableOpacity>
-
+        <View>
+            <Text style={styles.header}>Good Morning, Vimal</Text>
+        </View>
         {/* heading */}
-        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between'}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Dashboard</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}><Icon name="user" size={20} color="black"/> Profile</Text>
+        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Dashboard</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Points</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>1355</Text>
+                <Text style={styles.text_box_black_header}>My Points</Text>
+                <Text style={styles.text_box_black_points}>1355</Text>
             </View>
             <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Profile</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>100%</Text>
-            </View>
-        </View>
-        
-        <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center'}}>Opertunity to Earn 75 point every 2 hour</Text>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}>
-                {/* <Image source={require("../assets/spinner2.png")}></Image> */}
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/spinner2.png")}
-                    />
-                </View>
-            </View>
-        </View>
-        
-
-        <View style={styles.products}>
-            <View style={[styles.center, {width: "50%"}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/spinner1.png")}
-                    />
-                </View>
-            </View>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center'}}>Opertunity to Earn 100 point every 3 hour</Text>
+                <Text style={styles.text_box_black_header}>My Profile</Text>
+                <Text style={styles.text_box_black_points}>100%</Text>
             </View>
         </View>
 
         <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{textAlign: 'center'}}>Opertunity to Earn 50 point every hour</Text>
+            <View style={[styles.center, {flex: 1.2}]}>
+                <Text style={{textAlign: 'center', fontSize: 15}}>Opertunity to Earn 100 point every 3 hour</Text>
             </View>
-            <View style={[styles.center, {width: "50%"}]}>
-                {/* <Image source={require("../assets/spinner2.png")}></Image> */}
+            <View style={[styles.center, {flex: 0.8}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/spinner3.png")}
-                    />
+                    <ImageBackground style={[styles.stretch]}
+                        source={require("../assets/spinner_edited.gif")} resizeMode="cover">
+                        <Image
+                            style={{width: 70, height: 70}}
+                            source={require("../assets/yellow_spinner.png")}
+                        />
+                    </ImageBackground>
                 </View>
             </View>
         </View>
 
-    </Animatable.View>
+        <View style={styles.products}>
+            <View style={[styles.center, {flex: 0.8}]}>
+                <View style={{alignItems: 'center', marginTop: '0'}}>
+                    <ImageBackground style={[styles.stretch]}
+                        source={require("../assets/spinner_edited.gif")} resizeMode="cover">
+                        <Image
+                            style={{width: 70, height: 70}}
+                            source={require("../assets/green_spinner.png")}
+                        />
+                    </ImageBackground>
+                </View>
+            </View>
+            <View style={[styles.center, {flex: 1.2}]}>
+                <Text style={{textAlign: 'center', fontSize: 15}}>Opertunity to Earn 75 point every 2 hour</Text>
+            </View>
+        </View>
+
+        <View style={styles.products}>
+            <View style={[styles.center, {flex: 1.2}]}>
+                <Text style={{textAlign: 'center', fontSize: 15}}>Opertunity to Earn 50 point every 1 hour</Text>
+            </View>
+            <View style={[styles.center, {flex: 0.8}]}>
+                <View style={{alignItems: 'center', marginTop: '0'}}>
+                    <ImageBackground style={[styles.stretch]}
+                        source={require("../assets/spinner_edited.gif")} resizeMode="cover">
+                        <Image
+                            style={{width: 70, height: 70}}
+                            source={require("../assets/red_spinner.png")}
+                        />
+                    </ImageBackground>
+                </View>
+            </View>
+        </View>
   </View>
   </ScrollView>
     );
@@ -130,13 +126,11 @@ export default function SpinnerScreen({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
         backgroundColor: '#FAFAFA',
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        padding: 10,
+        flexDirection:'col',
+        minHeight: SCREEN_HEIGHT,
+        minWidth: SCREEN_WIDTH,
     },
     stretch: {
         width: 100,
@@ -145,19 +139,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    header: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
+    header:{
+        color: '#000000', 
+        marginTop:10, 
+        fontSize:normalize(25),
+        fontWeight: 'bold',
+        // fontFamily: 'Poppins_Black900' 
     },
     footer: {
         flex: 1,
-        backgroundColor: 'rgb(235 235 235)',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        paddingHorizontal: 20,
-        paddingVertical: 30
     },
     text_header: {
         color: '#fff',
@@ -215,7 +205,6 @@ const styles = StyleSheet.create({
     center :{
         justifyContent: 'center', //Centered vertically
         alignItems: 'center', // Centered horizontally
-        flex:1, 
     },
     points: {
         display:'flex', 
@@ -228,6 +217,22 @@ const styles = StyleSheet.create({
         paddingRight: normalize(5),
         borderRadius: 10,
         padding: 10,
+    },
+    text_box_black_header: {
+        color: '#fff', 
+        marginTop:10, 
+        fontWeight: '300',
+        textAlign: "center", 
+        fontSize:normalize(18),
+        fontFamily: 'Poppins_Thin100'
+    },
+    text_box_black_points: {
+        color: '#fff', 
+        marginTop:5, 
+        // fontWeight: '500',
+        textAlign: "center", 
+        fontSize: normalize(30),
+        // fontFamily: 'Poppins_Black900'
     },
     items:{
         display:'flex', 
@@ -252,6 +257,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0
     },
     products: {
+        maxHeight: 120,
+        flex: 1,
+        backgroundColor: '#fff',
         display:'flex',
         flexDirection:'row', 
         borderRadius: 10,

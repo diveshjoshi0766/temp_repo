@@ -52,6 +52,13 @@ export default function ProfileSurvey3({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
+
+        <View style={{alignItems: 'center', marginTop: '0'}}>
+            <Image
+                style={styles.stretch}
+                source={require('../assets/logo_comp.png')}
+            />
+        </View>
         {/* heading */}
         <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Profile Survey  </Text>
 

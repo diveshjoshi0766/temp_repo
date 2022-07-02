@@ -30,44 +30,19 @@ import RewardScreen from './screen/RewardScreen';
 import RewardHistory from './screen/RewardHistory';
 import UserActivityScreen from './screen/UserActivitScreen';
 import LoadingScreen from './screen/LoadingScreen';
+import SpinnerEndPages from './screen/SpinnerEndPages';
 
 // My Screen Tab
 import MyTabScreen from './screen/MyTabScreen';
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Scree</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  );
-}
-
-function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  );
-}
-
 const Stack = createNativeStackNavigator();
  
-
-
 export default function App({ navigation }) {
   return (
   <NavigationContainer>
     <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={LoadingScreen} />
-      <Stack.Screen name="Details" component={LoadingScreen} />
+      <Stack.Screen name="Home" component={DefaultScreen } />
+      <Stack.Screen name="Details" component={DefaultScreen } />
     </Stack.Navigator>
   </NavigationContainer>
   );

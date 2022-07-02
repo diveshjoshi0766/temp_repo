@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -11,13 +11,8 @@ import {
     PixelRatio,
     ScrollView
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -35,105 +30,102 @@ export function normalize(size) {
 
 export default function UserActivityScreen({navigation}) {
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
+    // const [tableHead, setTableHead] = ([])
+    // const [tableData, setTableData] = ([])
+    // const setTableHeadData = () =>{ 
+    //     setTableHead(['Head', 'Head2', 'Head3', 'Head4'])
+    // }
+    // const setTableData_ = () =>{
+    //     setTableData([
+    //         ['1', '2', '3', '4'],
+    //         ['a', 'b', 'c', 'd'],
+    //         ['1', '2', '3', '4'],
+    //         ['a', 'b', 'c', 'd']
+    //     ])
+    // }
+    // useEffect(() => {
+    //     console.log("useEffect called");
+    //     // setTableHeadData
+    //     // setTableData_
+    //     console.log(tableData)
+    // }
+    // ,[])
+
+    // console.log(tableData)
+    
     return (
-    <ScrollView>
-    <View style={styles.container}>
-    <Animatable.View 
-        animation="fadeInUpBig"
-        style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
-        }]}
-    >
+        <ScrollView showsVerticalScrollIndicator ={false}>
+            <View style={styles.container}>
+                <View>
+                    <Text style={styles.header}>Good Morning, Vimal</Text>
+                </View>
+                {/* heading */}
+                <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Reward</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
+                </View>
+                <View style={styles.points}>
+                    <View style={styles.center}>
+                        <Text style={styles.text_box_black_header}>My Points</Text>
+                        <Text style={styles.text_box_black_points}>1355</Text>
+                    </View>
+                    <View style={styles.center}>
+                        <Text style={styles.text_box_black_header}>My Profile</Text>
+                        <Text style={styles.text_box_black_points}>100%</Text>
+                    </View>
+                </View>
+                <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-evenly', backgroundColor: '#d4d6d1', marginTop: 10}]}>
+                    <Text style={styles.tabel_header}>Date</Text>
+                    <Text style={styles.tabel_header}>Description</Text>
+                    <Text style={styles.tabel_header}>Points</Text>
+                </View>
+                
+                <View style={[styles.products, {justifyContent: 'space-evenly', textAlign: 'center'}]}>
+                    <Text style={styles.table_row_data}>April 27,2022</Text>
+                    <Text style={styles.table_row_data}>Spinner</Text>
+                    <Text style={styles.table_row_data}>Points</Text>
+                </View>
+          </View>
+          </ScrollView>
 
-
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Good Morning, Vimal</Text>
-        </TouchableOpacity>
-
-        {/* heading */}
-        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between'}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Dashboard</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}><Icon name="user" size={20} color="black"/> Profile</Text>
-        </View>
-        <View style={styles.points}>
-            <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Points</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>1355</Text>
-            </View>
-            <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Profile</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>100%</Text>
-            </View>
-        </View>
-
-        <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-evenly', backgroundColor: 'gray', marginTop: '10'}]}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Date</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Description</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Points</Text>
-        </View>
+       
         
-        <View style={[styles.products, {justifyContent: 'space-evenly', textAlign: 'center'}]}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
-        </View>
+        //table
 
-        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
-        </View>
 
-        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
-        </View>
 
-        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
-        </View>
+        // <Table borderStyle={{borderColor: 'transparent'}}>
+        //   <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
+        //   {
+        //     tableData.map((rowData, index) => (
+        //       <TableWrapper key={index} style={styles.row}>
+        //         {
+        //           rowData.map((cellData, cellIndex) => (
+        //             <Cell key={cellIndex} data={cellIndex === 3 ? element(cellData, index) : cellData} textStyle={styles.text}/>
+        //           ))
+        //         }
+        //       </TableWrapper>
+        //     ))
+        //   }
+        // </Table>
 
-        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
-        </View>
-        
-        <View style={[styles.products, {justifyContent: 'space-evenly', }]}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>April 27,2022</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Points</Text>
-        </View>
-
-    </Animatable.View>
-  </View>
-  </ScrollView>
     );
   }
 
 
 const styles = StyleSheet.create({
+    table_row_data:{
+        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(18)
+    },
+    tabel_header: {
+        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_Thin100', fontWeight: 'bold'
+    },
     container: {
-        flex: 1, 
         backgroundColor: '#FAFAFA',
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        padding: 10,
+        flexDirection:'col',
+        minHeight: SCREEN_HEIGHT,
+        minWidth: SCREEN_WIDTH,
     },
     stretch: {
         width: 100,
@@ -142,11 +134,29 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    header: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
+    header:{
+        color: '#000000', 
+        marginTop:10, 
+        fontSize:normalize(25),
+        fontWeight: 'bold',
+        // fontFamily: 'Poppins_Black900' 
+    },
+    
+    text_box_black_header: {
+        color: '#fff', 
+        marginTop:10, 
+        fontWeight: '300',
+        textAlign: "center", 
+        fontSize:normalize(18),
+        fontFamily: 'Poppins_Thin100'
+    },
+    text_box_black_points: {
+        color: '#fff', 
+        marginTop:5, 
+        // fontWeight: '500',
+        textAlign: "center", 
+        fontSize: normalize(30),
+        // fontFamily: 'Poppins_Black900'
     },
     footer: {
         flex: 1,
@@ -223,7 +233,7 @@ const styles = StyleSheet.create({
         height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
-        borderRadius: 10,
+        borderRadius: 20,
         padding: 10,
     },
     items:{

@@ -11,15 +11,12 @@ import {
     PixelRatio,
     ScrollView
 } from "react-native";
-import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import health from '../assets/health.png'
 import { useTheme } from 'react-native-paper';
+import {Poppins_ExtraBold800} from '@expo-google-fonts/poppins';
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -34,65 +31,45 @@ export function normalize(size) {
 }
 
 export default function DashboardScreen({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
     return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
-    <Animatable.View 
-        animation="fadeInUpBig"
-        style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
-        }]}
-    >
-
-
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Good Morning, Vimal</Text>
-        </TouchableOpacity>
-
+        <View>
+            <Text style={styles.header}>Good Morning, Vimal</Text>
+        </View>
         {/* heading */}
-        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between'}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Dashboard</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}><Icon name="user" size={20} color="black"/> Profile</Text>
+        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Dashboard</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Points</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>1355</Text>
+                <Text style={styles.text_box_black_header}>My Points</Text>
+                <Text style={styles.text_box_black_points}>1355</Text>
             </View>
             <View style={styles.center}>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>My Profile</Text>
-                <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), color: 'white'}}>100%</Text>
+                <Text style={styles.text_box_black_header}>My Profile</Text>
+                <Text style={styles.text_box_black_points}>100%</Text>
             </View>
         </View>
         
         <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Health Care</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
+                        style={[styles.survey_button, {
                             backgroundColor: '#378C3C',
                         }]}
                     >
@@ -102,61 +79,31 @@ export default function DashboardScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="heart" size={70} color="#378C3C"/>
-            </View>
-        </View>
-        
-
-        <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
-                    </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="group" size={70} color="#378C3C"/>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/health.png')}
+                />
             </View>
         </View>
 
-        
         <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
+                        style={[styles.survey_button, {
                             backgroundColor: '#378C3C',
                         }]}
                     >
@@ -166,29 +113,32 @@ export default function DashboardScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="group" size={70} color="#378C3C"/>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/B2B.png')}
+                />
             </View>
         </View>
 
         
         <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
+                        style={[styles.survey_button, {
                             backgroundColor: '#378C3C',
                         }]}
                     >
@@ -198,30 +148,32 @@ export default function DashboardScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="group" size={70} color="#378C3C"/>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/B2C.png')}
+                />
             </View>
         </View>
-
-
+        
 
         <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
+                        style={[styles.survey_button, {
                             backgroundColor: '#378C3C',
                         }]}
                     >
@@ -231,59 +183,31 @@ export default function DashboardScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="group" size={70} color="#378C3C"/>
-            </View>
-        </View>
-
-        <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
-                    </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="group" size={70} color="#378C3C"/>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/health.png')}
+                />
             </View>
         </View>
 
         <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
+                        style={[styles.survey_button, {
                             backgroundColor: '#378C3C',
                         }]}
                     >
@@ -293,28 +217,101 @@ export default function DashboardScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="group" size={70} color="#378C3C"/>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/B2B.png')}
+                />
+            </View>
+        </View>
+
+        
+        <View style={styles.products}>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
+                    </View>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
+                    </View>
+                </View>
+                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignUpScreen')}
+                        style={[styles.survey_button, {
+                            backgroundColor: '#378C3C',
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Take Survey</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/B2C.png')}
+                />
+            </View>
+        </View>
+
+
+        <View style={styles.products}>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
+                    </View>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
+                    </View>
+                </View>
+                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignUpScreen')}
+                        style={[styles.survey_button, {
+                            backgroundColor: '#378C3C',
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Take Survey</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/health.png')}
+                />
             </View>
         </View>
 
         <View style={styles.products}>
-            <View style={styles.center}>
-                <Text style={{fontWeight: 'bold'}}>Consumer Servey</Text>
-                <View style={[ {justifyContent: 'space-between', display:'flex', flexDirection:'row'}]}>
-                    <View style={[styles.center, {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="time" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>10m</Text>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
-                    <View style={[styles.center, , {justifyContent: 'space-between'}]}>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}><Icon name="star" size={20} color="#378C3C"/></Text>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(15)}}>100%</Text>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.signIn, {
+                        style={[styles.survey_button, {
                             backgroundColor: '#378C3C',
                         }]}
                     >
@@ -324,29 +321,91 @@ export default function DashboardScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={[styles.center, {width: "50%"}]}>
-            <Icon name="group" size={70} color="#378C3C"/>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/B2B.png')}
+                />
+            </View>
+        </View>
+
+        
+        <View style={styles.products}>
+            <View style={[styles.center, {justifyContent: "space-between"}]}>
+                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
+                    </View>
+                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
+                    </View>
+                </View>
+                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignUpScreen')}
+                        style={[styles.survey_button, {
+                            backgroundColor: '#378C3C',
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Take Survey</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={[styles.center, {width: "50%"}]}> 
+                <Image
+                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                    source={require('../assets/B2C.png')}
+                />
             </View>
         </View>
 
 
 
-    </Animatable.View>
-  </View>
-  </ScrollView>
+    </View>
+    </ScrollView>
     );
   }
 
 
 const styles = StyleSheet.create({
+    header:{
+        color: '#000000', 
+        marginTop:10, 
+        fontSize:normalize(25),
+        fontWeight: 'bold',
+        // fontFamily: 'Poppins_Black900' 
+    },
     container: {
-        flex: 1, 
         backgroundColor: '#FAFAFA',
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        padding: 10,
+        flexDirection:'col',
+    },
+    text_box_black_header: {
+        color: '#fff', 
+        marginTop:10, 
+        fontWeight: '300',
+        textAlign: "center", 
+        fontSize:normalize(18),
+        fontFamily: 'Poppins_Thin100'
+    },
+    text_box_black_points: {
+        color: '#fff', 
+        marginTop:5, 
+        // fontWeight: '500',
+        textAlign: "center", 
+        fontSize: normalize(30),
+        fontFamily: 'Poppins_Black900'
+    },
+    product_sml_icon:{
+        height: 25,
+        width: 25,
+        maxHeight: 30,
+        maxWidth: 30,
     },
     stretch: {
         width: SCREEN_WIDTH*0.5,
@@ -354,12 +413,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    header: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
     },
     footer: {
         flex: 1,
@@ -411,16 +464,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: normalize(30),
     },
-    signIn: {
+    survey_button:{
         width: '100%',
-        height: 50,
+        minHeight: 30,
+        maxHeight: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 20,
+        padding: 6,
+        backgroundColor: '#4cb050',
+        marginBottom: 5,
     },
     textSign: {
-        fontSize: 18,
-        fontWeight: 'bold'
+        fontSize: 15,
+        fontWeight: "500"
     },
     center :{
         justifyContent: 'center', //Centered vertically
@@ -463,7 +520,10 @@ const styles = StyleSheet.create({
     },
     products: {
         backgroundColor: '#fff',
-        display:'flex',flexDirection:'row', borderRadius: 10,
+        display:'flex',
+        flexDirection:'row', 
+        justifyContent: "space-evenly",
+        borderRadius: 10,
         marginTop: normalize(10),
         borderColor: 'black',
         borderRadius: 10,

@@ -52,6 +52,13 @@ export default function ProfileSurvey2({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
+
+        <View style={{alignItems: 'center', marginTop: '0'}}>
+            <Image
+                style={styles.stretch}
+                source={require('../assets/logo_comp.png')}
+            />
+        </View>
         {/* heading */}
         <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Profile Survey  </Text>
 
@@ -75,11 +82,9 @@ export default function ProfileSurvey2({navigation}) {
             <Text>4. Prefer not to answer</Text>
         </View>
 
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
 
         <View style={styles.button}>
+
             <TouchableOpacity
                 onPress={() => navigation.navigate('SignUpScreen')}
                 style={[styles.signIn, {

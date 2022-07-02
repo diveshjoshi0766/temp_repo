@@ -8,7 +8,10 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    CheckBox,
+    Animated,
+    Easing 
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -16,6 +19,28 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
+import {
+  useFonts,
+  Poppins_100Thin,
+  Poppins_100Thin_Italic,
+  Poppins_200ExtraLight,
+  Poppins_200ExtraLight_Italic,
+  Poppins_300Light,
+  Poppins_300Light_Italic,
+  Poppins_400Regular,
+  Poppins_400Regular_Italic,
+  Poppins_500Medium,
+  Poppins_500Medium_Italic,
+  Poppins_600SemiBold,
+  Poppins_600SemiBold_Italic,
+  Poppins_700Bold,
+  Poppins_700Bold_Italic,
+  Poppins_800ExtraBold,
+  Poppins_800ExtraBold_Italic,
+  Poppins_900Black,
+  Poppins_900Black_Italic,
+} from '@expo-google-fonts/poppins';
+
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -30,6 +55,7 @@ export function normalize(size) {
       return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
     }
 }
+const spinValue = new Animated.Value(0);
 
 export default function ProfileSurvey1({navigation}) {
     const { colors } = useTheme();
@@ -42,6 +68,20 @@ export default function ProfileSurvey1({navigation}) {
         isValidUser: true,
         isValidPassword: true,
     });
+
+    React.useEffect(() => {
+        Animated.timing(spinValue, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();
+        }, []);
+
+        const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+    });
    
     return (
         
@@ -52,32 +92,41 @@ export default function ProfileSurvey1({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
+
+        <View style={{alignItems: 'center', marginTop: '0'}}>
+            <Animated.Image
+                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.3, height: SCREEN_WIDTH*0.3}}
+                source={require('../assets/logo_comp.png')}
+            />
+        </View>
+
         {/* heading */}
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Profile Survey  </Text>
-
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins_900Black', textAlign: "center"}}>Profile Survey</Text>
+       
         {/* Question */}
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontWeight: 'bold'}}>1. What is the relationship status?  </Text>
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), color: 'red'}}>please select any one of them  </Text>
+        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontWeight: 'bold', fontFamily: 'Poppins_600SemiBold'}}>1. What is the relationship status?  </Text>
+        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), color: 'red', fontFamily: 'Poppins_100Thin_Italic'}}>please select any one of them  </Text>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>1. Single Never married</Text>
+        <View style={[styles.action]}>
+            <Text style={{ fontSize: 18}}>1. Single Never married</Text>
+        </View>
+
+        <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: 'Poppins_900Black'}]}>
+            <Text style={{ fontSize: 18}}>2. Married</Text>
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>2. Married</Text>
+            <Text style={{ fontSize: 18}}>3. Domestic Partnership</Text>
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>3. Domestic Partnership</Text>
-        </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>4. Prefer not to answer</Text>
+            <Text style={{ fontSize: 18}}>4. Prefer not to answer</Text>
         </View>
 
         <Animatable.View animation="fadeInLeft" duration={500}>
         {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
         </Animatable.View>
+
 
         <View style={styles.button}>
 
@@ -110,8 +159,9 @@ const styles = StyleSheet.create({
         height: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.5,
-        height: SCREEN_WIDTH*0.5,
+        // width: SCREEN_WIDTH*0.5,
+        // height: SCREEN_WIDTH*0.5,
+        width: SCREEN_WIDTH > SCREEN_HEIGHT ? SCREEN_HEIGHT * 0.4 : SCREEN_WIDTH * 0.4,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -151,6 +201,9 @@ const styles = StyleSheet.create({
         borderColor: "black",
         paddingLeft: 3,
         paddingRight: 3,
+        backgroundColor: '#ffffff', 
+        fontFamily: 'Poppins_900Black',
+        fontSize: 18
     },
     actionError: {
         flexDirection: 'row',
@@ -169,8 +222,15 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     button: {
+        // position: 'absolute',
         alignItems: 'center',
-        marginTop: normalize(30),
+        // bottom: 20,
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: SCREEN_WIDTH*0.03,
+        width: SCREEN_WIDTH*0.3,
+        marginLeft: SCREEN_WIDTH*0.35,
+        marginRight: SCREEN_WIDTH*0.35,
     },
     signIn: {
         width: '100%',

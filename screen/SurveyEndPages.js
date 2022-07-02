@@ -18,6 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 import background from '../assets/background.jpeg'
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -48,14 +49,7 @@ export default function SurveyEndPages({navigation}) {
    
     return (
     <View style={styles.container}>
-    <Animatable.View 
-        animation="fadeInUpBig"
-        style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
-        }]}
-    >
-
-        <View style={{alignItems: 'center', marginTop: '0'}}>
+        <View style={{ padding: '20'}}>
             <Image
                 style={styles.stretch}
                 source={require('../assets/icon_logo.png')}
@@ -66,7 +60,7 @@ export default function SurveyEndPages({navigation}) {
             <View style={{alignItems: 'center', marginTop: '0'}}>
                 <Image
                     style={styles.robot_img}
-                    source={require('../assets/robot_pic.png')}
+                    source={require('../assets/congratulations.png')}
                 />
             </View>
             <Text style={{color: '#02B670', marginTop:10, textAlign: "center", fontSize:normalize(25), fontWeight: 'bold'}}>Congratulation!</Text>
@@ -86,34 +80,28 @@ export default function SurveyEndPages({navigation}) {
             <Text style={{color: '#4D4D4D', marginTop:10, textAlign: "center", fontSize:normalize(15)}}>Please allow some time for the points to diplay the points on your account</Text>
         </View>
         </View>
-        
-        
-    </Animatable.View>
-  </View>
+        <ConfettiCannon count={200} origin={{x: -10, y: 0}} />
+    </View>
     );
   }
 
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
         backgroundColor: '#f7f7f7',
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
         width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        minHeight: SCREEN_HEIGHT,
+        alignContent: 'center',
+        justifyContent: 'center'
+
     },
     stretch: {
         width: SCREEN_WIDTH * 0.5,
         height: 60,
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     robot_img: {
         width: SCREEN_WIDTH * 0.5,
-        height: 60,
+        height: SCREEN_WIDTH * 0.5,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
