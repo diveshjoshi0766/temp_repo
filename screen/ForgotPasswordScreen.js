@@ -72,8 +72,8 @@ export default function ForgotPasswordScreen({navigation}) {
 
         <View style={{alignItems: 'center', marginTop: '0'}}>
             <Animated.Image
-                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.5, height: SCREEN_WIDTH*0.5 }}
-                source={require('../assets/logo_comp.png')}
+                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28 }}
+                source={require('../assets/logo_remove_bg.png')}
             />
         </View>
         <View style={{alignItems: "center"}}>
@@ -213,7 +213,14 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        shadowColor: '#000000',
+        shadowRadius: 10,
+        shadowOffset: {
+        width: 0,
+        height: 0
+        },
+        shadowOpacity: 0.3
     },
     textSign: {
         fontSize: 18,

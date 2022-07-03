@@ -8,17 +8,14 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    Button
 } from "react-native";
-import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-
 import { useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/FontAwesome";
+import Modal from "react-native-modal";
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -33,17 +30,12 @@ export function normalize(size) {
 }
 
 export default function CommunicationOperationsScreen({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
    
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
+
     return (
         
     <View style={styles.container}>
@@ -59,7 +51,7 @@ export default function CommunicationOperationsScreen({navigation}) {
             <Text style={{marginTop: 10,  textAlign: 'center'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
+                    onPress={toggleModal}
                     style={[styles.signIn, {
                         backgroundColor: '#378C3C',
                         color: '#fff'
@@ -89,7 +81,27 @@ export default function CommunicationOperationsScreen({navigation}) {
                 </TouchableOpacity>
             </View>
         </View>
-        
+
+
+        {/* modal */}
+        <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
+        <View style={styles.modal_}>
+          <Text style={{fontWeight: 600, fontSize: normalize(25)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
+          <Text style={styles.modal_sub_heading}>Unsubscribeing means you will no longer receive Any email messages from SurveyOptimus which includes:</Text>
+          <View>
+          <Text style={styles.modal_points}>1. Invitations to survey</Text>
+          <Text style={styles.modal_points}>2. Redeem points request from us</Text>
+          <Text style={styles.modal_points}>3. Newsletters and offers</Text>
+          </View>
+          <Text style={styles.modal_sub_heading}>Do you really want to miss out on offers like this ?</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
+            <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
+            <Button title="YES, Continue" onPress={toggleModal} style={styles.modal_btn} color='#378C3C'/>
+          </View>
+
+        </View>
+      </Modal>
+
         
     </Animatable.View>
   </View>
@@ -98,9 +110,29 @@ export default function CommunicationOperationsScreen({navigation}) {
 
 
 const styles = StyleSheet.create({
+    modal_:{
+        height: 'justifyContent', 
+        backgroundColor: '#fff', 
+        padding: 10,
+        borderRadius: 10,
+    },
+    modal_btn:{
+        width: SCREEN_WIDTH*0.2,
+        color: '#378C3C',
+        borderRadius: 20,
+    },
+    modal_sub_heading: {
+        fontWeight: 500, 
+        fontSize: normalize(15), 
+        marginTop: 10
+    },
+    modal_points:{
+        fontWeight: 400, 
+        fontSize: normalize(15),
+    },
     container: {
         flex: 1, 
-        backgroundColor: '#eeeeee',
+        backgroundColor: '#FAFAFA',
         flexDirection:'row',
         // alignItems:'center',
         justifyContent:'center',
@@ -141,14 +173,16 @@ const styles = StyleSheet.create({
         marginTop: normalize(5),
         maxHeight: "justifyContent",
         flexDirection:'col',
-        alignItems:'center',
-        // justifyContent:'center',
+            alignItems:'center',
+            // justifyContent:'center',
         borderRadius: normalize(10),
         paddingLeft: 3,
         paddingRight: 3,
-        borderWidth: 1,
-        borderColor: '#000000',
         padding: 5,
+        shadowColor: '#171717',
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
     },
     actionError: {
         flexDirection: 'row',
@@ -172,14 +206,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: normalize(10),
-        borderRadius: '50%'
     },
     signIn: {
         width: '100%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 11
+        borderRadius: 25
     },
     textSign: {
         fontSize: 18,

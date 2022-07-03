@@ -41,8 +41,8 @@ export default function App({ navigation }) {
   return (
   <NavigationContainer>
     <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={DefaultScreen } />
-      <Stack.Screen name="Details" component={DefaultScreen } />
+      <Stack.Screen name="Home" component={MyTabScreen } />
+      <Stack.Screen name="Details" component={MyTabScreen } />
     </Stack.Navigator>
   </NavigationContainer>
   );

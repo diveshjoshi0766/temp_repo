@@ -493,7 +493,7 @@ const styles = StyleSheet.create({
         height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
-        borderRadius: 10,
+        borderRadius: 20,
         padding: 10,
     },
     items:{

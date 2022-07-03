@@ -15,7 +15,6 @@ import {
     ScrollView
 } from "react-native";
 import {Avatar} from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -59,21 +58,39 @@ export default function DefaultScreen({navigation}) {
     
 
     const { colors } = useTheme();
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [isSelected, setSelection] = useState(false);
+
     const [data, setData] = React.useState({
-        username: '',
+        email: '',
         password: '',
+        confirm_password: '',
         check_textInputChange: false,
         secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
+        confirm_secureTextEntry: true,
     });
-   
+
+    const textInputChange = (val) => {
+        if( val.length !== 0 ) {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: true
+            });
+        } else {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: false
+            });
+        }
+    }
+
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
@@ -104,34 +121,26 @@ export default function DefaultScreen({navigation}) {
                 size={20}
             />
             <TextInput 
-                placeholder="Username"
+                placeholder="Email"
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                onChangeText={(val) => setEmail(val)}
             />
             <Animatable.View
                 animation="bounceIn"
             >
                 <Feather 
-                    name="check-circle"
-                    color="green"
+                    name="mail"
+                    color="gray"
                     size={20}
                 />
             </Animatable.View>
         </View>
 
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
 
-        {/* <Text style={[styles.text_footer, {
-            color: colors.text,
-            marginTop: 35
-        }]}>Password</Text> */}
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <Feather 
                 name="lock"
@@ -146,7 +155,7 @@ export default function DefaultScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setPassword(val)}
             />
             <TouchableOpacity
             >
@@ -255,15 +264,11 @@ export default function DefaultScreen({navigation}) {
         <TouchableOpacity>
         <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins_400Regular', fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
-        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-around', marginTop: 20}}>
-            <Avatar.Image 
-                source={facebook}
-                size={50}
-            />
-            <Avatar.Image 
-                source={google}
-                size={50}
-            />
+        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
+            
+            <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50}}></Image>
+            <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
+            
         </View>
         <TouchableOpacity>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>SIGN IN</Text></Text>
@@ -351,7 +356,14 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        shadowColor: '#000000',
+        shadowRadius: 10,
+        shadowOffset: {
+        width: 0,
+        height: 0
+        },
+        shadowOpacity: 0.3
     },
     textSign: {
         fontSize: 18,

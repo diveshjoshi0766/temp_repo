@@ -5,13 +5,17 @@ import SpinnerScreen from './SpinnerScreen';
 import RewardScreen from './RewardScreen';
 import UserActivityScreen from './UserActivitScreen';
 import MyAccountScreen from './MyAccountScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  Image,
+} from "react-native";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function MyTabScreen() {
   return (
     <Tab.Navigator
       initialRouteName="DashboardScreen"
-      activeColor="#000000"
+      activeColor="#369239"
       barStyle={{ backgroundColor: '#fff' }}
     >
       <Tab.Screen
@@ -19,8 +23,9 @@ export default function MyTabScreen() {
         component={DashboardScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="star" color={color} size={26} />
+          tabBarIcon: ({ color }) => (color == '#369239' ? <Image source={require('../assets/home_Gr.png')} style={{ width: 26, height: 26 }}
+ ></Image> : <Image source={require('../assets/home_Gy.png')} style={{ width: 26, height: 26 }}
+ ></Image>
           ),
         }}
       />
@@ -28,9 +33,11 @@ export default function MyTabScreen() {
         name="Spinner"
         component={SpinnerScreen}
         options={{
-          tabBarLabel: 'circle',
+          tabBarLabel: 'Spinner',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="filmstrip-box-multiple" color={color} size={26} />
+            color == '#369239' ? <Image source={require('../assets/spinner_Gr.png')} style={{ width: 26, height: 26 }}
+ ></Image> : <Image source={require('../assets/spinner_Gy.png')} style={{ width: 26, height: 26 }}
+ ></Image>
           ),
         }}
       />
@@ -40,7 +47,9 @@ export default function MyTabScreen() {
         options={{
           tabBarLabel: 'Reward',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="menu" color={color} size={26} />
+            color == '#369239' ? <Image source={require('../assets/reward_Gr.png')} style={{ width: 26, height: 26 }}
+ ></Image> : <Image source={require('../assets/reward_Gy.png')} style={{ width: 26, height: 26 }}
+ ></Image>
           ),
         }}
       />
@@ -49,8 +58,9 @@ export default function MyTabScreen() {
         component={UserActivityScreen}
         options={{
           tabBarLabel: 'Activity',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="calendar-today" color={color} size={26} />
+          tabBarIcon: ({ color }) => (color == '#369239' ? <Image source={require('../assets/activity_Gr.png')} style={{ width: 26, height: 26 }}
+ ></Image> : <Image source={require('../assets/activity_Gy.png')} style={{ width: 26, height: 26 }}
+ ></Image>
           ),
         }}
       />
@@ -67,3 +77,4 @@ export default function MyTabScreen() {
     </Tab.Navigator>
   );
 }
+

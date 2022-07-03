@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import {
     StyleSheet,
     Text,
@@ -63,7 +63,6 @@ export default function SignInScreen({navigation}) {
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg'],
     });
-    
     return (
         
     <View style={styles.container}>
@@ -76,8 +75,8 @@ export default function SignInScreen({navigation}) {
 
         <View style={{alignItems: 'center', marginTop: '0'}}>
             <Animated.Image
-                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.5, height: SCREEN_WIDTH*0.5 }}
-                source={require('../assets/logo_comp.png')}
+                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28 }}
+                source={require('../assets/logo_remove_bg.png')}
             />
         </View>
         <View style={{alignItems: "center"}}>
@@ -170,15 +169,11 @@ export default function SignInScreen({navigation}) {
         <TouchableOpacity>
         <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins_400Regular', fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
-        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-around', marginTop: 20}}>
-            <Avatar.Image 
-                source={facebook}
-                size={50}
-            />
-            <Avatar.Image 
-                source={google}
-                size={50}
-            />
+        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
+
+            <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50}}></Image>
+            <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
+            
         </View>
         <TouchableOpacity>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>SIGN IN</Text></Text>
@@ -265,7 +260,14 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        shadowColor: '#000000',
+        shadowRadius: 10,
+        shadowOffset: {
+        width: 0,
+        height: 0
+        },
+        shadowOpacity: 0.3
     },
     textSign: {
         fontSize: 18,

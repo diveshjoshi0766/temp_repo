@@ -54,7 +54,7 @@ export default function SpinnerScreen({navigation}) {
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Dashboard</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Spinner</Text>
             <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
         </View>
         <View style={styles.points}>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
         height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
-        borderRadius: 10,
+        borderRadius: 20,
         padding: 10,
     },
     text_box_black_header: {

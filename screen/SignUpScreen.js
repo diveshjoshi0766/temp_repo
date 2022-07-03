@@ -13,17 +13,9 @@ import {
     Animated,
     Easing 
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-// import { SocialIcon } from 'react-native-elements'
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-import company_logo from '../assets/company_logo.png'
-import {useFonts, Poppins_400Regular, Poppins_500Medium_Italic, Poppins_700Bold} from '@expo-google-fonts/poppins';
-
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -85,8 +77,8 @@ export default function SignUpScreen({navigation}) {
 
         <View style={{alignItems: 'center', marginTop: '0'}}>
             <Animated.Image
-                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.5, height: SCREEN_WIDTH*0.5 }}
-                source={require('../assets/logo_comp.png')}
+                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28 }}
+                source={require('../assets/logo_remove_bg.png')}
             />
         </View>
         <View style={{alignItems: "center"}}>
@@ -255,15 +247,11 @@ export default function SignUpScreen({navigation}) {
         <TouchableOpacity>
         <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins_400Regular', fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
-        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-around', marginTop: 20}}>
-            <Avatar.Image 
-                source={facebook}
-                size={50}
-            />
-            <Avatar.Image 
-                source={google}
-                size={50}
-            />
+        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
+            
+            <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50}}></Image>
+            <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
+            
         </View>
         <TouchableOpacity>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>SIGN IN</Text></Text>
@@ -350,7 +338,14 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        shadowColor: '#000000',
+        shadowRadius: 10,
+        shadowOffset: {
+        width: 0,
+        height: 0
+        },
+        shadowOpacity: 0.3
     },
     textSign: {
         fontSize: 18,

@@ -11,41 +11,16 @@ import {
     PixelRatio,
     CheckBox,
     Animated,
-    Easing 
+    Easing ,
+    Button
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-// import { SocialIcon } from 'react-native-elements'
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-import company_logo from '../assets/company_logo.png'
-import {
-    useFonts,
-    Poppins_100Thin,
-    Poppins_100Thin_Italic,
-    Poppins_200ExtraLight,
-    Poppins_200ExtraLight_Italic,
-    Poppins_300Light,
-    Poppins_300Light_Italic,
-    Poppins_400Regular,
-    Poppins_400Regular_Italic,
-    Poppins_500Medium,
-    Poppins_500Medium_Italic,
-    Poppins_600SemiBold,
-    Poppins_600SemiBold_Italic,
-    Poppins_700Bold,
-    Poppins_700Bold_Italic,
-    Poppins_800ExtraBold,
-    Poppins_800ExtraBold_Italic,
-    Poppins_900Black,
-    Poppins_900Black_Italic,
-  } from '@expo-google-fonts/poppins';
+import { RadioButton } from 'react-native-paper'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 import { useTheme } from 'react-native-paper';
+import { Icon } from "react-native-vector-icons/FontAwesome";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -82,6 +57,9 @@ export default function PresonalDetailsScreen({navigation}) {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [isSelected, setSelection] = useState(false);
+    const [date, setDate] = useState("")
+    const [checked, setChecked] = React.useState('first');
+
     const [data, setData] = React.useState({
         username: '',
         password: '',
@@ -90,6 +68,21 @@ export default function PresonalDetailsScreen({navigation}) {
         isValidUser: true,
         isValidPassword: true,
     });
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (date) => {
+        console.warn("A date has been picked: ", date);
+        hideDatePicker();
+    };
 
     return (
     <View style={styles.container}>
@@ -106,7 +99,7 @@ export default function PresonalDetailsScreen({navigation}) {
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
             <Image
                 style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
+                source={require('../assets/logo_remove_bg.png')}
             />
             <View style={{paddingLeft: normalize(10)}}>
                 <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins_500Medium'}]}>SOID: </Text>
@@ -141,30 +134,47 @@ export default function PresonalDetailsScreen({navigation}) {
             />
         </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <TextInput 
-                placeholder="Date of Birth"
-                placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
-            />
+        <View style={{backgroundColor: '#ffffff', 
+        marginTop: normalize(10),
+        minHeight: 40,
+        flex:1,
+        flexDirection:'row',
+        alignItems: "center",
+        borderRadius: normalize(10),
+        paddingLeft: 3,
+        paddingRight: 3,}}>
+        <TouchableOpacity
+        onPress={showDatePicker}
+        >
+        <View >
+            <Text style={{paddingLeft: 4}}>Select date of Birth</Text>
+            <Image source={require('../assets/date.png')} size={{height: 20, width: 20}}></Image>
         </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <TextInput 
-                placeholder="Gender"
-                placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
-                style={[styles.textInput, {
+        </TouchableOpacity>
+        <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+        />
+        
+        </View>
+        <View style={[styles.action]}>
+            
+            <Text style={[styles.textInput, {
                     color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                }]}>Gender</Text>
+            <RadioButton
+                value="first"
+                status={ checked === 'first' ? 'checked' : 'unchecked' }
+                onPress={() => setChecked('first')}
             />
+            <RadioButton
+                value="second"
+                status={ checked === 'second' ? 'checked' : 'unchecked' }
+                onPress={() => setChecked('second')}
+            />
+
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
@@ -336,7 +346,14 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        shadowColor: '#000000',
+        shadowRadius: 10,
+        shadowOffset: {
+        width: 0,
+        height: 0
+        },
+        shadowOpacity: 0.3
     },
     textSign: {
         fontSize: 18,
