@@ -3,22 +3,17 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
     TextInput,
     TouchableOpacity,
     Dimensions,
     Platform, 
     PixelRatio,
-    CheckBox,
     Animated,
     Easing 
 } from "react-native";
-import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -50,16 +45,9 @@ export default function ForgotPasswordScreen({navigation}) {
         outputRange: ['0deg', '360deg'],
     });
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
+
+    const [email, setEmail] = useState(null);
+
     return (
         
     <View style={styles.container}>
@@ -101,7 +89,7 @@ export default function ForgotPasswordScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
+                onChangeText={(val) => setEmail(val)}
                 onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
             />
             <Animatable.View

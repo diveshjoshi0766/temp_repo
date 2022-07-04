@@ -35,14 +35,18 @@ import SpinnerEndPages from './screen/SpinnerEndPages';
 // My Screen Tab
 import MyTabScreen from './screen/MyTabScreen';
 
+
+//testing fonts
+import fontTest from './screen/FontTest';
+
 const Stack = createNativeStackNavigator();
  
 export default function App({ navigation }) {
   return (
   <NavigationContainer>
     <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={MyTabScreen } />
-      <Stack.Screen name="Details" component={MyTabScreen } />
+      <Stack.Screen name="Home" component={SignInScreen } />
+      <Stack.Screen name="Details" component={SignInScreen } />
     </Stack.Navigator>
   </NavigationContainer>
   );

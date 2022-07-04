@@ -50,21 +50,15 @@ export default function SignUpScreen({navigation}) {
     
 
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null)
+    const [firstName, setFirstName] = useState(null)
+    const [lastName, setLastName] = useState(null)
+
     const [isSelected, setSelection] = useState(false);
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
+
     return (
         
     <View style={styles.container}>
@@ -96,13 +90,13 @@ export default function SignUpScreen({navigation}) {
                 size={20}
             />
             <TextInput 
-                placeholder="Username"
+                placeholder="Email"
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
+                onChangeText={(val) => setEmail(val)}
                 onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
             />
             <Animatable.View
@@ -138,7 +132,7 @@ export default function SignUpScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setPassword(val)}
             />
             <TouchableOpacity
             >
@@ -172,7 +166,7 @@ export default function SignUpScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setConfirmPassword(val)}
             />
             <TouchableOpacity
             >
@@ -202,7 +196,7 @@ export default function SignUpScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setFirstName(val)}
             />
         </View>
 
@@ -216,7 +210,7 @@ export default function SignUpScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setLastName(val)}
             />
         </View>
 

@@ -18,9 +18,7 @@ import * as Animatable from 'react-native-animatable';
 import { RadioButton } from 'react-native-paper'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-
 import { useTheme } from 'react-native-paper';
-import { Icon } from "react-native-vector-icons/FontAwesome";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -51,24 +49,24 @@ export default function PresonalDetailsScreen({navigation}) {
         outputRange: ['0deg', '360deg'],
     });
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [isSelected, setSelection] = useState(false);
+
+    
+    const [firstName, setFirstName] = useState(null)
+    const [lastName, setLastName] = useState(null)
+
+    // date state
     const [date, setDate] = useState("")
+    
     const [checked, setChecked] = React.useState('first');
+    const [address1, setAddress1] = useState(null);
+    const [address2, setAddress2] = useState(null);
+    const [chooseState, setChooseState] = useState(null);
+    const [chooseCity, setChooseCity] = useState(null);
+    const [country, setCountry] = useState(null);
+    const [zipcode, setZipcode] = useState(null);
+    const [phone, setPhone] = useState(null);
 
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-
+    
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
     const showDatePicker = () => {
@@ -93,7 +91,7 @@ export default function PresonalDetailsScreen({navigation}) {
         }]}
     >
 
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins_900Black'}}>Good Afternoon {}</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins_900Black'}}>Good Afternoon, RamCharafdffdfdn</Text>
         <Text style={{color: '#000000', marginTop:normalize(5), fontSize: normalize(20), fontFamily: 'Poppins_500Medium'}}>Presonal Details</Text>
 
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>

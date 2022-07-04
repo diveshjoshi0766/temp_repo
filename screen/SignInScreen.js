@@ -1,4 +1,4 @@
-import React, { useState, useRef} from "react";
+import React, { useState} from "react";
 import {
     StyleSheet,
     Text,
@@ -9,20 +9,12 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    CheckBox,
     Animated,
     Easing 
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-// import { SocialIcon } from 'react-native-elements'
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-import company_logo from '../assets/company_logo.png'
-
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -38,18 +30,12 @@ export function normalize(size) {
 }
 const spinValue = new Animated.Value(0);
 export default function SignInScreen({navigation}) {
+
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isSelected, setSelection] = useState(false);
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
+    
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    
     React.useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 1,
@@ -63,8 +49,8 @@ export default function SignInScreen({navigation}) {
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg'],
     });
+
     return (
-        
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -101,8 +87,7 @@ export default function SignInScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                onChangeText={(val) => setEmail(val)}
             />
             <Animatable.View
                 animation="bounceIn"
@@ -129,7 +114,7 @@ export default function SignInScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setPassword(val)}
             />
             <TouchableOpacity
             >
@@ -259,15 +244,15 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        shadowColor: '#000000',
-        shadowRadius: 10,
-        shadowOffset: {
-        width: 0,
-        height: 0
-        },
-        shadowOpacity: 0.3
+            alignItems: 'center',
+            borderRadius: 10,
+            shadowColor: '#000000',
+            shadowRadius: 10,
+            shadowOffset: {
+            width: 0,
+            height: 0
+            },
+            shadowOpacity: 0.3
     },
     textSign: {
         fontSize: 18,

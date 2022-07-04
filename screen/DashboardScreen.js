@@ -55,15 +55,15 @@ export default function DashboardScreen({navigation}) {
         
         <View style={styles.products}>
             <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Health Care</Text>
                 <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
                     <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
                         <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
                     <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100pts</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
@@ -89,15 +89,15 @@ export default function DashboardScreen({navigation}) {
 
         <View style={styles.products}>
             <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Health Care</Text>
                 <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
                     <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
                         <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
                     <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100pts</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
@@ -124,15 +124,15 @@ export default function DashboardScreen({navigation}) {
         
         <View style={styles.products}>
             <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
+                <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Health Care</Text>
                 <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
                     <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
+                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
                         <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
                     </View>
                     <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
+                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
+                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100pts</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
@@ -156,214 +156,6 @@ export default function DashboardScreen({navigation}) {
             </View>
         </View>
         
-
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/health.png')}
-                />
-            </View>
-        </View>
-
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/B2B.png')}
-                />
-            </View>
-        </View>
-
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/B2C.png')}
-                />
-            </View>
-        </View>
-
-
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/health.png')}
-                />
-            </View>
-        </View>
-
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/B2B.png')}
-                />
-            </View>
-        </View>
-
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 21}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100%</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/B2C.png')}
-                />
-            </View>
-        </View>
-
 
 
     </View>
@@ -401,9 +193,15 @@ const styles = StyleSheet.create({
         fontSize: normalize(30),
         fontFamily: 'Poppins_Black900'
     },
-    product_sml_icon:{
-        height: 25,
+    product_sml_icon_1:{
+        height: 30,
         width: 25,
+        maxHeight: 30,
+        maxWidth: 30,
+    },
+    product_sml_icon_2:{
+        height: 30,
+        width: 30,
         maxHeight: 30,
         maxWidth: 30,
     },
@@ -471,12 +269,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        padding: 6,
+        padding: normalize(8),
         backgroundColor: '#4cb050',
         marginBottom: 5,
     },
     textSign: {
-        fontSize: 15,
+        fontSize: normalize(14),
         fontWeight: "500"
     },
     center :{

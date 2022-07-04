@@ -55,41 +55,16 @@ export default function DefaultScreen({navigation}) {
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg'],
     });
-    
 
     const { colors } = useTheme();
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null)
+    const [firstName, setFirstName] = useState(null)
+    const [lastName, setLastName] = useState(null)
+
     const [isSelected, setSelection] = useState(false);
-
-    const [data, setData] = React.useState({
-        email: '',
-        password: '',
-        confirm_password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        confirm_secureTextEntry: true,
-    });
-
-    const textInputChange = (val) => {
-        if( val.length !== 0 ) {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: true
-            });
-        } else {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: false
-            });
-        }
-    }
 
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
@@ -189,7 +164,7 @@ export default function DefaultScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setConfirmPassword(val)}
             />
             <TouchableOpacity
             >
@@ -219,7 +194,7 @@ export default function DefaultScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setFirstName(val)}
             />
         </View>
 
@@ -233,7 +208,7 @@ export default function DefaultScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setLastName(val)}
             />
         </View>
 
