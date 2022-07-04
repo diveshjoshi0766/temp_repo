@@ -209,35 +209,7 @@ export default function MyAccountScreen({navigation}) {
                     </View>
             </View> 
 
-            
-            <View style={styles.button}>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
-                    style={[styles.signIn, {
-                        backgroundColor: '#fff',
-                        color: 'black',
-                        borderWidth: 1,
-                        borderColor: 'black'
-                    }]}
-                >
-                    <Text style={[styles.textSign, {
-                        color: 'black'
-                    }]}> Back </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
-                    style={[styles.signIn, {
-                        backgroundColor: '#378C3C',
-                    }]}
-                >
-                    <Text style={[styles.textSign, {
-                        color: '#fff'
-                    }]}> Next </Text>
-                </TouchableOpacity>
             </View>
-    </View>
     </ScrollView>
     );
   }
