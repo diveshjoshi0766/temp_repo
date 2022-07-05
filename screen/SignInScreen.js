@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useContext} from "react";
 import {
     StyleSheet,
     Text,
@@ -18,6 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import TagLine from "../components/TagLine";
 import Logo from "../components/Logo";
+import {AuthContext} from '../context/AuthContext';
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -39,6 +40,9 @@ export default function SignInScreen({navigation}) {
     
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+
+    const {login} = useContext(AuthContext);
+
     
     React.useEffect(() => {
         Animated.timing(spinValue, {
@@ -140,7 +144,7 @@ export default function SignInScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => login(email, password)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}

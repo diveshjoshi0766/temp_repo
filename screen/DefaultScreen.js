@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import {
     StyleSheet,
     Text,
@@ -23,8 +23,7 @@ import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 import company_logo from '../assets/company_logo.png'
 import {useFonts, Poppins_400Regular, Poppins_500Medium_Italic, Poppins_700Bold} from '@expo-google-fonts/poppins';
-
-
+import {AuthContext} from '../context/AuthContext';
 import { useTheme } from 'react-native-paper';
 import TagLine from "../components/TagLine";
 import Logo from "../components/Logo";
@@ -43,7 +42,10 @@ export function normalize(size) {
 const spinValue = new Animated.Value(0);
 
 export default function DefaultScreen({navigation}) {
+
     
+
+
     React.useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 1,
@@ -65,8 +67,8 @@ export default function DefaultScreen({navigation}) {
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [firstName, setFirstName] = useState(null)
     const [lastName, setLastName] = useState(null)
-
     const [isSelected, setSelection] = useState(false);
+    const {register} = useContext(AuthContext);
 
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
@@ -224,7 +226,7 @@ export default function DefaultScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => register(email, password, confirmPassword, firstName, lastName)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
