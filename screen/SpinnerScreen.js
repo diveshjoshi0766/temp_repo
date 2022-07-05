@@ -4,20 +4,12 @@ import {
     Text,
     View,
     Image,
-    TextInput,
-    TouchableOpacity,
     Dimensions,
     Platform, 
     PixelRatio,
     ScrollView,
     ImageBackground
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { useTheme } from 'react-native-paper';
@@ -35,17 +27,6 @@ export function normalize(size) {
 }
 
 export default function SpinnerScreen({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
@@ -54,8 +35,8 @@ export default function SpinnerScreen({navigation}) {
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Spinner</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
@@ -67,10 +48,10 @@ export default function SpinnerScreen({navigation}) {
                 <Text style={styles.text_box_black_points}>100%</Text>
             </View>
         </View>
-
+        
         <View style={styles.products}>
             <View style={[styles.center, {flex: 1.2}]}>
-                <Text style={{textAlign: 'center', fontSize: 15}}>Opertunity to Earn 100 point every 3 hour</Text>
+                <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>Opertunity to Earn 100 point every 3 hour</Text>
             </View>
             <View style={[styles.center, {flex: 0.8}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
@@ -98,13 +79,13 @@ export default function SpinnerScreen({navigation}) {
                 </View>
             </View>
             <View style={[styles.center, {flex: 1.2}]}>
-                <Text style={{textAlign: 'center', fontSize: 15}}>Opertunity to Earn 75 point every 2 hour</Text>
+                <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>Opertunity to Earn 75 point every 2 hour</Text>
             </View>
         </View>
 
         <View style={styles.products}>
             <View style={[styles.center, {flex: 1.2}]}>
-                <Text style={{textAlign: 'center', fontSize: 15}}>Opertunity to Earn 50 point every 1 hour</Text>
+                <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>Opertunity to Earn 50 point every 1 hour</Text>
             </View>
             <View style={[styles.center, {flex: 0.8}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
@@ -144,6 +125,7 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
+        fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
     footer: {
@@ -224,7 +206,7 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: "center", 
         fontSize:normalize(18),
-        fontFamily: 'Poppins_Thin100'
+        fontFamily: 'Poppins Regular 400'
     },
     text_box_black_points: {
         color: '#fff', 
@@ -232,7 +214,7 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        // fontFamily: 'Poppins_Black900'
+        fontFamily: 'Poppins Regular 400'
     },
     items:{
         display:'flex', 

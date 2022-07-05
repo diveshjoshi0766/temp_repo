@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -13,36 +13,9 @@ import {
     Animated,
     Easing 
 } from "react-native";
-import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-import {
-  useFonts,
-  Poppins_100Thin,
-  Poppins_100Thin_Italic,
-  Poppins_200ExtraLight,
-  Poppins_200ExtraLight_Italic,
-  Poppins_300Light,
-  Poppins_300Light_Italic,
-  Poppins_400Regular,
-  Poppins_400Regular_Italic,
-  Poppins_500Medium,
-  Poppins_500Medium_Italic,
-  Poppins_600SemiBold,
-  Poppins_600SemiBold_Italic,
-  Poppins_700Bold,
-  Poppins_700Bold_Italic,
-  Poppins_800ExtraBold,
-  Poppins_800ExtraBold_Italic,
-  Poppins_900Black,
-  Poppins_900Black_Italic,
-} from '@expo-google-fonts/poppins';
+import Logo from "../components/Logo";
 
-
-import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -58,18 +31,54 @@ export function normalize(size) {
 const spinValue = new Animated.Value(0);
 
 export default function ProfileSurvey1({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
 
-    React.useEffect(() => {
+    const [questions, setQuestions] = useState();
+    const [ques, setQues] = useState(0);
+    const [options, setOptions]= useState([])
+    const [score, setScore]= useState(0)
+    const [isLoading, setIsLoading]= useState(false)
+
+    const getQuiz = async () => {
+        setIsLoading(true)
+        const url = 'BASE_URL';
+        const res = await fetch(url);
+        const data = await res.json();
+        setQuestions(data.results);
+        setOptions(generateOptionsAndShuffle(data.results[0]))
+        setIsLoading(false)
+    };
+
+    const handleNextPress=()=>{
+        setQues(ques+1)
+        setOptions(generateOptionsAndShuffle(questions[ques+1]))
+      }
+    
+      const generateOptionsAndShuffle=(_question)=>{
+        const options= [..._question.incorrect_answers]
+        options.push(_question.correct_answer)
+        return options
+      }
+    
+      const handlSelectedOption=(_option)=>{
+        if(_option===questions[ques].correct_answer){
+          setScore(score+10)
+        }
+        if(ques!==9){
+          setQues(ques+1)
+          setOptions(generateOptionsAndShuffle(questions[ques+1]))
+        }
+        if(ques===9){
+          handleShowResult()
+        }
+      }
+    
+      const handleShowResult=()=>{
+        navigation.navigate('Result', {
+          score: score
+        })
+      }
+
+    useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 1,
             duration: 1500,
@@ -93,35 +102,37 @@ export default function ProfileSurvey1({navigation}) {
         }]}
     >
 
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Animated.Image
-                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.3, height: SCREEN_WIDTH*0.3}}
-                source={require('../assets/logo_comp.png')}
-            />
-        </View>
-
+        {/* logo */}
+        <Logo></Logo>
         {/* heading */}
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins_900Black', textAlign: "center"}}>Profile Survey</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), fontFamily: 'Poppins Regular 400', textAlign: "center"}}>Profile Survey</Text>
        
         {/* Question */}
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontWeight: 'bold', fontFamily: 'Poppins_600SemiBold'}}>1. What is the relationship status?  </Text>
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), color: 'red', fontFamily: 'Poppins_100Thin_Italic'}}>please select any one of them  </Text>
+        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), fontWeight: 'bold', fontFamily: 'Poppins Regular 400',}}>1. What is the relationship status?  </Text>
+        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', fontFamily: 'Poppins Regular 400',}}>please select any one of them  </Text>
+        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
+            <View style={[styles.action]}>
+                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 500'}}>1. Single Never married</Text>
+            </View>
+        </TouchableOpacity>
 
-        <View style={[styles.action]}>
-            <Text style={{ fontSize: 18}}>1. Single Never married</Text>
-        </View>
+        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
+            <View style={[styles.action]}>
+                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 400'}}>1. Single Never married</Text>
+            </View>
+        </TouchableOpacity>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: 'Poppins_900Black'}]}>
-            <Text style={{ fontSize: 18}}>2. Married</Text>
-        </View>
+        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
+            <View style={[styles.action]}>
+                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 400'}}>1. Single Never married</Text>
+            </View>
+        </TouchableOpacity>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text style={{ fontSize: 18}}>3. Domestic Partnership</Text>
-        </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text style={{ fontSize: 18}}>4. Prefer not to answer</Text>
-        </View>
+        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
+            <View style={[styles.action]}>
+                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 400'}}>1. Single Never married</Text>
+            </View>
+        </TouchableOpacity>
 
         <Animatable.View animation="fadeInLeft" duration={500}>
         {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
@@ -190,20 +201,16 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     action: {
-        marginTop: normalize(5),
-        maxHeight: 50,
-        flex:1,
+        padding: normalize(6),
+        marginTop: normalize(10),
+        minHeight: normalize(40),
+        maxHeight: 80,
         flexDirection:'row',
         alignItems:'center',
-        // justifyContent:'center',
         borderRadius: normalize(10),
         borderWidth: 1,
         borderColor: "black",
-        paddingLeft: 3,
-        paddingRight: 3,
         backgroundColor: '#ffffff', 
-        fontFamily: 'Poppins_900Black',
-        fontSize: 18
     },
     actionError: {
         flexDirection: 'row',

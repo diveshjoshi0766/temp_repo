@@ -26,6 +26,8 @@ import {useFonts, Poppins_400Regular, Poppins_500Medium_Italic, Poppins_700Bold}
 
 
 import { useTheme } from 'react-native-paper';
+import TagLine from "../components/TagLine";
+import Logo from "../components/Logo";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -75,20 +77,11 @@ export default function DefaultScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Animated.Image
-                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28}}
-                source={require('../assets/logo_remove_bg.png')}
-            />
-        </View>
-        <View style={{alignItems: "center"}}>
-            <View style={{width: 'fit-content'}}>
-                <TouchableOpacity>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
-                    <Text style={{ textAlign: "right", fontSize:normalize(15), fontFamily:'Poppins_500Medium_Italic'}}>it's quick and easy</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        {/* Logo */}
+        <Logo/>
+        {/* TagLine */}
+        <TagLine/>
+
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <FontAwesome 
                 name="user-o"
@@ -125,7 +118,6 @@ export default function DefaultScreen({navigation}) {
             <TextInput 
                 placeholder="Password"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -134,7 +126,7 @@ export default function DefaultScreen({navigation}) {
             />
             <TouchableOpacity
             >
-                {data.secureTextEntry ? 
+                {/* {data.secureTextEntry ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -146,7 +138,12 @@ export default function DefaultScreen({navigation}) {
                     color="grey"
                     size={20}
                 />
-                }
+                } */}
+                <Feather 
+                    name="eye"
+                    color="grey"
+                    size={20}
+                />
             </TouchableOpacity>
         </View>
 
@@ -159,7 +156,6 @@ export default function DefaultScreen({navigation}) {
             <TextInput 
                 placeholder="Confirm Password"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -168,7 +164,7 @@ export default function DefaultScreen({navigation}) {
             />
             <TouchableOpacity
             >
-                {data.secureTextEntry ? 
+                {/* {data.secureTextEntry ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -180,7 +176,12 @@ export default function DefaultScreen({navigation}) {
                     color="grey"
                     size={20}
                 />
-                }
+                } */}
+                <Feather 
+                    name="eye"
+                    color="grey"
+                    size={20}
+                />
             </TouchableOpacity>
         </View>
 
@@ -189,7 +190,6 @@ export default function DefaultScreen({navigation}) {
             <TextInput 
                 placeholder="First Name"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -203,7 +203,6 @@ export default function DefaultScreen({navigation}) {
             <TextInput 
                 placeholder="Last Name"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -237,16 +236,16 @@ export default function DefaultScreen({navigation}) {
         </View>
             
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins_400Regular', fontSize: 20}}>Or continue with</Text>
+        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins Regular 400', fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
-            
+
             <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50}}></Image>
             <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
             
         </View>
         <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>SIGN IN</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
         </Animatable.View>
     </View>

@@ -61,8 +61,8 @@ export default function UserActivityScreen({navigation}) {
                 </View>
                 {/* heading */}
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Reward</Text>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Points History</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
                 </View>
                 <View style={styles.points}>
                     <View style={styles.center}>
@@ -74,6 +74,7 @@ export default function UserActivityScreen({navigation}) {
                         <Text style={styles.text_box_black_points}>100%</Text>
                     </View>
                 </View>
+                
                 <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-evenly', backgroundColor: '#d4d6d1', marginTop: 10}]}>
                     <Text style={styles.tabel_header}>Date</Text>
                     <Text style={styles.tabel_header}>Description</Text>
@@ -139,16 +140,16 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
+        fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
-    
     text_box_black_header: {
         color: '#fff', 
         marginTop:10, 
         fontWeight: '300',
         textAlign: "center", 
         fontSize:normalize(18),
-        fontFamily: 'Poppins_Thin100'
+        fontFamily: 'Poppins Regular 400'
     },
     text_box_black_points: {
         color: '#fff', 
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        // fontFamily: 'Poppins_Black900'
+        fontFamily: 'Poppins Regular 400'
     },
     footer: {
         flex: 1,

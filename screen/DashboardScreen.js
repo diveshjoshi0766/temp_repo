@@ -13,9 +13,6 @@ import {
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import health from '../assets/health.png'
-import { useTheme } from 'react-native-paper';
-import {Poppins_ExtraBold800} from '@expo-google-fonts/poppins';
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -39,8 +36,8 @@ export default function DashboardScreen({navigation}) {
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Dashboard</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Dashboard</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
@@ -55,15 +52,15 @@ export default function DashboardScreen({navigation}) {
         
         <View style={styles.products}>
             <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Health Care</Text>
+                <Text style={{fontWeight: 'bold', fontSize: normalize(18), fontFamily: 'Poppins Regular 400'}}>Health Care</Text>
                 <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
                     <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
                         <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
+                        <Text style={styles.points_}>10m</Text>
                     </View>
                     <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
                         <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100pts</Text>
+                        <Text style={styles.points_}>100pts</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
@@ -93,11 +90,11 @@ export default function DashboardScreen({navigation}) {
                 <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
                     <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
                         <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
+                        <Text style={styles.points_}>10m</Text>
                     </View>
                     <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
                         <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100pts</Text>
+                        <Text style={styles.points_}>100pts</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
@@ -128,11 +125,11 @@ export default function DashboardScreen({navigation}) {
                 <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
                     <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
                         <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>10m</Text>
+                        <Text style={styles.points_}>10m</Text>
                     </View>
                     <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
                         <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
-                        <Text style={{color: '#000000', textAlign: "center", fontSize:normalize(18), fontFamily:'Poppins_Regular400', fontWeight: '500'}}>100pts</Text>
+                        <Text style={styles.points_}>100pts</Text>
                     </View>
                 </View>
                 <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
@@ -165,11 +162,19 @@ export default function DashboardScreen({navigation}) {
 
 
 const styles = StyleSheet.create({
+    points_:{
+        color: '#000000', 
+        textAlign: "center", 
+        fontSize:normalize(18), 
+        fontFamily:'Poppins Regular 400', 
+        fontWeight: '500'
+    },
     header:{
         color: '#000000', 
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
+        fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
     container: {
@@ -183,7 +188,7 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: "center", 
         fontSize:normalize(18),
-        fontFamily: 'Poppins_Thin100'
+        fontFamily: 'Poppins Regular 400'
     },
     text_box_black_points: {
         color: '#fff', 
@@ -191,7 +196,7 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        fontFamily: 'Poppins_Black900'
+        fontFamily: 'Poppins Regular 400'
     },
     product_sml_icon_1:{
         height: 30,
@@ -275,7 +280,8 @@ const styles = StyleSheet.create({
     },
     textSign: {
         fontSize: normalize(14),
-        fontWeight: "500"
+        fontWeight: "500",
+        fontFamily: 'Poppins Regular 400',
     },
     center :{
         justifyContent: 'center', //Centered vertically

@@ -59,12 +59,12 @@ export default function RewardScreen({navigation}) {
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
         <View>
-        <Text style={styles.header}>Good Morning, Vimal</Text>
+            <Text style={styles.header}>Good Morning, Vimal</Text>
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>Reward</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}><Icon name="user" size={20} color="black"/> Profile</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Reward</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
@@ -76,7 +76,7 @@ export default function RewardScreen({navigation}) {
                 <Text style={styles.text_box_black_points}>100%</Text>
             </View>
         </View>
-
+        
 
         <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
             <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
@@ -87,7 +87,7 @@ export default function RewardScreen({navigation}) {
                     />
                 </View>
                 <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20)}}>Amazon</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                         <View style={[styles.cardElement]}>
                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
@@ -109,7 +109,7 @@ export default function RewardScreen({navigation}) {
                     />
                 </View>
                 <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20)}}>Amazon</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                         <View style={[styles.cardElement]}>
                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
@@ -131,7 +131,7 @@ export default function RewardScreen({navigation}) {
                     />
                 </View>
                 <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20)}}>Amazon</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                         <View style={[styles.cardElement]}>
                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
@@ -153,7 +153,7 @@ export default function RewardScreen({navigation}) {
                     />
                 </View>
                 <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20)}}>Amazon</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                         <View style={[styles.cardElement]}>
                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
@@ -175,7 +175,7 @@ export default function RewardScreen({navigation}) {
                     />
                 </View>
                 <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20)}}>Amazon</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                         <View style={[styles.cardElement]}>
                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
@@ -198,7 +198,7 @@ export default function RewardScreen({navigation}) {
                     />
                 </View>
                 <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20)}}>Amazon</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                         <View style={[styles.cardElement]}>
                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
         fontWeight: 500,
         fontSize: normalize(18),
         color: '#fff',
+        fontFamily: 'Poppins Regular 400',
     },
     stretch: {
         width: '100%' ,
@@ -244,6 +245,7 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
+        fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
     text_box_black_header: {
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: "center", 
         fontSize:normalize(18),
-        fontFamily: 'Poppins_Thin100'
+        fontFamily: 'Poppins Regular 400'
     },
     text_box_black_points: {
         color: '#fff', 
@@ -260,7 +262,7 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        // fontFamily: 'Poppins_Black900'
+        fontFamily: 'Poppins Regular 400'
     },
     footer: {
         flex: 1,

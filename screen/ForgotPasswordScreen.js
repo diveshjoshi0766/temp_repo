@@ -16,6 +16,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
 import { useTheme } from 'react-native-paper';
+import Logo from "../components/Logo";
+import TagLine from "../components/TagLine";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -58,23 +60,14 @@ export default function ForgotPasswordScreen({navigation}) {
         }]}
     >
 
-        <View style={{alignItems: 'center', marginTop: '0'}}>
-            <Animated.Image
-                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28 }}
-                source={require('../assets/logo_remove_bg.png')}
-            />
-        </View>
-        <View style={{alignItems: "center"}}>
-            <View style={{width: 'fit-content'}}>
-                <TouchableOpacity>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
-                    <Text style={{ textAlign: "right", fontSize:normalize(15), fontFamily:'Poppins_500Medium_Italic'}}>it's quick and easy</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        {/* Logo */}
+        <Logo/>
+        {/* TagLine */}
+        <TagLine/>
+
 
         
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>Forgot Password</Text>
+        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>Forgot Password</Text>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <FontAwesome 
@@ -117,7 +110,7 @@ export default function ForgotPasswordScreen({navigation}) {
         </View>
             
         <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_400Regular'}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins_700Bold'}}>SIGN UP</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>

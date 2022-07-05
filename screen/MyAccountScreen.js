@@ -3,23 +3,15 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
-    TextInput,
-    TouchableOpacity,
     Dimensions,
     Platform, 
     PixelRatio,
-    ScrollView
+    ScrollView,
+    Image,
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-
 import { useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/FontAwesome";
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -54,9 +46,11 @@ export default function MyAccountScreen({navigation}) {
             </View>
             {/* heading */}
             <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins_Black900'}}>My Account</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>My Account</Text>
             </View>
-            <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
+
+
+            <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="user" color="#378C3C" size={30}></Icon>
                     </View>
@@ -64,11 +58,11 @@ export default function MyAccountScreen({navigation}) {
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18, fontFamily: 'Poppins Regular 400'}}>Personal Details</Text>
                         <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
@@ -82,130 +76,130 @@ export default function MyAccountScreen({navigation}) {
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Profile Survey</Text>
+                        <Text style={{fontStyle: 'italic'}}>your demographic information</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                        <Image source={require('../assets/home_Gr.png')} style={{ width: 30, height: 30 }}></Image>
                     </View>
                     <View style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Change Password</Text>
+                        <Text style={{fontStyle: 'italic'}}>manage your sign-in settings</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                        <Icon name="id-badge" color="#378C3C" size={30}></Icon>
                     </View>
                     <View style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Communication Preferences</Text>
+                        <Text style={{fontStyle: 'italic'}}>prefered means of communications</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                        <Icon name="user-plus" color="#378C3C" size={30}></Icon>
                     </View>
                     <View style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Refer a friend</Text>
+                        <Text style={{fontStyle: 'italic'}}>invite your friends to join</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                        <Icon name="shield" color="#378C3C" size={30}></Icon>
                     </View>
                     <View style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Privacy Policy</Text>
+                        <Text style={{fontStyle: 'italic'}}>how we manage privacy</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                        <Icon name="file" color="#378C3C" size={30}></Icon>
                     </View>
                     <View style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Terms & Conditions</Text>
+                        <Text style={{fontStyle: 'italic'}}>service providing document</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                        <Icon name="question" color="#378C3C" size={30}></Icon>
                     </View>
                     <View style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>FAQs</Text>
+                        <Text style={{fontStyle: 'italic'}}>frequently asked question</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="group" color="#378C3C" size={30}></Icon>
+                        <Icon name="arrow-right-from-bracket" color="#378C3C" size={30}></Icon>
                     </View>
                     <View style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
                     }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Personal Details</Text>
-                        <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Log Out</Text>
+                        <Text style={{fontStyle: 'italic'}}>sign out of the application</Text>
                     </View>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
-                        <Icon name="adduser" color="#378C3C" size={30}></Icon>
+                        <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View> 
 
@@ -221,6 +215,7 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
+        fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
     container: {

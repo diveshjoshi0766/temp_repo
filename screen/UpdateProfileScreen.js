@@ -70,16 +70,16 @@ export default function UpdateProfileScreen({navigation}) {
     <Animatable.View 
         animation="fadeInUpBig"
         style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
+            backgroundColor: "#f0f0f0"
         }]}
     >
 
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20)}}>Presonal Details</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Presonal Details</Text>
 
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
             <View style={{alignItems: 'center'}}>
                 <Icon name="user" size={50}></Icon>
-                <Text style={{color:'red'}}>Change avatar</Text>
+                <Text style={{color:'red', fontFamily: 'Poppins Regular 400'}}>Change avatar</Text>
             </View>
             <View style={{paddingLeft: normalize(10)}}>
                 <Text style={styles.label}>SOID: </Text>
@@ -252,9 +252,12 @@ export default function UpdateProfileScreen({navigation}) {
 
 
 const styles = StyleSheet.create({
+    label:{
+        fontFamily: 'Poppins Regular 400',
+    },
     container: {
         flex: 1, 
-        backgroundColor: 'rgb(235 235 235)',
+        backgroundColor: '#f0f0f0',
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
@@ -276,7 +279,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         flex: 1,
-        backgroundColor: 'rgb(235 235 235)',
+        backgroundColor: '#f0f0f0',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
@@ -338,7 +341,8 @@ const styles = StyleSheet.create({
     },
     textSign: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'Poppins Regular 400',
     },
   });
 

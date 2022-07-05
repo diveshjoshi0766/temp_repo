@@ -37,20 +37,9 @@ export function normalize(size) {
 
 export default function ChangePasswordScreen({navigation}) {
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [isSelected, setSelection] = useState(false);
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
 
     return (
     <View style={styles.container}>
@@ -61,7 +50,7 @@ export default function ChangePasswordScreen({navigation}) {
         }]}
     >
 
-        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'gray'}}>Change Password</Text>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'gray', fontFamily: 'Poppins Regular 400',}}>Change Password</Text>
         
         <View style={[styles.action, {backgroundColor: '#ffffff', marginTop: 20}]}>
             <FontAwesome 
@@ -99,7 +88,6 @@ export default function ChangePasswordScreen({navigation}) {
             <TextInput 
                 placeholder="New Password"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -108,7 +96,7 @@ export default function ChangePasswordScreen({navigation}) {
             />
             <TouchableOpacity
             >
-                {data.secureTextEntry ? 
+                {/* {data.secureTextEntry ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -120,7 +108,12 @@ export default function ChangePasswordScreen({navigation}) {
                     color="grey"
                     size={20}
                 />
-                }
+                } */}
+                <Feather 
+                    name="eye-off"
+                    color="grey"
+                    size={20}
+                />
             </TouchableOpacity>
         </View>
 
@@ -133,7 +126,6 @@ export default function ChangePasswordScreen({navigation}) {
             <TextInput 
                 placeholder="Confirm Password"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -142,7 +134,7 @@ export default function ChangePasswordScreen({navigation}) {
             />
             <TouchableOpacity
             >
-                {data.secureTextEntry ? 
+                {/* {data.secureTextEntry ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -154,7 +146,12 @@ export default function ChangePasswordScreen({navigation}) {
                     color="grey"
                     size={20}
                 />
-                }
+                } */}
+                <Feather 
+                    name="eye"
+                    color="grey"
+                    size={20}
+                />
             </TouchableOpacity>
         </View>
         <View style={styles.button}>

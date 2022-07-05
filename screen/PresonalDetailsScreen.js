@@ -91,8 +91,8 @@ export default function PresonalDetailsScreen({navigation}) {
         }]}
     >
 
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins_900Black'}}>Good Afternoon, RamCharafdffdfdn</Text>
-        <Text style={{color: '#000000', marginTop:normalize(5), fontSize: normalize(20), fontFamily: 'Poppins_500Medium'}}>Presonal Details</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Good Afternoon, RamChara</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Presonal Details</Text>
 
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
             <Image
@@ -100,9 +100,9 @@ export default function PresonalDetailsScreen({navigation}) {
                 source={require('../assets/logo_remove_bg.png')}
             />
             <View style={{paddingLeft: normalize(10)}}>
-                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins_500Medium'}]}>SOID: </Text>
-                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins_500Medium'}]}>Profile Completion: </Text>
-                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins_500Medium'}]}>Email: </Text>
+                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}]}>SOID: </Text>
+                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}]}>Profile Completion: </Text>
+                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}]}>Email: </Text>
             </View>
         </View>
 
@@ -123,7 +123,6 @@ export default function PresonalDetailsScreen({navigation}) {
             <TextInput 
                 placeholder="Last Name"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -179,7 +178,6 @@ export default function PresonalDetailsScreen({navigation}) {
             <TextInput 
                 placeholder="Address 1"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -192,7 +190,6 @@ export default function PresonalDetailsScreen({navigation}) {
             <TextInput 
                 placeholder="Address 2"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -204,7 +201,6 @@ export default function PresonalDetailsScreen({navigation}) {
             <TextInput 
                 placeholder="Choose City"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -217,7 +213,6 @@ export default function PresonalDetailsScreen({navigation}) {
             <TextInput 
                 placeholder="Country India"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -230,7 +225,6 @@ export default function PresonalDetailsScreen({navigation}) {
             <TextInput 
                 placeholder="Zipcode"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -240,7 +234,6 @@ export default function PresonalDetailsScreen({navigation}) {
             <TextInput 
                 placeholder="Phone Number"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
@@ -258,7 +251,8 @@ export default function PresonalDetailsScreen({navigation}) {
                 }]}
             >
                 <Text style={[styles.textSign, {
-                    color: '#fff'
+                    color: '#fff',
+                    fontFamily: 'Poppins Regular 400'
                 }]}>Next</Text>
             </TouchableOpacity>
         </View>
