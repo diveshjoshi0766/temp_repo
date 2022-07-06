@@ -1,19 +1,33 @@
 import React, {useContext} from 'react';
-import {Text, View} from 'react-native';
-
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from '../screens/HomeScreen';
-import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
 import {AuthContext} from '../context/AuthContext';
-import SplashScreen from '../screens/SplashScreen';
+import SplashScreen from '../screen/SplashScreen';
+import MyTabScreen from '../screen/MyTabScreen';
+import SignInScreen from '../screen/SignInScreen';
+import DefaultScreen from '../screen/DefaultScreen';
+import ForgotPasswordScreen from '../screen/ForgotPasswordScreen';
+import SignUpScreen from '../screen/SignUpScreen';
+import PresonalDetailsScreen from '../screen/PresonalDetailsScreen';
+import ProfileSurvey1 from '../screen/ProfileSurvey1';
 
 const Stack = createNativeStackNavigator();
 
+
+// (userInfo.message !== undefined && userInfo.message.split('!!')[0] == 'Congratulations') ? (
+//   <>
+//     <Stack.Screen name="Profile Survey" component={ProfileSurvey1} screenOptions={{headerShown: false}}/>
+//     <Stack.Screen
+//       name="Home"
+//       component={MyTabScreen}
+//       options={{headerShown: false}}
+//     />
+//   </>
+// ) :
+
 const Navigation = () => {
   const {userInfo, splashLoading} = useContext(AuthContext);
-
+  console.log(userInfo)
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -23,18 +37,35 @@ const Navigation = () => {
             component={SplashScreen}
             options={{headerShown: false}}
           />
-        ) : userInfo.access_token ? (
-          <Stack.Screen name="Home" component={HomeScreen} />
+        ) : 
+  
+        userInfo.Result  ? (
+          <Stack.Screen name="Home" component={MyTabScreen} screenOptions={{headerShown: false}}/>
         ) : (
           <>
             <Stack.Screen
-              name="Login"
-              component={LoginScreen}
+              name="Defualt Screen"
+              component={DefaultScreen}
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name="Register"
-              component={RegisterScreen}
+              name="Sign In Screen"
+              component={SignInScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Forgot Password Screen"
+              component={ForgotPasswordScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Sign Up Screen"
+              component={SignUpScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Presonal Details Screen"
+              component={PresonalDetailsScreen}
               options={{headerShown: false}}
             />
           </>

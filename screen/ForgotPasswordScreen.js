@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
     StyleSheet,
     Text,
@@ -14,10 +14,11 @@ import {
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-
 import { useTheme } from 'react-native-paper';
 import Logo from "../components/Logo";
 import TagLine from "../components/TagLine";
+import { AuthContext } from "../context/AuthContext";
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -32,6 +33,8 @@ export function normalize(size) {
 }
 const spinValue = new Animated.Value(0);
 export default function ForgotPasswordScreen({navigation}) {
+
+    const {isLoading, forgotpassword} = useContext(AuthContext);
     
     React.useEffect(() => {
         Animated.timing(spinValue, {
@@ -65,8 +68,6 @@ export default function ForgotPasswordScreen({navigation}) {
         {/* TagLine */}
         <TagLine/>
 
-
-        
         <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>Forgot Password</Text>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
@@ -98,10 +99,11 @@ export default function ForgotPasswordScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => forgotpassword(email)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
+                disabled={isLoading}
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
@@ -109,7 +111,7 @@ export default function ForgotPasswordScreen({navigation}) {
             </TouchableOpacity>
         </View>
             
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Sign Up Screen')}>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>

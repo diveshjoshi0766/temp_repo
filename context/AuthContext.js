@@ -9,28 +9,44 @@ export const AuthProvider = ({children}) => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [splashLoading, setSplashLoading] = useState(false);
+  const [surveyQuestion, setSurveyQuestion] = useState({});
+
+  const survey_question_func = (countryID, panelistID) => {
+    setLoading(true)
+    axios
+    .get(`${BASE_URL}/registration/${countryID}/${panelistID}`)
+    .then(res => {
+      let questions = res.data;
+      setSurveyQuestion(questions);
+      AsyncStorage.setItem('surveyQuestion', JSON.stringify(surveyQuestion));
+      setIsLoading(false);
+      console.log(questions);
+    })
+    .catch(e => {
+      console.log(`register error ${e}`);
+      setIsLoading(false);
+    });
+
+  }
 
   const register = (email, password, confirmPassword, firstName, lastName) => {
     setIsLoading(true);
 
-    let data = {
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-      firstName: firstName,
-      lastName: lastName
-    }
+    const data =JSON.stringify({
+      "email": email,
+      "password": password,
+      "subscription" : 1,
+      "registration_mode" :2,
+      "ipaddress" : "192.241.148.69", 
+      "firstName": firstName,
+      "lastName": lastName,
+      "isMobile" : 1
+    })
+
+    console.log(data)
 
       axios
-      .post(`${BASE_URL}/registration`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Headers': '*',
-          'Access-Control-Allow-Origin': 'http://localhost:19001',
-          'Authorization': 'x-access-token 3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
-        },
-        data
-      })
+      .post(`${BASE_URL}/registration`, data)
       .then(res => {
         let userInfo = res.data;
         setUserInfo(userInfo);
@@ -42,27 +58,21 @@ export const AuthProvider = ({children}) => {
         console.log(`register error ${e}`);
         setIsLoading(false);
       });
-  };
+  }
 
   const login = (email, password) => {
     setIsLoading(true);
-
-    let data = 
-      {
-        "email" : "diveshjoshi35@gmail.com", 
-        "password" : 111111
-      }
-    
-
+      const data = JSON.stringify({
+        "email" : email, 
+        "password" : password
+      });
+      console.log(data)
     axios
-      .post(`${BASE_URL}/login`,{
-        headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Headers': '*',
-        'Access-Control-Allow-Origin': 'http://localhost:19001',
-        'Authorization': 'x-access-token 3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
-      },
-      data
+      .post(`${BASE_URL}/login`, data, {
+        "Headers": {
+          'Content-Type': 'application/json',
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+        }
       })
       .then(res => {
         let userInfo = res.data;
@@ -77,15 +87,20 @@ export const AuthProvider = ({children}) => {
       });
   };
 
-  const logout = () => {
+  const logout = (email) => {
     setIsLoading(true);
-
+    const data = JSON.stringify({
+      email: email
+    })
     axios
       .post(
         `${BASE_URL}/logout`,
-        {},
+        data,
         {
-          headers: {Authorization: `Bearer ${userInfo.access_token}`},
+          "Headers": {
+            'Content-Type': 'application/json',
+            'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          }
         },
       )
       .then(res => {
@@ -99,6 +114,32 @@ export const AuthProvider = ({children}) => {
         setIsLoading(false);
       });
   };
+
+  const forgotpassword = (email) => {
+      setIsLoading(true);
+      const data = JSON.stringify({
+        email: email
+      })
+      axios.put(
+        `${BASE_URL}/forgotpassword`, data,{
+          "Headers": {
+            'Content-Type': 'application/json',
+            'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          }
+        }
+      )
+      .then(res => {
+        console.log(res.data);
+        AsyncStorage.removeItem('userInfo');
+        setUserInfo({});
+        setIsLoading(false);
+      })
+      .catch(e => {
+        console.log(`logout error ${e}`);
+        setIsLoading(false);
+      });
+  };
+
 
   const isLoggedIn = async () => {
     try {
@@ -124,7 +165,16 @@ export const AuthProvider = ({children}) => {
 
   return (
     <AuthContext.Provider
-      value={{register,login
+      value={{
+        isLoading,
+        userInfo,
+        splashLoading,
+        register,
+        login,
+        logout,
+        forgotpassword,
+        surveyQuestion,
+        survey_question_func
       }}>
       {children}
     </AuthContext.Provider>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
     StyleSheet,
     Text,
@@ -15,6 +15,10 @@ import {
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "../components/Logo";
+import { AuthContext } from "../context/AuthContext";
+import { BASE_URL } from "../config";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -31,69 +35,76 @@ export function normalize(size) {
 const spinValue = new Animated.Value(0);
 
 export default function ProfileSurvey1({navigation}) {
-
-    const [questions, setQuestions] = useState();
+    
+    const [ques_obj, setQues_obj] = useState(null)
     const [ques, setQues] = useState(0);
     const [options, setOptions]= useState([])
     const [score, setScore]= useState(0)
-    const [isLoading, setIsLoading]= useState(false)
+    const [loading, setLoading] = useState(false)
+    const [answers, setAnswers] = useState([])
+    const [questions, setQuestions] = useState([])
+    
 
-    const getQuiz = async () => {
-        setIsLoading(true)
-        const url = 'BASE_URL';
-        const res = await fetch(url);
-        const data = await res.json();
-        setQuestions(data.results);
-        setOptions(generateOptionsAndShuffle(data.results[0]))
-        setIsLoading(false)
+    const {isLoading, register, userInfo} = useContext(AuthContext);
+
+    const getQuiz = () => {
+        setLoading(true)
+
+        axios
+        .get(`http://staging.paneloptimus.com/api/getCountryQuestion/232/${userInfo.results.panelistID}`)
+        .then(res => {
+            let responce_data = res.data;
+            AsyncStorage.setItem('surveyQuestion', JSON.stringify(surveyQuestion));
+            
+            if(res.data.message == 'Questions are successfully searched'){
+                setQues_obj(res.data.Results)
+                console.log(setQuestions)
+            }
+            setLoading(false);
+        })
+        .catch(e => {
+        console.log(`register error ${e}`);
+        setLoading(false);
+        });
     };
+
+    useEffect(() => {
+        getQuiz(232, parseInt(userInfo.results.panelistID));
+    }, []);
+
+    // I have to return ans object in that object key will be "question_code" and value will be "answer_code" -> answer_code can be a strign containing multiple answers
+
+    console.log(setQuestions);
+    // const len = Object.keys(setQuestions).length
+
 
     const handleNextPress=()=>{
         setQues(ques+1)
-        setOptions(generateOptionsAndShuffle(questions[ques+1]))
-      }
+        // setOptions(setQuestions.get(ques+1))
+    }
     
-      const generateOptionsAndShuffle=(_question)=>{
-        const options= [..._question.incorrect_answers]
-        options.push(_question.correct_answer)
-        return options
-      }
-    
-      const handlSelectedOption=(_option)=>{
+    const handlSelectedOption=(_option)=>{
         if(_option===questions[ques].correct_answer){
-          setScore(score+10)
+            setAnswers()
         }
         if(ques!==9){
-          setQues(ques+1)
-          setOptions(generateOptionsAndShuffle(questions[ques+1]))
+            setQues(ques+1)
+            setOptions(questions[ques+1])
         }
         if(ques===9){
-          handleShowResult()
+            handleShowResult()
         }
-      }
+    }
     
-      const handleShowResult=()=>{
+    const handleShowResult=()=>{
         navigation.navigate('Result', {
-          score: score
+            score: score
         })
-      }
+    }
 
-    useEffect(() => {
-        Animated.timing(spinValue, {
-            toValue: 1,
-            duration: 1500,
-            easing: Easing.linear,
-            useNativeDriver: true,
-        }).start();
-        }, []);
 
-        const spin = spinValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['0deg', '360deg'],
-    });
-   
-    return (
-        
+
+    return (        
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -102,13 +113,17 @@ export default function ProfileSurvey1({navigation}) {
         }]}
     >
 
-        {/* logo */}
-        <Logo></Logo>
         {/* heading */}
         <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), fontFamily: 'Poppins Regular 400', textAlign: "center"}}>Profile Survey</Text>
        
         {/* Question */}
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), fontWeight: 'bold', fontFamily: 'Poppins Regular 400',}}>1. What is the relationship status?  </Text>
+        {
+            isLoading ? <View style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
+                <Text style={{fontSize:32, fontWeight:'700'}}>LOADING...</Text>
+            </View> : <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), fontWeight: 'bold', fontFamily: 'Poppins Regular 400',}}>1. ques_obj.ques.Question.question_title  </Text>
+        }
+      
+        
         <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', fontFamily: 'Poppins Regular 400',}}>please select any one of them  </Text>
         <TouchableOpacity style={{minHeight: 'justifyContent'}}>
             <View style={[styles.action]}>
@@ -133,11 +148,6 @@ export default function ProfileSurvey1({navigation}) {
                 <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 400'}}>1. Single Never married</Text>
             </View>
         </TouchableOpacity>
-
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
-
 
         <View style={styles.button}>
 

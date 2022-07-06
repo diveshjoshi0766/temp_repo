@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://staging.paneloptimus.com/api';
+export const BASE_URL = 'https://staging.paneloptimus.com/api';

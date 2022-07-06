@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
     StyleSheet,
     Text,
@@ -20,6 +20,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import Logo from "../components/Logo";
 import TagLine from "../components/TagLine";
+import { AuthContext } from "../context/AuthContext";
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -60,6 +62,9 @@ export default function SignUpScreen({navigation}) {
     const [lastName, setLastName] = useState(null)
 
     const [isSelected, setSelection] = useState(false);
+
+    const {isLoading, register} = useContext(AuthContext);
+
 
     return (
         
@@ -226,7 +231,7 @@ export default function SignUpScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => register(email, password, confirmPassword, firstName, lastName)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
@@ -246,7 +251,7 @@ export default function SignUpScreen({navigation}) {
             <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
             
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Sign In Screen')}>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
     </Animatable.View>

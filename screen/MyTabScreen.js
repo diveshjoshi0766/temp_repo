@@ -5,7 +5,6 @@ import SpinnerScreen from './SpinnerScreen';
 import RewardScreen from './RewardScreen';
 import UserActivityScreen from './UserActivitScreen';
 import MyAccountScreen from './MyAccountScreen';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   Image,
 } from "react-native";

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { Button, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -31,6 +31,9 @@ import RewardHistory from './screen/RewardHistory';
 import UserActivityScreen from './screen/UserActivitScreen';
 import LoadingScreen from './screen/LoadingScreen';
 import SpinnerEndPages from './screen/SpinnerEndPages';
+import Navigation from './component/Navigation';
+import { AuthContext } from './context/AuthContext';
+import SplashScreen from './screen/SplashScreen';
 
 // My Screen Tab
 import MyTabScreen from './screen/MyTabScreen';
@@ -46,12 +49,24 @@ const Stack = createNativeStackNavigator();
 export default function App({ navigation }) {
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Home" component={SignInScreen } />
-          <Stack.Screen name="Details" component={SignInScreen } />
-        </Stack.Navigator>
-      </NavigationContainer>
-  </AuthProvider>
+      <Navigation></Navigation>
+      {/* <SignInScreen></SignInScreen> */}
+    </AuthProvider>
   );
 }
+
+
+// export default function App({ navigation }) {
+//   const {userInfo, splashLoading} = useContext(AuthContext);
+//   return (
+//     <AuthProvider>
+//       <NavigationContainer>
+//         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+//           <Stack.Screen name="Home" component={Navigation } />
+//           <Stack.Screen name="Details" component={Navigation } />
+//         </Stack.Navigator>
+//       </NavigationContainer>
+//   </AuthProvider>
+//   );
+// }
+

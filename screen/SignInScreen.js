@@ -41,7 +41,7 @@ export default function SignInScreen({navigation}) {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
-    const {login} = useContext(AuthContext);
+    const {isLoading, login} = useContext(AuthContext);
 
     
     React.useEffect(() => {
@@ -138,7 +138,7 @@ export default function SignInScreen({navigation}) {
             </TouchableOpacity>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Forgot Password Screen')}>
             <Text style={{color: '#009387', marginTop:15, paddingRight: 0, fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}}>Forgot password?</Text>
         </TouchableOpacity>
 
@@ -148,6 +148,7 @@ export default function SignInScreen({navigation}) {
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
+                disabled={isLoading}
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
@@ -164,8 +165,8 @@ export default function SignInScreen({navigation}) {
             <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
             
         </View>
-        <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
+        <TouchableOpacity  onPress={() => navigation.navigate('Sign Up Screen')}>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>

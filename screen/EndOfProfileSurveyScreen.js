@@ -10,14 +10,7 @@ import {
     Platform, 
     PixelRatio
 } from "react-native";
-import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-
-import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -32,19 +25,8 @@ export function normalize(size) {
 }
 
 export default function EndOfProfileSurveyScreen({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
+    
     return (
-        
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -75,7 +57,7 @@ export default function EndOfProfileSurveyScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => navigation.navigate('Home')}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
