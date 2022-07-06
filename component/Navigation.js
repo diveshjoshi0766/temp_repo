@@ -14,20 +14,10 @@ import ProfileSurvey1 from '../screen/ProfileSurvey1';
 const Stack = createNativeStackNavigator();
 
 
-// (userInfo.message !== undefined && userInfo.message.split('!!')[0] == 'Congratulations') ? (
-//   <>
-//     <Stack.Screen name="Profile Survey" component={ProfileSurvey1} screenOptions={{headerShown: false}}/>
-//     <Stack.Screen
-//       name="Home"
-//       component={MyTabScreen}
-//       options={{headerShown: false}}
-//     />
-//   </>
-// ) :
+
 
 const Navigation = () => {
   const {userInfo, splashLoading} = useContext(AuthContext);
-  console.log(userInfo)
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -37,7 +27,16 @@ const Navigation = () => {
             component={SplashScreen}
             options={{headerShown: false}}
           />
-        ) : 
+        ) : (userInfo.message !== undefined && userInfo.message.split('!!')[0] == 'Congratulations') ? (
+          <>
+            <Stack.Screen name="Profile Survey" component={ProfileSurvey1} screenOptions={{headerShown: false}}/>
+            <Stack.Screen
+              name="Home"
+              component={MyTabScreen}
+              options={{headerShown: false}}
+            />
+          </>
+        ) :
   
         userInfo.Result  ? (
           <Stack.Screen name="Home" component={MyTabScreen} screenOptions={{headerShown: false}}/>

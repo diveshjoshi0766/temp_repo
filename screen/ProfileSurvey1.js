@@ -3,13 +3,10 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
-    TextInput,
     TouchableOpacity,
     Dimensions,
     Platform, 
     PixelRatio,
-    CheckBox,
     Animated,
     Easing 
 } from "react-native";
@@ -38,27 +35,43 @@ export default function ProfileSurvey1({navigation}) {
     
     const [ques_obj, setQues_obj] = useState(null)
     const [ques, setQues] = useState(0);
-    const [options, setOptions]= useState([])
+    const [option, setOption] = useState(0)
+
     const [score, setScore]= useState(0)
     const [loading, setLoading] = useState(false)
-    const [answers, setAnswers] = useState([])
     const [questions, setQuestions] = useState([])
-    
+    const [options, setOptions] = useState([])
+    // const isMonuted = useRef(true)
+    const [data, setData] = useState()
 
+    const [ques_arr, setQues_arr] = useState([])
+    const [ans_arr, setAns_arr] = useState([])
     const {isLoading, register, userInfo} = useContext(AuthContext);
 
     const getQuiz = () => {
-        setLoading(true)
+        
+    };
 
+    useEffect(() => {
+        
+        // getQuiz(232, parseInt(userInfo.results.panelistID));
+        let isMounted = true
+        setLoading(true)
+        console.log(userInfo)
         axios
-        .get(`http://staging.paneloptimus.com/api/getCountryQuestion/232/${userInfo.results.panelistID}`)
+        .get(`http://staging.paneloptimus.com/api/getCountryQuestion/232/${parseInt(userInfo.results.panelistID)}`)
         .then(res => {
             let responce_data = res.data;
-            AsyncStorage.setItem('surveyQuestion', JSON.stringify(surveyQuestion));
-            
-            if(res.data.message == 'Questions are successfully searched'){
+            console.log(responce_data)
+            setData(responce_data)
+
+            if(responce_data.message == 'Questions are successfully searched'){
                 setQues_obj(res.data.Results)
-                console.log(setQuestions)
+                let len = Object.keys(res.data.Results).length
+                let val = Object.values(res.data.Results)
+                if(isMounted){
+                    setQuestions(res.data.Results)
+                }
             }
             setLoading(false);
         })
@@ -66,23 +79,20 @@ export default function ProfileSurvey1({navigation}) {
         console.log(`register error ${e}`);
         setLoading(false);
         });
-    };
-
-    useEffect(() => {
-        getQuiz(232, parseInt(userInfo.results.panelistID));
+        return () => {
+            // setQuestions({}); // This worked for me
+            isMounted = false
+        };
+      
     }, []);
 
     // I have to return ans object in that object key will be "question_code" and value will be "answer_code" -> answer_code can be a strign containing multiple answers
-
-    console.log(setQuestions);
-    // const len = Object.keys(setQuestions).length
-
 
     const handleNextPress=()=>{
         setQues(ques+1)
         // setOptions(setQuestions.get(ques+1))
     }
-    
+
     const handlSelectedOption=(_option)=>{
         if(_option===questions[ques].correct_answer){
             setAnswers()
@@ -102,7 +112,17 @@ export default function ProfileSurvey1({navigation}) {
         })
     }
 
+    // console.log(typeof(Object.entries(Object.values(questions))[0]))
+    // let temp = Object.entries(Object.values(questions))[0]
+    // if(temp !== undefined){
+    //     console.log(temp)
+    //     // temp.map((val) => {
+    //     //     console.log(val)
+    //     // })
+    // }
+    // console.log(questions)
 
+    console.log(data.Results)
 
     return (        
     <View style={styles.container}>
@@ -120,7 +140,7 @@ export default function ProfileSurvey1({navigation}) {
         {
             isLoading ? <View style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
                 <Text style={{fontSize:32, fontWeight:'700'}}>LOADING...</Text>
-            </View> : <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), fontWeight: 'bold', fontFamily: 'Poppins Regular 400',}}>1. ques_obj.ques.Question.question_title  </Text>
+            </View> : <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), fontWeight: 'bold', fontFamily: 'Poppins Regular 400',}}>{ques}. {questions[ques]}</Text>
         }
       
         
