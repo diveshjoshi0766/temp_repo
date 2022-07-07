@@ -17,7 +17,7 @@ import SurveyEndPages from './screen/SurveyEndPages';
 import MyAccountScreen from './screen/MyAccountScreen';
 import UpdateProfileScreen from './screen/UpdateProfileScreen';
 import ChangePasswordScreen from './screen/ChangePasswordScreen';
-import CommunicationOperationsScreen from './screen/CommunicationOperationsScreen';
+import CommunicationOptionScreen from './screen/CommunicationOptionScreen';
 import UnsubscribeReason from './screen/UnsubscribeReason';
 import DeactivationConfirmation from './screen/DeactivationConfirmation';
 import ReferFriendToFollow from './screen/ReferFriendToFollow';

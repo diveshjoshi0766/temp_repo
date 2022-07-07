@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AuthContext } from "../context/AuthContext";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -28,11 +29,25 @@ export function normalize(size) {
 }
 
 export default function DashboardScreen({navigation}) {
+
+
+
+    const {isLoading, userInfo, dash_survey, dashboard_survey, panelist_basic_details, panelistBasicDetails_func} = useContext(AuthContext);
+    console.log(userInfo)
+    if(userInfo.Result.firstname != undefined){
+        panelistBasicDetails_func()
+    }
+    useEffect(() => {
+        dashboard_survey()
+    }, [])
+
+    console.log(userInfo.Result)
+
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
         <View>
-            <Text style={styles.header}>Good Morning, Vimal</Text>
+            <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
@@ -42,13 +57,15 @@ export default function DashboardScreen({navigation}) {
         <View style={styles.points}>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Points</Text>
-                <Text style={styles.text_box_black_points}>1355</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
             </View>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Profile</Text>
-                <Text style={styles.text_box_black_points}>100%</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
             </View>
         </View>
+
+        
         
         <View style={styles.products}>
             <View style={[styles.center, {justifyContent: "space-between"}]}>

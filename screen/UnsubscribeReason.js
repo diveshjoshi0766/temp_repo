@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -18,6 +18,7 @@ import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 
 import { useTheme } from 'react-native-paper';
+import { AuthContext } from "../context/AuthContext";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -33,16 +34,15 @@ export function normalize(size) {
 
 export default function UnsubscribeReason({navigation}) {
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
+    const {isLoading, emailUnsubscribe} = useContext(AuthContext);
+    const [number, setNumber] = useState(0);
+    const [text, setText] = useState("");
+    const [select, setSelect] = useState(false)
+    const un_subscribe = () => {
+        console.log(number)
+        emailUnsubscribe(0, number, text)
+    }
+
     return (
         
     <View style={styles.container}>
@@ -59,34 +59,40 @@ export default function UnsubscribeReason({navigation}) {
         <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>You are requesting to Unsubscribe/opt-out from receiving email survey invitations, marketing message and notices from SurveyOptimus.</Text>
         <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>Please take a monument to tell us why you no longer wish to receive email invitations, marketing messagae and notices:</Text>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>I receive too many emails and messages from you</Text>
-        </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>I don't receive enough survey from you</Text>
-        </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>I am having touble opening your email messages</Text>
-        </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>I never qualify for surveys</Text>
-        </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>Email Survey don't interest me</Text>
-        </View>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <Text>Other (Please explain below)</Text>
+        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(1)}} disabled={select}>
+            <Text style={styles.option}>I receive too many emails and messages from you</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(2)}} disabled={select}>
+            <Text style={styles.option}>I don't receive enough survey from you</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(3)}} disabled={select}>
+            <Text style={styles.option}>I am having touble opening your email messages</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(4)}} disabled={select}>
+            <Text style={styles.option}>I never qualify for surveys</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(5)}} disabled={select}>
+            <Text style={styles.option}>Email Survey don't interest me</Text>
+        </TouchableOpacity>
+        <View style={[styles.action, {backgroundColor: '#ffffff', display: select ? 'none' : ''}]}>
+            <TextInput 
+                placeholder="Other (Please explain below)"
+                placeholderTextColor="#666666"
+                style={[styles.textInput, {
+                    color: colors.text
+                }]}
+                autoCapitalize="none"
+                onChangeText={(val) => 
+                {   setNumber(6)
+                    setText(val)}}
+                
+            />
         </View>
 
         <View style={styles.button}>
 
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={un_subscribe}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
@@ -163,7 +169,7 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     },
     textInput: {
-        height: normalize(20),
+        height: normalize(30),
         flex: 1,
         paddingLeft: 10,
         color: '#05375a',

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
     StyleSheet,
     Text,
@@ -9,7 +9,9 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    ScrollView
+    ScrollView,
+    Container,
+    stylesGrid 
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -19,7 +21,9 @@ import facebook from '../assets/facebook.png'
 import google from '../assets/google.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { useTheme } from 'react-native-paper';
+import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -34,17 +38,26 @@ export function normalize(size) {
 }
 
 export default function RewardHistory({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
+
+    const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [trans_history, setTrans_history] = useState()
+    const {userInfo} = useContext(AuthContext);
+    console.log(userInfo)
+    const [comments,setComments]=useState(null)
+    useEffect(() => {
+      fetchComments();
+    }, [])
+    useEffect(() => {
+      console.log(comments)
+    }, [comments])
+    const fetchComments=async()=>{
+    const response=await axios(`http://staging.paneloptimus.com/api/transactionHistory/${parseInt(userInfo.Result.panelistID)}`);
+    setComments(response.data.activityDetails)    
+    }
+
+    console.log(comments)
+
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
@@ -55,7 +68,10 @@ export default function RewardHistory({navigation}) {
         }]}
     >
 
-        <View style={styles.products}>
+    {
+        comments && comments.map((comment) => {
+            return(
+                <View style={styles.products}>
             <View style={[styles.center, {width: "50%", padding: 5}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
                     <Image
@@ -71,22 +87,26 @@ export default function RewardHistory({navigation}) {
                         >
                             <Text style={[styles.textSign, {
                                 color: '#fff'
-                            }]}>Processing</Text>
+                            }]}>{comment.Transaction_status}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
             <View style={styles.center}>
                 <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
-                <Text style={{textAlign: 'center'}}>Redeem Points : </Text>
+                <Text style={{textAlign: 'center'}}>Redeem Points : {comment.Total_points}</Text>
                 <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
                 <Text style={{textAlign: 'center'}}>Trans ID : </Text>
-                <Text style={{textAlign: 'center'}}>Date : </Text>
+                <Text style={{textAlign: 'center'}}>Date : {comment.Date}</Text>
             </View>
         </View>
 
+            )
+        })
+    }
+
         
-        
+        {/* dummy data */}
         <View style={styles.products}>
             <View style={[styles.center, {width: "50%"}]}>
                 <View style={{alignItems: 'center'}}>

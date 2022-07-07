@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -13,11 +13,12 @@ import {
 import * as Animatable from 'react-native-animatable';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { RadioButton } from 'react-native-paper'
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-
-
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { BASE_URL } from "../config";
+import axios from "axios";
 
 import { useTheme } from 'react-native-paper';
+import { AuthContext } from "../context/AuthContext";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -32,38 +33,60 @@ export function normalize(size) {
 }
 
 export default function UpdateProfileScreen({navigation}) {
+    
+    const {userInfo, panelist_basic_details,udpate_profile} = useContext(AuthContext);
+    console.log(userInfo.Result.countryID)
+    console.log(userInfo.Result.panelistID)
+    const [comments,setComments]=useState(null)
+
+    useEffect(() => {
+      fetchComments();
+    }, [])
+    useEffect(() => {
+      console.log(comments)
+    }, [comments])
+    const fetchComments=async()=>{
+        const response=await axios(`${BASE_URL}/getBasicProfiling/${parseInt(userInfo.Result.panelistID)}`);
+        setComments(response.data)    
+    }
+
     const { colors } = useTheme();
-    const [email, setEmail] = useState("");
+    const [city, setCity] = useState('')
+    const [state, setState] = useState('')
+    const [country, setCountry] = useState('')
+    const [zip, setZip] = useState('')
+    const [phone, setPhone] = useState('')
+    const [add1, setAdd1] = useState('')
+    const [add2, setAdd2] = useState('')
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [isSelected, setSelection] = useState(false);
     const [checked, setChecked] = React.useState('first');
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
 
-    
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-    const showDatePicker = () => {
-        setDatePickerVisibility(true);
+    const [date, setDate] = useState(new Date());
+    const [displaymode, setMode] = useState('date');
+    const [isDisplayDate, setShow] = useState(false);
+    const changeSelectedDate = (event, selectedDate) => {
+    const currentDate = selectedDate || mydate;
+    setDate(currentDate);
+    };
+    const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+    };
+    const displayDatepicker = () => {
+    showMode('date');
     };
 
-    const hideDatePicker = () => {
-        setDatePickerVisibility(false);
-    };
 
-    const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
-        hideDatePicker();
-    };
+    if(comments && comments.Results.firstname != undefined){
+        console.log(comments.Results.firstname)
+    }
+
+    console.log(comments && comments.Results.email)
 
     return (
     <View style={styles.container}>
@@ -97,8 +120,9 @@ export default function UpdateProfileScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
+                onChangeText={(val) => setFirstName(val)}
                 onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                value={email}
             />
         </View>
 
@@ -106,12 +130,11 @@ export default function UpdateProfileScreen({navigation}) {
             <TextInput 
                 placeholder="Last Name"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setLastName(val)}
             />
         </View>
 
@@ -125,19 +148,24 @@ export default function UpdateProfileScreen({navigation}) {
         paddingLeft: 3,
         paddingRight: 3,}}>
         <TouchableOpacity
-        onPress={showDatePicker}
+        onPress={displayDatepicker} 
         >
         <View >
             <Text style={{paddingLeft: 4}}>Select date of Birth</Text>
             <Image source={require('../assets/date.png')} size={{height: 20, width: 20}}></Image>
         </View>
         </TouchableOpacity>
-        <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
+        {isDisplayDate && (
+            <DateTimePicker
+                testID="dateTimePicker"
+                value={mydate}
+                mode={displaymode}
+                is24Hour={true}
+                display="default"
+                onChange={changeSelectedDate}
         />
+        )}
+
         
         </View>
         <View style={[styles.action]}>
@@ -163,12 +191,11 @@ export default function UpdateProfileScreen({navigation}) {
             <TextInput 
                 placeholder="Address 1"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setAdd1(val)}
             />
         </View>
 
@@ -176,24 +203,22 @@ export default function UpdateProfileScreen({navigation}) {
             <TextInput 
                 placeholder="Address 2"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setAdd2(val)}
             />
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder="Choose City"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setCity(val)}
             />
         </View>
 
@@ -201,12 +226,11 @@ export default function UpdateProfileScreen({navigation}) {
             <TextInput 
                 placeholder="Country India"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setCountry(val)}
             />
         </View>
 
@@ -214,28 +238,26 @@ export default function UpdateProfileScreen({navigation}) {
             <TextInput 
                 placeholder="Zipcode"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setZip(val)}
             />
             <TextInput 
                 placeholder="Phone Number"
                 placeholderTextColor="#666666"
-                secureTextEntry={data.secureTextEntry ? true : false}
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setPhone(val)}
             />
         </View>
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => udpate_profile(firstName, lastName, date, checked, add1, add2, city, state, country, zip, phone)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}

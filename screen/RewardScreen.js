@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -22,6 +22,7 @@ import google from '../assets/google.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { useTheme } from 'react-native-paper';
+import { AuthContext } from "../context/AuthContext";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -44,36 +45,28 @@ const height = (Dimensions.get('window').height / rows) - (marginVertical * (row
 
 
 export default function RewardScreen({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
+    const {userInfo} = useContext(AuthContext);
    
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
         <View>
-            <Text style={styles.header}>Good Morning, Vimal</Text>
+            <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Reward</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Reward</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="history" size={20} color="black"/> <TouchableOpacity onPress={() => {navigation.navigate('Reward History')}}>History</TouchableOpacity></Text>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Points</Text>
-                <Text style={styles.text_box_black_points}>1355</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
             </View>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Profile</Text>
-                <Text style={styles.text_box_black_points}>100%</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
             </View>
         </View>
         

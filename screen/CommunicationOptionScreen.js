@@ -29,7 +29,7 @@ export function normalize(size) {
     }
 }
 
-export default function CommunicationOperationsScreen({navigation}) {
+export default function CommunicationOptionScreen({navigation}) {
    
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
@@ -69,7 +69,7 @@ export default function CommunicationOperationsScreen({navigation}) {
             <Text style={{marginTop: 10, textAlign: 'center'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
+                    onPress={() => navigation.navigate('Deactivation Confirmation Screen')}
                     style={[styles.signIn, {
                         backgroundColor: '#378C3C',
                         color: '#fff'
@@ -96,7 +96,10 @@ export default function CommunicationOperationsScreen({navigation}) {
           <Text style={styles.modal_sub_heading}>Do you really want to miss out on offers like this ?</Text>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
             <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
-            <Button title="YES, Continue" onPress={toggleModal} style={styles.modal_btn} color='#378C3C'/>
+            <Button title="YES, Continue" onPress={() => {
+                toggleModal()
+                navigation.navigate('Unsubscribe Reason Screen')
+            }} style={styles.modal_btn} color='#378C3C'/>
           </View>
 
         </View>

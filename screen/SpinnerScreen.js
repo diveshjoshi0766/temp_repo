@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -11,8 +11,10 @@ import {
     ImageBackground
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from "axios";
 
 import { useTheme } from 'react-native-paper';
+import { AuthContext } from "../context/AuthContext";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -27,11 +29,27 @@ export function normalize(size) {
 }
 
 export default function SpinnerScreen({navigation}) {
+    const {userInfo, panelist_basic_details} = useContext(AuthContext);
+    console.log(userInfo.Result.countryID)
+    console.log(userInfo.Result.panelistID)
+    const [comments,setComments]=useState(null)
+
+    useEffect(() => {
+      fetchComments();
+    }, [])
+    useEffect(() => {
+      console.log(comments)
+    }, [comments])
+    const fetchComments=async()=>{
+    const response=await axios(`http://staging.paneloptimus.com/api/surveySpinner/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`);
+    setComments(response.data.result)    
+    }
+    console.log(panelist_basic_details)
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
         <View>
-            <Text style={styles.header}>Good Morning, Vimal</Text>
+            <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
@@ -41,11 +59,11 @@ export default function SpinnerScreen({navigation}) {
         <View style={styles.points}>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Points</Text>
-                <Text style={styles.text_box_black_points}>1355</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
             </View>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Profile</Text>
-                <Text style={styles.text_box_black_points}>100%</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
             </View>
         </View>
         

@@ -9,11 +9,11 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    ImageBackground,
-    ScrollView,
-    SafeAreaView 
+    SafeAreaView ,
+
 } from "react-native";
 import { WebView } from 'react-native-webview';
+
 
 import { useTheme } from 'react-native-paper';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -31,25 +31,18 @@ export function normalize(size) {
 
 
 export default function PrivacyPolicyScreen({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-
    
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-        <WebView 
-          source={{ html: customHTML }} 
-        />
-      </SafeAreaView>
-    );
+      Platform.OS === "web" ? (
+        <iframe src="https://surveyoptimus.com/privacy-policy" height={'100%'} width={'100%'} />
+      ) : (
+        <View style={{ flex: 1 }}>
+          <WebView
+            source={{ uri: "https://surveyoptimus.com/privacy-policy" }}
+            style={{marginTop: 22, flex: 1}}
+          />
+        </View>
+      ));
   }
 
 

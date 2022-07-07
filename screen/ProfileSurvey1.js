@@ -44,49 +44,66 @@ export default function ProfileSurvey1({navigation}) {
     // const isMonuted = useRef(true)
     const [data, setData] = useState()
 
-    const [ques_arr, setQues_arr] = useState([])
-    const [ans_arr, setAns_arr] = useState([])
-    const {isLoading, register, userInfo} = useContext(AuthContext);
+    const [ques_arr, setQues_arr] = useState({})
+    const [ans_arr, setAns_arr] = useState({})
+    const {isLoading, register, userInfo, survey_question_func, surveyQuestion} = useContext(AuthContext);
 
     const getQuiz = () => {
         
     };
 
-    useEffect(() => {
-        
-        // getQuiz(232, parseInt(userInfo.results.panelistID));
-        let isMounted = true
-        setLoading(true)
-        console.log(userInfo)
-        axios
-        .get(`http://staging.paneloptimus.com/api/getCountryQuestion/232/${parseInt(userInfo.results.panelistID)}`)
-        .then(res => {
-            let responce_data = res.data;
-            console.log(responce_data)
-            setData(responce_data)
-
-            if(responce_data.message == 'Questions are successfully searched'){
-                setQues_obj(res.data.Results)
-                let len = Object.keys(res.data.Results).length
-                let val = Object.values(res.data.Results)
-                if(isMounted){
-                    setQuestions(res.data.Results)
-                }
-            }
-            setLoading(false);
-        })
-        .catch(e => {
-        console.log(`register error ${e}`);
-        setLoading(false);
-        });
-        return () => {
-            // setQuestions({}); // This worked for me
-            isMounted = false
-        };
+    // useEffect(() => {
+    //     // getQuiz(232, parseInt(userInfo.results.panelistID));
+    //     let isMounted = true
+    //     setLoading(true)
+    //     console.log(userInfo)
+    //     axios
+    //     .get(`http://staging.paneloptimus.com/api/getCountryQuestion/232/${parseInt(userInfo.results.panelistID)}`)
+    //     .then(res => {
+    //         let responce_data = res.data;
+    //         console.log(res.data)
+    //         if(responce_data.status == 'success'){
+    //             // setQues_obj(res.data.Results)
+    //             let len = Object.keys(res.data.Results).length
+    //             let val = Object.values(res.data.Results)
+    //             console.log(len)
+    //             console.log(val)
+    //             console.log(val[0].Question.question_code)
+    //             for(let i=0;i<len;i++){
+    //                 // ques_arr()
+    //                 if(isMounted){
+    //                 // setQues_arr((ques_arr) => [...ques_arr, val[i].Question])
+    //                 setQues_arr((ques_arr) => [...ques_arr, val[i].Question])  
+    //                 setAns_arr((ans_arr) => [...ans_arr, val[i].AnswerList])
+    //                 }
+    //             }
+                
+    //                 // setQuestions(res.data.Results)
+                
+    //         }
+    //         setLoading(false);
+    //     })
+    //     .catch(e => {
+    //     console.log(`register error ${e}`);
+    //     setLoading(false);
+    //     });
+    //     return () => {
+    //         // setQuestions({}); // This worked for me
+    //         isMounted = false
+    //     };
       
-    }, []);
+    // }, []);
 
     // I have to return ans object in that object key will be "question_code" and value will be "answer_code" -> answer_code can be a strign containing multiple answers
+
+
+    useEffect(() => {
+        survey_question_func()
+    }, [])
+
+    console.log(userInfo.results.panelistID)
+
+    console.log(surveyQuestion)
 
     const handleNextPress=()=>{
         setQues(ques+1)
@@ -122,7 +139,8 @@ export default function ProfileSurvey1({navigation}) {
     // }
     // console.log(questions)
 
-    console.log(data.Results)
+    console.log(ques_arr[0])
+    console.log(ans_arr[0])
 
     return (        
     <View style={styles.container}>

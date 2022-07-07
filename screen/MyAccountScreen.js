@@ -48,13 +48,18 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="user" color="#378C3C" size={30}></Icon>
                     </View>
-                    <View style={{flex:0.6,
+                    <TouchableOpacity 
+                    style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
-                    }}>
+                    }}
+                    onPress = {() => navigation.navigate('Update Profile Screen')}
+                    >
+                    <View>
                         <Text style={{fontWeight: 'bold', fontSize: 18, fontFamily: 'Poppins Regular 400'}}>Personal Details</Text>
                         <Text style={{fontStyle: 'italic'}}>your presonal information</Text>
                     </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
@@ -83,13 +88,18 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Image source={require('../assets/home_Gr.png')} style={{ width: 30, height: 30 }}></Image>
                     </View>
-                    <View style={{flex:0.6,
+                    <TouchableOpacity 
+                    style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
-                    }}>
+                    }}
+                    onPress = {() => navigation.navigate('Change Password Screen')}
+                    >
+                    <View>
                         <Text style={{fontWeight: 'bold', fontSize: 18}}>Change Password</Text>
                         <Text style={{fontStyle: 'italic'}}>manage your sign-in settings</Text>
                     </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
@@ -100,13 +110,17 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="id-badge" color="#378C3C" size={30}></Icon>
                     </View>
-                    <View style={{flex:0.6,
-                        flexDirection:'col',
-                        justifyContent:'center'
-                    }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Communication Preferences</Text>
-                        <Text style={{fontStyle: 'italic'}}>prefered means of communications</Text>
-                    </View>
+                    <TouchableOpacity style={{flex:0.6,
+                            flexDirection:'col',
+                            justifyContent:'center'
+                        }}
+                        onPress = {() => navigation.navigate('Communication Option Screen')}
+                        >
+                        <View >
+                            <Text style={{fontWeight: 'bold', fontSize: 18}}>Communication Preferences</Text>
+                            <Text style={{fontStyle: 'italic'}}>prefered means of communications</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
@@ -134,13 +148,17 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="shield" color="#378C3C" size={30}></Icon>
                     </View>
-                    <View style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
-                    }}>
+                    }}
+                    onPress = {() => navigation.navigate('Privacy Policy Screen')}
+                    >
+                    <View >
                         <Text style={{fontWeight: 'bold', fontSize: 18}}>Privacy Policy</Text>
                         <Text style={{fontStyle: 'italic'}}>how we manage privacy</Text>
                     </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
@@ -151,13 +169,17 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="file" color="#378C3C" size={30}></Icon>
                     </View>
-                    <View style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
-                    }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Terms & Conditions</Text>
-                        <Text style={{fontStyle: 'italic'}}>service providing document</Text>
-                    </View>
+                    }}
+                    onPress = {() => navigation.navigate('Terms And Conditions Screen')}
+                    >
+                        <View>
+                            <Text style={{fontWeight: 'bold', fontSize: 18}}>Terms & Conditions</Text>
+                            <Text style={{fontStyle: 'italic'}}>service providing document</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
@@ -168,13 +190,17 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="question" color="#378C3C" size={30}></Icon>
                     </View>
-                    <View style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
-                    }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>FAQs</Text>
-                        <Text style={{fontStyle: 'italic'}}>frequently asked question</Text>
-                    </View>
+                    }}
+                    onPress = {() => navigation.navigate('FAQs Screen')}
+                    >
+                        <View>
+                            <Text style={{fontWeight: 'bold', fontSize: 18}}>FAQs</Text>
+                            <Text style={{fontStyle: 'italic'}}>frequently asked question</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>

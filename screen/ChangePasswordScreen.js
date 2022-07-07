@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
     StyleSheet,
     Text,
@@ -10,18 +10,12 @@ import {
     Platform, 
     PixelRatio
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-// import { SocialIcon } from 'react-native-elements'
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-import company_logo from '../assets/company_logo.png'
-import Icon from "react-native-vector-icons/FontAwesome";
-
+import { AuthContext } from "../context/AuthContext";
 import { useTheme } from 'react-native-paper';
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -40,6 +34,8 @@ export default function ChangePasswordScreen({navigation}) {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
+
+    const {isLoading, changePassword} = useContext(AuthContext);
 
     return (
     <View style={styles.container}>
@@ -65,7 +61,7 @@ export default function ChangePasswordScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
+                onChangeText={(val) => setCurrentPassword(val)}
                 onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
             />
             <Animatable.View
@@ -92,7 +88,7 @@ export default function ChangePasswordScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setNewPassword(val)}
             />
             <TouchableOpacity
             >
@@ -130,7 +126,7 @@ export default function ChangePasswordScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setConfirmPassword(val)}
             />
             <TouchableOpacity
             >
@@ -156,7 +152,7 @@ export default function ChangePasswordScreen({navigation}) {
         </View>
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => changePassword(currentPassword, newPassword, confirmPassword)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
