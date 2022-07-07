@@ -57,13 +57,13 @@ export default function App({ navigation }) {
 
 
 // export default function App({ navigation }) {
-//   const {userInfo, splashLoading} = useContext(AuthContext);
+//   // const {userInfo, splashLoading} = useContext(AuthContext);
 //   return (
 //     <AuthProvider>
 //       <NavigationContainer>
 //         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-//           <Stack.Screen name="Home" component={Navigation } />
-//           <Stack.Screen name="Details" component={Navigation } />
+//           <Stack.Screen name="Home" component={RewardScreen } />
+//           <Stack.Screen name="Details" component={RewardScreen } />
 //         </Stack.Navigator>
 //       </NavigationContainer>
 //   </AuthProvider>

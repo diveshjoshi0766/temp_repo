@@ -13,9 +13,6 @@ export const AuthProvider = ({children}) => {
   const [dash_survey, setDash_survey] = useState([])
   const [trans_history, setTrans_history] = useState([])
   const [panelist_basic_details, setPanelist_basic_details] = useState(null)
-  // const [questions, setQuestions] = useState()
-  // const [options, setOptions] = useState()
-
 
   const udpate_profile = (firstname, lastname, date, gender, add1, add2, city, state, country, zip, phone) => {
     setIsLoading(true);
@@ -254,6 +251,7 @@ export const AuthProvider = ({children}) => {
 
       if (userInfo) {
         setUserInfo(userInfo);
+        console.log(userInfo)
       }
 
       setSplashLoading(false);
@@ -300,7 +298,6 @@ export const AuthProvider = ({children}) => {
 
   useEffect(() => {
     isLoggedIn();
-
   }, []);
 
   return (

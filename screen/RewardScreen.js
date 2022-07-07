@@ -1,28 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
     View,
     Image,
-    TextInput,
-    TouchableOpacity,
     Dimensions,
     Platform, 
     PixelRatio,
     ScrollView,
-    Container,
-    stylesGrid 
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import { useTheme } from 'react-native-paper';
 import { AuthContext } from "../context/AuthContext";
+import { BASE_URL } from "../config";
+import axios from 'axios'
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -40,12 +31,25 @@ const rows = 3;
 const cols = 2;
 const marginHorizontal = 4;
 const marginVertical = 4;
-const width = (Dimensions.get('window').width / cols) - (marginHorizontal * (cols + 1));
-const height = (Dimensions.get('window').height / rows) - (marginVertical * (rows + 1));
 
 
 export default function RewardScreen({navigation}) {
-    const {userInfo} = useContext(AuthContext);
+    const {userInfo, splashLoading} = useContext(AuthContext);
+
+    console.log(userInfo)
+    const [comments,setComments]=useState(null)
+    useEffect(() => {
+      fetchComments();
+    }, [])
+    useEffect(() => {
+      console.log(comments)
+    }, [comments])
+    const fetchComments=async()=>{
+    const response=await axios(`${BASE_URL}/getReward/${parseInt(userInfo.Result.panelistID)}`);
+    setComments(response.data)    
+    }
+
+    console.log(comments && comments.results[0])
    
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
@@ -57,7 +61,7 @@ export default function RewardScreen({navigation}) {
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
             <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Reward</Text>
             <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="history" size={20} color="black"/> <TouchableOpacity onPress={() => {navigation.navigate('Reward History')}}>History</TouchableOpacity></Text>
+            {/* <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="history" size={20} color="black"/> <TouchableOpacity onPress={() => {navigation.navigate('Reward History')}}>History</TouchableOpacity></Text> */}
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
@@ -69,143 +73,34 @@ export default function RewardScreen({navigation}) {
                 <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
             </View>
         </View>
-        
 
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-            <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
-                <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/amazon.png")}
-                    />
-                </View>
-                <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
-                    <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
+        {
+            comments && comments.results.map((ele, key) => {
+                return(
+                <View key={key} style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}} >
+                    <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
+                        <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
+                            <Image
+                                style={[styles.stretch]}
+                                source={ele.mode_picture}
+                            />
                         </View>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
+                        <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
+                            <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>{ele.mode_name}</Text>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
+                                <View style={[styles.cardElement]}>
+                                    <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
+                                </View>
+                                <View style={[styles.cardElement]}>
+                                    <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
+                                </View>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
-        </View>
-
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-            <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
-                <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/googleplay.png")}
-                    />
-                </View>
-                <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
-                    <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </View>
-
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-            <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
-                <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/homedepot.png")}
-                    />
-                </View>
-                <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
-                    <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </View>
-
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-            <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
-                <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/itunes.png")}
-                    />
-                </View>
-                <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
-                    <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </View>
-
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-            <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
-                <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/mcdonails.png")}
-                    />
-                </View>
-                <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
-                    <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </View>
-
-
-        <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-            <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
-                <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
-                    <Image
-                        style={[styles.stretch]}
-                        source={require("../assets/paypal.png")}
-                    />
-                </View>
-                <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                    <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
-                    <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                        <View style={[styles.cardElement]}>
-                            <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </View>
-
-
-
+                )
+            })
+        }
   </View>
   </ScrollView>
     );

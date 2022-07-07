@@ -50,9 +50,6 @@ const Navigation = () => {
             options={{headerShown: false}}
           />
         ) : 
-
-
-        
         userInfo.Result  ? (<>
           <Stack.Screen name="Home" component={MyTabScreen} screenOptions={{headerShown: false}}/>
             <Stack.Screen
