@@ -241,6 +241,40 @@ export const AuthProvider = ({children}) => {
       });
   }
 
+  
+  const login_via_google = (email, displayPicture, isverified, userName) => {
+    setIsLoading(true);
+      const data = JSON.stringify({
+        "email" : email, 
+        "displayPicture" : displayPicture,
+        "isverified": isverified,
+        "registration_mode" :14,        
+        "isMobile" : 1,
+        "ipaddress" : "122.160.80.18", 
+        "userName": userName,
+
+      });
+      console.log(data)
+    axios
+      .post(`${BASE_URL}/googleapp`, data, {
+        "Headers": {
+          'Content-Type': 'application/json',
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+        }
+      })
+      .then(res => {
+        let userInfo = res.data;
+        console.log(userInfo);
+        setUserInfo(userInfo);
+        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+        setIsLoading(false);
+      })
+      .catch(e => {
+        console.log(`login error ${e}`);
+        setIsLoading(false);
+      });
+  };
+
   const login = (email, password) => {
     setIsLoading(true);
       const data = JSON.stringify({
@@ -386,6 +420,7 @@ export const AuthProvider = ({children}) => {
         redeem_request,
         avatar_set,
         panelist_profiling_ans,
+        login_via_google,
       }}>
       {children}
     </AuthContext.Provider>

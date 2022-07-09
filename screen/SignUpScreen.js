@@ -62,6 +62,8 @@ export default function SignUpScreen({navigation}) {
     const [lastName, setLastName] = useState(null)
 
     const [isSelected, setSelection] = useState(false);
+    const [pass_sec, setPass_sec] = useState(true)
+    const [confPassSec, setConfPassSec] = useState(true)
 
     const {isLoading, register} = useContext(AuthContext);
 
@@ -80,8 +82,7 @@ export default function SignUpScreen({navigation}) {
         <Logo/>
         {/* TagLine */}
         <TagLine/>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <FontAwesome 
                 name="user-o"
                 color={colors.text}
@@ -95,28 +96,19 @@ export default function SignUpScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setEmail(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
             />
             <Animatable.View
                 animation="bounceIn"
             >
                 <Feather 
-                    name="check-circle"
-                    color="green"
+                    name="mail"
+                    color="gray"
                     size={20}
                 />
             </Animatable.View>
         </View>
 
-        <Animatable.View animation="fadeInLeft" duration={500}>
-        {/* <Text style={styles.errorMsg}>Username must be 4 characters long.</Text> */}
-        </Animatable.View>
-
-        {/* <Text style={[styles.text_footer, {
-            color: colors.text,
-            marginTop: 35
-        }]}>Password</Text> */}
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <Feather 
                 name="lock"
                 color={colors.text}
@@ -130,10 +122,11 @@ export default function SignUpScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setPassword(val)}
+                secureTextEntry={pass_sec} 
             />
-            <TouchableOpacity
+            <TouchableOpacity onPress={() => {setPass_sec(!pass_sec)}}
             >
-                {/* {data.secureTextEntry ? 
+                {pass_sec ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -142,19 +135,14 @@ export default function SignUpScreen({navigation}) {
                 :
                 <Feather 
                     name="eye"
-                    color="grey"
+                    color="green"
                     size={20}
                 />
-                } */}
-                <Feather 
-                    name="eye"
-                    color="grey"
-                    size={20}
-                />
+                }
             </TouchableOpacity>
         </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <Feather 
                 name="lock"
                 color={colors.text}
@@ -168,10 +156,12 @@ export default function SignUpScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setConfirmPassword(val)}
+                secureTextEntry={confPassSec}
             />
             <TouchableOpacity
+            onPress={() => {setConfPassSec(!confPassSec)}}
             >
-                {/* {data.secureTextEntry ? 
+                {confPassSec ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -183,17 +173,12 @@ export default function SignUpScreen({navigation}) {
                     color="grey"
                     size={20}
                 />
-                } */}
-                <Feather 
-                    name="eye"
-                    color="grey"
-                    size={20}
-                />
+                }
             </TouchableOpacity>
         </View>
 
         
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <TextInput 
                 placeholder="First Name"
                 placeholderTextColor="#666666"
@@ -206,7 +191,7 @@ export default function SignUpScreen({navigation}) {
         </View>
 
         
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <TextInput 
                 placeholder="Last Name"
                 placeholderTextColor="#666666"
@@ -217,7 +202,6 @@ export default function SignUpScreen({navigation}) {
                 onChangeText={(val) => setLastName(val)}
             />
         </View>
-
         <View style={styles.container}>
             <View style={styles.checkboxContainer}>
                 <CheckBox
@@ -243,13 +227,11 @@ export default function SignUpScreen({navigation}) {
         </View>
             
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins Regular 400', fontSize: 20}}>Or continue with</Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins Regular 400', fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
-
             <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50}}></Image>
             <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
-            
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Sign In Screen')}>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
@@ -302,14 +284,15 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(10),
-        minHeight: 40,
+        minHeight: normalize(37),
         flex:1,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: '#ffffff'
     },
     actionError: {
         flexDirection: 'row',

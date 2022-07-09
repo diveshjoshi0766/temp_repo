@@ -141,6 +141,11 @@ const Navigation = () => {
               component={MyAccountScreen}
               options={{headerShown: false}}
             />
+            <Stack.Screen
+              name="Terms And Conditions Screen"
+              component={TermsAndConditions}
+              options={{headerShown: false}}
+            />
           </>
         )}
       </Stack.Navigator>

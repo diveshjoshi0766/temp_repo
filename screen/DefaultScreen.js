@@ -59,9 +59,10 @@ export default function DefaultScreen({navigation}) {
     const [firstName, setFirstName] = useState(null)
     const [lastName, setLastName] = useState(null)
     const [isSelected, setSelection] = useState(false);
-
+    const [pass_sec, setPass_sec] = useState(true)
+    const [confPassSec, setConfPassSec] = useState(true)
     const {isLoading, register} = useContext(AuthContext);
-
+    console.log(isSelected)
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
@@ -76,7 +77,7 @@ export default function DefaultScreen({navigation}) {
         {/* TagLine */}
         <TagLine/>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <FontAwesome 
                 name="user-o"
                 color={colors.text}
@@ -102,8 +103,7 @@ export default function DefaultScreen({navigation}) {
             </Animatable.View>
         </View>
 
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <Feather 
                 name="lock"
                 color={colors.text}
@@ -117,10 +117,11 @@ export default function DefaultScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setPassword(val)}
+                secureTextEntry={pass_sec} 
             />
-            <TouchableOpacity
+            <TouchableOpacity onPress={() => {setPass_sec(!pass_sec)}}
             >
-                {/* {data.secureTextEntry ? 
+                {pass_sec ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -129,19 +130,14 @@ export default function DefaultScreen({navigation}) {
                 :
                 <Feather 
                     name="eye"
-                    color="grey"
+                    color="green"
                     size={20}
                 />
-                } */}
-                <Feather 
-                    name="eye"
-                    color="grey"
-                    size={20}
-                />
+                }
             </TouchableOpacity>
         </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <Feather 
                 name="lock"
                 color={colors.text}
@@ -155,10 +151,12 @@ export default function DefaultScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setConfirmPassword(val)}
+                secureTextEntry={confPassSec}
             />
             <TouchableOpacity
+            onPress={() => {setConfPassSec(!confPassSec)}}
             >
-                {/* {data.secureTextEntry ? 
+                {confPassSec ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -170,17 +168,12 @@ export default function DefaultScreen({navigation}) {
                     color="grey"
                     size={20}
                 />
-                } */}
-                <Feather 
-                    name="eye"
-                    color="grey"
-                    size={20}
-                />
+                }
             </TouchableOpacity>
         </View>
 
         
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <TextInput 
                 placeholder="First Name"
                 placeholderTextColor="#666666"
@@ -193,7 +186,7 @@ export default function DefaultScreen({navigation}) {
         </View>
 
         
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <TextInput 
                 placeholder="Last Name"
                 placeholderTextColor="#666666"
@@ -206,22 +199,23 @@ export default function DefaultScreen({navigation}) {
         </View>
 
         {/* <View style={styles.container}> */}
-            <View style={styles.checkboxContainer}>
-                <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-                />
-                <Text style={styles.label}>I accept the <Text style={{color: '#1E96F0'}}>terms and aggrement</Text></Text>
-            </View>
+        <View style={styles.checkboxContainer}>
+            <CheckBox
+            value={isSelected}
+            onValueChange={setSelection}
+            style={styles.checkbox}
+            />
+            <Text style={styles.label}>I accept the <TouchableOpacity style={{color: '#1E96F0'}} onPress={() => navigation.navigate('Terms And Conditions Screen')}>terms and aggrement</TouchableOpacity></Text>
+        </View>
         {/* </View> */}
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => register(email, password, confirmPassword, firstName, lastName)}
+                onPress={() => {register(email, password, confirmPassword, firstName, lastName)}}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
+                disabled={!isSelected}
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
@@ -239,7 +233,7 @@ export default function DefaultScreen({navigation}) {
             
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Sign In Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: '500', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
         </Animatable.View>
     </View>
@@ -290,14 +284,15 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(10),
-        minHeight: 40,
+        minHeight: normalize(37),
         flex:1,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: "#ffffff"
     },
     actionError: {
         flexDirection: 'row',

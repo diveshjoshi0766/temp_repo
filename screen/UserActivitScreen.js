@@ -13,7 +13,8 @@ import {
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
-
+import axios from "axios"
+import { BASE_URL } from "../config";
 import { useTheme } from 'react-native-paper';
 import { AuthContext } from "../context/AuthContext";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -30,9 +31,6 @@ export function normalize(size) {
 }
 
 export default function UserActivityScreen({navigation}) {
-    const {userInfo} = useContext(AuthContext);
-
-    const { colors } = useTheme();
     // const [tableHead, setTableHead] = ([])
     // const [tableData, setTableData] = ([])
     // const setTableHeadData = () =>{ 
@@ -55,6 +53,24 @@ export default function UserActivityScreen({navigation}) {
     // ,[])
 
     // console.log(tableData)
+
+    const {userInfo, redeem_request} = useContext(AuthContext);
+
+    console.log(userInfo)
+    const [comments,setComments]=useState(null)
+    useEffect(() => {
+    fetchComments();
+    }, [])
+    useEffect(() => {
+    console.log(comments)
+    }, [comments])
+        const fetchComments=async()=>{
+        const response=await axios(`${BASE_URL}/transactionHistory/${parseInt(userInfo.Result.panelistID)}`);
+        setComments(response.data)    
+    }
+
+    console.log(comments && comments.activityDetails)
+
     
     return (
         <ScrollView showsVerticalScrollIndicator ={false}>
@@ -83,20 +99,24 @@ export default function UserActivityScreen({navigation}) {
                     <Text style={styles.tabel_header}>Description</Text>
                     <Text style={styles.tabel_header}>Points</Text>
                 </View>
+                {
+                    comments && comments.activityDetails.map((ele, val) => {
+                        return (
+                            <View style={[styles.products, {justifyContent: 'space-between', textAlign: 'center', paddingLeft: 6, paddingRight: 6}]} key={val}>
+                                <Text style={styles.table_row_data}>{ele.Date}</Text>
+                                <Text style={styles.table_row_data}>{ele.Mode}</Text>
+                                <Text style={styles.table_row_data}>+{ele.Total_points}</Text>
+                            </View>
+                        )
+                    })
+                }
                 
-                <View style={[styles.products, {justifyContent: 'space-between', textAlign: 'center', paddingLeft: 6, paddingRight: 6}]}>
-                    <Text style={styles.table_row_data}>April 27,2022</Text>
-                    <Text style={styles.table_row_data}>Spinner</Text>
-                    <Text style={styles.table_row_data}>Points</Text>
-                </View>
           </View>
           </ScrollView>
 
        
         
         //table
-
-
 
         // <Table borderStyle={{borderColor: 'transparent'}}>
         //   <Row data={tableHead} style={styles.head} textStyle={styles.text}/>

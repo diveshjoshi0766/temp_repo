@@ -10,7 +10,8 @@ import {
     Platform, 
     PixelRatio,
     Animated,
-    Easing 
+    Easing, 
+    ScrollView
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -40,6 +41,8 @@ export default function SignInScreen({navigation}) {
     
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [pass_sec, setPass_sec] = useState(true)
+    const [confPassSec, setConfPassSec] = useState(true)
 
     const {isLoading, login} = useContext(AuthContext);
 
@@ -56,7 +59,7 @@ export default function SignInScreen({navigation}) {
         
 
     return (
-    <View style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
     <Animatable.View 
         animation="fadeInUpBig"
         style={[styles.footer, {
@@ -70,6 +73,7 @@ export default function SignInScreen({navigation}) {
         <TagLine/>
 
 
+
         <View style={styles.action}>
             <FontAwesome 
                 name="user-o"
@@ -77,7 +81,7 @@ export default function SignInScreen({navigation}) {
                 size={20}
             />
             <TextInput 
-                placeholder="Username"
+                placeholder="Email"
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -89,13 +93,12 @@ export default function SignInScreen({navigation}) {
                 animation="bounceIn"
             >
                 <Feather 
-                    name="check-circle"
-                    color="green"
+                    name="mail"
+                    color="gray"
                     size={20}
                 />
             </Animatable.View>
         </View>
-
 
         <View style={styles.action}>
             <Feather 
@@ -111,10 +114,11 @@ export default function SignInScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setPassword(val)}
+                secureTextEntry={pass_sec} 
             />
-            <TouchableOpacity
+            <TouchableOpacity onPress={() => {setPass_sec(!pass_sec)}}
             >
-                {/* {data.secureTextEntry ? 
+                {pass_sec ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -123,15 +127,10 @@ export default function SignInScreen({navigation}) {
                 :
                 <Feather 
                     name="eye"
-                    color="grey"
+                    color="green"
                     size={20}
                 />
-                } */}
-                <Feather 
-                    name="eye-off"
-                    color="grey"
-                    size={20}
-                />
+                }
             </TouchableOpacity>
         </View>
 
@@ -166,7 +165,7 @@ export default function SignInScreen({navigation}) {
             <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
-  </View>
+  </ScrollView>
     );
   }
 
@@ -215,14 +214,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff', 
         padding: 5,
         marginTop: normalize(10),
-        minHeight: 40,
+        minHeight: normalize(37),
         flex:1,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
     },
     actionError: {
         flexDirection: 'row',

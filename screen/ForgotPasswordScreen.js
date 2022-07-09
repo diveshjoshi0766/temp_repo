@@ -89,11 +89,11 @@ export default function ForgotPasswordScreen({navigation}) {
             <Animatable.View
                 animation="bounceIn"
             >
-                <Feather 
-                    name="check-circle"
-                    color="green"
-                    size={20}
-                />
+            <Feather 
+                name="mail"
+                color="gray"
+                size={20}
+            />
             </Animatable.View>
         </View>
 
@@ -162,14 +162,14 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(30),
-        minHeight: 40,
+        minHeight: normalize(37),
         flex:1,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
     },
     actionError: {
         flexDirection: 'row',
@@ -209,4 +209,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-  });
+});
