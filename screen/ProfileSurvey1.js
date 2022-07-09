@@ -8,7 +8,8 @@ import {
     Platform, 
     PixelRatio,
     Animated,
-    Easing 
+    Checkbox,
+    ScrollView,
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "../components/Logo";
@@ -19,8 +20,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
-console.log(SCREEN_HEIGHT)
-console.log(SCREEN_WIDTH)
 export function normalize(size) {
     const newSize = size * scale 
     if (Platform.OS === 'ios') {
@@ -33,114 +32,115 @@ const spinValue = new Animated.Value(0);
 
 export default function ProfileSurvey1({navigation}) {
     
-    const [ques_obj, setQues_obj] = useState(null)
-    const [ques, setQues] = useState(0);
-    const [option, setOption] = useState(0)
+    const {isLoading, register, userInfo, panelist_profiling_ans} = useContext(AuthContext);
 
-    const [score, setScore]= useState(0)
+    console.log(userInfo)
+
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
-    const [options, setOptions] = useState([])
-    // const isMonuted = useRef(true)
-    const [data, setData] = useState()
-
-    const [ques_arr, setQues_arr] = useState({})
-    const [ans_arr, setAns_arr] = useState({})
-    const {isLoading, register, userInfo, survey_question_func, surveyQuestion} = useContext(AuthContext);
-
-    const getQuiz = () => {
-        
-    };
-
-    // useEffect(() => {
-    //     // getQuiz(232, parseInt(userInfo.results.panelistID));
-    //     let isMounted = true
-    //     setLoading(true)
-    //     console.log(userInfo)
-    //     axios
-    //     .get(`http://staging.paneloptimus.com/api/getCountryQuestion/232/${parseInt(userInfo.results.panelistID)}`)
-    //     .then(res => {
-    //         let responce_data = res.data;
-    //         console.log(res.data)
-    //         if(responce_data.status == 'success'){
-    //             // setQues_obj(res.data.Results)
-    //             let len = Object.keys(res.data.Results).length
-    //             let val = Object.values(res.data.Results)
-    //             console.log(len)
-    //             console.log(val)
-    //             console.log(val[0].Question.question_code)
-    //             for(let i=0;i<len;i++){
-    //                 // ques_arr()
-    //                 if(isMounted){
-    //                 // setQues_arr((ques_arr) => [...ques_arr, val[i].Question])
-    //                 setQues_arr((ques_arr) => [...ques_arr, val[i].Question])  
-    //                 setAns_arr((ans_arr) => [...ans_arr, val[i].AnswerList])
-    //                 }
-    //             }
-                
-    //                 // setQuestions(res.data.Results)
-                
-    //         }
-    //         setLoading(false);
-    //     })
-    //     .catch(e => {
-    //     console.log(`register error ${e}`);
-    //     setLoading(false);
-    //     });
-    //     return () => {
-    //         // setQuestions({}); // This worked for me
-    //         isMounted = false
-    //     };
-      
-    // }, []);
-
-    // I have to return ans object in that object key will be "question_code" and value will be "answer_code" -> answer_code can be a strign containing multiple answers
-
+    const [data, setData] = useState(null)
+    const [ques, setQues] = useState(0);
+    const [ans, setAns] = useState([])
+    const [ques_idx, setQues_idx] = useState(null)
 
     useEffect(() => {
-        survey_question_func()
-    }, [])
-
-    console.log(userInfo.results.panelistID)
-
-    console.log(surveyQuestion)
-
-    const handleNextPress=()=>{
-        setQues(ques+1)
-        // setOptions(setQuestions.get(ques+1))
-    }
-
-    const handlSelectedOption=(_option)=>{
-        if(_option===questions[ques].correct_answer){
-            setAnswers()
-        }
-        if(ques!==9){
-            setQues(ques+1)
-            setOptions(questions[ques+1])
-        }
-        if(ques===9){
-            handleShowResult()
-        }
-    }
-    
-    const handleShowResult=()=>{
-        navigation.navigate('Result', {
-            score: score
+        // getQuiz()
+        let isMounted = true
+        setLoading(true)
+        axios
+        .get(`${BASE_URL}/getCountryQuestion/232/536`)
+        .then(res => {
+            let responce_data = res.data;
+            console.log()
+            
+            setData(Object.values(responce_data.Results))
+            setQues_idx(Object.keys(responce_data.Results))
+       
+            setLoading(false);
         })
+        .catch(e => {
+        console.log(`register error ${e}`);
+        setLoading(false);
+        });
+        return () => {
+            // setQuestions({}); // This worked for me
+            isMounted = false
+        };
+    }, []);
+    console.log(ques_idx)
+
+    
+
+    const handle_option_press=(ques_id, ans_id)=>{
+        const len = data.length
+        const ans_len = ans.lenght
+        console.log(len)
+        console.log(ques)
+        let obj = {
+            ques_id: ques_id,
+            ans_id: ans_id
+        }
+        setQues(ques+1)
+        setAns([...ans, obj]);
+        if(ques == (len-1)){
+            // AsyncStorage.setItem('answers', JSON.stringify(ans));
+            handleShowResult()
+            console.log("size equal")
+        }
     }
 
-    // console.log(typeof(Object.entries(Object.values(questions))[0]))
-    // let temp = Object.entries(Object.values(questions))[0]
-    // if(temp !== undefined){
-    //     console.log(temp)
-    //     // temp.map((val) => {
-    //     //     console.log(val)
-    //     // })
-    // }
-    // console.log(questions)
+    const [multi_ans, setMulti_ans] = useState("");
+    const [isSelected, setIsSelected] = useState([])
 
-    console.log(ques_arr[0])
-    console.log(ans_arr[0])
+    const handle_multiple_select = (ques_id, ans_id) => {
+        setIsSelected([...isSelected, ans_id])
+        setMulti_ans(multi_ans+ans_id+",")
+        console.log(multi_ans)
+    }
+
+    const next_question = (ques_id) => {
+        let obj = {
+            ques_id: ques_idx[ques_id],
+            ans_id: multi_ans
+        }
+        setIsSelected([])
+        setMulti_ans("")
+        setAns([...ans, obj]);
+        setQues(ques+1)
+    }
+
+    console.log(ans)
+    const handleShowResult=()=>{
+        let arr = ans;
+        let ans_obj = []
+        for(let i=0;i<arr.length;i++){
+            let temp = {
+                key:`${arr.ques_id}`,
+                value: `${arr.ans_id}`
+
+            }; 
+            ans_obj.push(temp)
+        }
+        console.log(ans_obj)
+        panelist_profiling_ans(ans_obj)
+        console.log("here")
+        navigation.navigate('End Of Profile Survey Screen')
+    }
+
+    const isPresent = (val) => {
+        let bol;
+        let arr = isSelected
+        console.log(arr)
+        console.log(val)
+        for(let i=0;i<arr.length;i++){
+            if(val == arr[i]){
+                console.log("True HIT")
+                return true
+            }
+        }
+        console.log(bol)
+        return false
+    }
 
     return (        
     <View style={styles.container}>
@@ -151,58 +151,75 @@ export default function ProfileSurvey1({navigation}) {
         }]}
     >
 
-        {/* heading */}
         <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), fontFamily: 'Poppins Regular 400', textAlign: "center"}}>Profile Survey</Text>
-       
-        {/* Question */}
+    
         {
-            isLoading ? <View style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
-                <Text style={{fontSize:32, fontWeight:'700'}}>LOADING...</Text>
-            </View> : <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), fontWeight: 'bold', fontFamily: 'Poppins Regular 400',}}>{ques}. {questions[ques]}</Text>
+            data && data[ques] && data[ques].Question ?
+            <>
+                <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(20), fontFamily: 'Poppins Regular 400', fontWeight: 'bold'}}>{data[ques].Question.question_title}</Text> 
+            </>  
+            :
+            <View style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
+                    <Text style={{fontSize:32, fontWeight:'700'}}>LOADING...</Text>
+            </View>
         }
       
+        {
+            data && data[ques] && data[ques].Question.question_type_id == 3 ?
+            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', fontFamily: 'Poppins Regular 400',}}>You can select multiple options</Text>
+            :
+            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', fontFamily: 'Poppins Regular 400',}}>Please select any one of them</Text>
+        }
         
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', fontFamily: 'Poppins Regular 400',}}>please select any one of them  </Text>
-        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
-            <View style={[styles.action]}>
-                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 500'}}>1. Single Never married</Text>
-            </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
-            <View style={[styles.action]}>
-                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 400'}}>1. Single Never married</Text>
-            </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
-            <View style={[styles.action]}>
-                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 400'}}>1. Single Never married</Text>
-            </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{minHeight: 'justifyContent'}}>
-            <View style={[styles.action]}>
-                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 400'}}>1. Single Never married</Text>
-            </View>
-        </TouchableOpacity>
-
-        <View style={styles.button}>
-
-            <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
-                style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: '#fff'
-                }]}>Next</Text>
-            </TouchableOpacity>
-        </View>
         
-    </Animatable.View>
-  </View>
+        {
+            data && data[ques] && data[ques].AnswerList ? <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+            
+            {data[ques].AnswerList.map((ele,val) => {
+                if(data[ques].Question.question_type_id == 2){
+                    return (
+                    <View key={val}>
+                    <TouchableOpacity style={{minHeight: 'justifyContent'}} key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code)}>
+                        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+                            <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 500'}}>{ele.description}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    </View>
+                    )
+                }
+                else{
+
+                    return (
+                        <View key={val}>
+                        <TouchableOpacity style={{minHeight: 'justifyContent', }} key={ele.answer_code} onPress={() => {handle_multiple_select(ele.profile_question_id, ele.answer_code)}} disabled={isPresent(ele.answer_code)}>
+                            <View style={[styles.action, {backgroundColor: isPresent(ele.answer_code) ? '#378C3C' : '#ffffff'}]}>
+                                <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 500'}}>{ele.description}</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        
+                        </View>
+                    )
+
+                }
+            })}</ScrollView> : <Text>Loading</Text>
+        }
+
+        {
+            data && data[ques] && data[ques].Question.question_type_id == 3 ?
+            <View style={styles.button}>
+                <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => next_question(ques)}>
+                    <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}>Next</Text>
+                </TouchableOpacity>
+            </View>
+            :
+            <></>
+            
+        }
+        </Animatable.View>
+    </View>
     );
   }
 
@@ -256,9 +273,12 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         borderRadius: normalize(10),
-        borderWidth: 1,
-        borderColor: "black",
-        backgroundColor: '#ffffff', 
+        shadowColor: '#171717',
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+
+
     },
     actionError: {
         flexDirection: 'row',

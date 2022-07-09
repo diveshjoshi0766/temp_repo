@@ -3,8 +3,6 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
-    TextInput,
     TouchableOpacity,
     Dimensions,
     Platform, 
@@ -12,9 +10,8 @@ import {
     Button
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { useTheme } from 'react-native-paper';
-import Icon from "react-native-vector-icons/FontAwesome";
 import Modal from "react-native-modal";
+import { ScrollView } from "react-native-web";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -85,25 +82,26 @@ export default function CommunicationOptionScreen({navigation}) {
 
         {/* modal */}
         <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
-        <View style={styles.modal_}>
-          <Text style={{fontWeight: 600, fontSize: normalize(25)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
-          <Text style={styles.modal_sub_heading}>Unsubscribeing means you will no longer receive Any email messages from SurveyOptimus which includes:</Text>
-          <View>
-          <Text style={styles.modal_points}>1. Invitations to survey</Text>
-          <Text style={styles.modal_points}>2. Redeem points request from us</Text>
-          <Text style={styles.modal_points}>3. Newsletters and offers</Text>
-          </View>
-          <Text style={styles.modal_sub_heading}>Do you really want to miss out on offers like this ?</Text>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
-            <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
-            <Button title="YES, Continue" onPress={() => {
-                toggleModal()
-                navigation.navigate('Unsubscribe Reason Screen')
-            }} style={styles.modal_btn} color='#378C3C'/>
-          </View>
-
-        </View>
-      </Modal>
+        <ScrollView>
+            <View style={styles.modal_}>
+                <Text style={{fontWeight: 600, fontSize: normalize(25)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
+                <Text style={styles.modal_sub_heading}>Unsubscribeing means you will no longer receive Any email messages from SurveyOptimus which includes:</Text>
+                <View>
+                <Text style={styles.modal_points}>1. Invitations to survey</Text>
+                <Text style={styles.modal_points}>2. Redeem points request from us</Text>
+                <Text style={styles.modal_points}>3. Newsletters and offers</Text>
+                </View>
+                <Text style={styles.modal_sub_heading}>Do you really want to miss out on offers like this ?</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
+                    <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
+                    <Button title="YES, Continue" onPress={() => {
+                        toggleModal()
+                        navigation.navigate('Unsubscribe Reason Screen')
+                    }} style={styles.modal_btn} color='#378C3C'/>
+                </View>
+            </View>
+        </ScrollView>
+        </Modal>
 
         
     </Animatable.View>

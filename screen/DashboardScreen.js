@@ -14,6 +14,9 @@ import {
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
+import { BASE_URL } from "../config";
+import WebViewScreen from "./WebViewScreen";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -30,19 +33,21 @@ export function normalize(size) {
 
 export default function DashboardScreen({navigation}) {
 
-
-
-    const {isLoading, userInfo, dash_survey, dashboard_survey, panelist_basic_details, panelistBasicDetails_func} = useContext(AuthContext);
-    console.log(userInfo)
-    if(userInfo.Result.firstname != undefined){
-        panelistBasicDetails_func()
-    }
+    const {userInfo} = useContext(AuthContext);
+    const [comments,setComments]=useState(null)
+    const [link, setLink] = useState(null)
     useEffect(() => {
-        dashboard_survey()
+      fetchComments();
     }, [])
-
-    console.log(userInfo.Result)
-
+    useEffect(() => {
+      console.log(comments)
+    }, [comments])
+    const fetchComments=async()=>{
+    const response=await axios(`${BASE_URL}/surveyListing/${parseInt(userInfo.Result.panelistID)}`);
+    setComments(response.data.Results)    
+    }
+    console.log(comments)
+    if(link ==  null){
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
@@ -65,116 +70,57 @@ export default function DashboardScreen({navigation}) {
             </View>
         </View>
 
-        
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: normalize(18), fontFamily: 'Poppins Regular 400'}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
-                        <Text style={styles.points_}>10m</Text>
+        {
+            comments && comments.map((ele) => {
+                return (
+                    <View style={styles.products} key={ele.survey_id}>
+                        <View style={[styles.center, {justifyContent: "space-between"}]}>
+                            <Text style={{fontWeight: 'bold', fontSize: normalize(18), fontFamily: 'Poppins Regular 400'}}>{ele.survey_title}</Text>
+                            <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
+                                <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
+                                    <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
+                                    <Text style={styles.points_}>{ele.survey_duration}m</Text>
+                                </View>
+                                <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
+                                    <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
+                                    <Text style={styles.points_}>{ele.survey_incentive}pts</Text>
+                                </View>
+                            </View>
+                            <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
+                                <TouchableOpacity
+                                    onPress={() => setLink(ele.survey_link)}
+                                    style={[styles.survey_button, {
+                                        backgroundColor: '#378C3C',
+                                    }]}
+                                >
+                                    <Text style={[styles.textSign, {
+                                        color: '#fff'
+                                    }]}>Take Survey</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View style={[styles.center, {width: "50%"}]}> 
+                            <Image
+                                style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
+                                source={require('../assets/health.png')}
+                            />
+                        </View>
                     </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
-                        <Text style={styles.points_}>100pts</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/health.png')}
-                />
-            </View>
-        </View>
 
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
-                        <Text style={styles.points_}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
-                        <Text style={styles.points_}>100pts</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/B2B.png')}
-                />
-            </View>
-        </View>
-
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {justifyContent: "space-between"}]}>
-                <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Health Care</Text>
-                <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
-                    <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
-                        <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
-                        <Text style={styles.points_}>10m</Text>
-                    </View>
-                    <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
-                        <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
-                        <Text style={styles.points_}>100pts</Text>
-                    </View>
-                </View>
-                <View style={{alignItems: 'center', borderRadius: '50', height: 'justifyContent'}}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
-                        style={[styles.survey_button, {
-                            backgroundColor: '#378C3C',
-                        }]}
-                    >
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Take Survey</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.center, {width: "50%"}]}> 
-                <Image
-                    style={{width: 100, height: 100, alignItems: 'center', marginTop: '0'}}
-                    source={require('../assets/B2C.png')}
-                />
-            </View>
-        </View>
-        
+                )
+            })
+        }
 
 
     </View>
     </ScrollView>
     );
+    }else{
+        console.log(link)
+        return (
+            <WebViewScreen link={link}></WebViewScreen>
+        )
+    }
   }
 
 

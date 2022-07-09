@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    ScrollView
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -16,6 +17,7 @@ import { RadioButton } from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { BASE_URL } from "../config";
 import axios from "axios";
+import Modal from "react-native-modal";
 
 import { useTheme } from 'react-native-paper';
 import { AuthContext } from "../context/AuthContext";
@@ -34,9 +36,7 @@ export function normalize(size) {
 
 export default function UpdateProfileScreen({navigation}) {
     
-    const {userInfo, panelist_basic_details,udpate_profile} = useContext(AuthContext);
-    console.log(userInfo.Result.countryID)
-    console.log(userInfo.Result.panelistID)
+    const {userInfo, panelist_basic_details,udpate_profile, avatar_set} = useContext(AuthContext);
     const [comments,setComments]=useState(null)
 
     useEffect(() => {
@@ -88,6 +88,32 @@ export default function UpdateProfileScreen({navigation}) {
 
     console.log(comments && comments.Results.email)
 
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
+
+    const [avatar,setAvatar]=useState(null)
+    useEffect(() => {
+      fetchAvatar();
+    }, [])
+    useEffect(() => {
+      console.log(avatar)
+    }, [avatar])
+    const fetchAvatar=async()=>{
+    const response=await axios(`${BASE_URL}/getAvatar`);
+    setAvatar(response.data)    
+    }
+
+    console.log(avatar && avatar.results ? avatar.results : " nothing")
+
+    if(avatar && avatar.results){
+        avatar.results.map((ele) => {
+            console.log(ele.avatarName)
+            console.log(ele.avatarLink)
+        })
+    }
+
     return (
     <View style={styles.container}>
     <Animatable.View 
@@ -102,7 +128,7 @@ export default function UpdateProfileScreen({navigation}) {
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
             <View style={{alignItems: 'center'}}>
                 <Icon name="user" size={50}></Icon>
-                <Text style={{color:'red', fontFamily: 'Poppins Regular 400'}}>Change avatar</Text>
+                <TouchableOpacity style={{color:'red', fontFamily: 'Poppins Regular 400'}} onPress={() => {toggleModal()}}>Change avatar</TouchableOpacity>
             </View>
             <View style={{paddingLeft: normalize(10)}}>
                 <Text style={styles.label}>SOID: </Text>
@@ -160,7 +186,6 @@ export default function UpdateProfileScreen({navigation}) {
                 testID="dateTimePicker"
                 value={mydate}
                 mode={displaymode}
-                is24Hour={true}
                 display="default"
                 onChange={changeSelectedDate}
         />
@@ -185,8 +210,6 @@ export default function UpdateProfileScreen({navigation}) {
             />
 
         </View>
-
-
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder="Address 1"
@@ -198,7 +221,6 @@ export default function UpdateProfileScreen({navigation}) {
                 onChangeText={(val) => setAdd1(val)}
             />
         </View>
-
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder="Address 2"
@@ -221,7 +243,6 @@ export default function UpdateProfileScreen({navigation}) {
                 onChangeText={(val) => setCity(val)}
             />
         </View>
-
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder="Country India"
@@ -233,7 +254,6 @@ export default function UpdateProfileScreen({navigation}) {
                 onChangeText={(val) => setCountry(val)}
             />
         </View>
-
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder="Zipcode"
@@ -254,7 +274,6 @@ export default function UpdateProfileScreen({navigation}) {
                 onChangeText={(val) => setPhone(val)}
             />
         </View>
-
         <View style={styles.button}>
             <TouchableOpacity
                 onPress={() => udpate_profile(firstName, lastName, date, checked, add1, add2, city, state, country, zip, phone)}
@@ -267,6 +286,32 @@ export default function UpdateProfileScreen({navigation}) {
                 }]}>Update Profile</Text>
             </TouchableOpacity>
         </View>
+
+        {/* modal */}
+        <Modal transparent={true} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{height: SCREEN_HEIGHT*0.5}}>
+                <ScrollView 
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                >
+                <View style={{height: "60%", width: SCREEN_WIDTH*0.6, alignSelf: 'center'}}>
+                {avatar && avatar.results.map((ele) => {
+                    return(
+                    <View style={styles.modal_} key={ele.avatarName}>
+                        <TouchableOpacity style={{alignItems: 'center', marginTop: '0', width: '60%'}} onPress={() => avatar_set(ele.avatarName)}>
+                            <Image
+                                style={[styles.stretch]}
+                                // source={{uri:  `${ele.avatarLink}`}}
+                                source={{uri:  `${ele.avatarLink}`}}
+                            />
+                            
+                        </TouchableOpacity>
+                    </View>
+                    )
+                })}
+                </View>
+            </ScrollView>
+        </Modal>
+
     </Animatable.View>
   </View>
 );
@@ -274,6 +319,26 @@ export default function UpdateProfileScreen({navigation}) {
 
 
 const styles = StyleSheet.create({
+    modal_:{
+        height: 'justifyContent', 
+        backgroundColor: '#fff', 
+        padding: 10,
+        alignItems: "center"
+    },
+    modal_btn:{
+        width: SCREEN_WIDTH*0.2,
+        color: '#378C3C',
+        borderRadius: 20,
+    },
+    modal_sub_heading: {
+        fontWeight: 500, 
+        fontSize: normalize(15), 
+        marginTop: 10
+    },
+    modal_points:{
+        fontWeight: 400, 
+        fontSize: normalize(15),
+    },
     label:{
         fontFamily: 'Poppins Regular 400',
     },

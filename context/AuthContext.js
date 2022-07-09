@@ -10,9 +10,89 @@ export const AuthProvider = ({children}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [splashLoading, setSplashLoading] = useState(false);
   const [surveyQuestion, setSurveyQuestion] = useState({});
-  const [dash_survey, setDash_survey] = useState([])
   const [trans_history, setTrans_history] = useState([])
   const [panelist_basic_details, setPanelist_basic_details] = useState(null)
+
+  const panelist_profiling_ans = (ans_key) => {
+    console.log(userInfo)
+    console.log(ans_key)
+    axios
+      .put(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.results.panelistID)}`, ans_key, {
+        "Headers": {
+          'Content-Type': 'application/json',
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
+          "Access-Control-Allow-Methods": 'POST, PUT, GET, OPTIONS'
+        }
+      })
+      .then(res => {
+        let responce = res.data;
+        console.log(responce);
+        alert(res.data.message)
+        setIsLoading(false);
+      })
+      .catch(e => {
+        console.log(`login error ${e}`);
+        alert(`error ${e}`)
+        setIsLoading(false);
+      });
+  }
+
+
+  const avatar_set = (avatar_name) => {
+    console.log(avatar_name)
+    const data = JSON.stringify({
+      "is_avatar" : 1, 
+      "avatar_name" : avatar_name
+    })
+
+    axios
+      .put(`${BASE_URL}/setAvatar/${parseInt(userInfo.Result.panelistID)}`, data, {
+        "Headers": {
+          'Content-Type': 'application/json',
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
+          "Access-Control-Allow-Methods": 'POST, PUT, GET, OPTIONS'
+        }
+      })
+      .then(res => {
+        let userInfo = res.data;
+        console.log(userInfo);
+        alert(res.data.message)
+        setIsLoading(false);
+      })
+      .catch(e => {
+        console.log(`login error ${e}`);
+        alert(`error ${e}`)
+        setIsLoading(false);
+      });
+  }
+
+  const redeem_request = (redeem_points, redeem_mode) => {
+    const data = JSON.stringify({
+      "panelistID" : `${userInfo.Result.panelistID}`,
+      "redeem_points" : `${redeem_points}`,
+      "redeem_mode" : `${redeem_mode}`
+    })
+
+    axios
+      .put(`${BASE_URL}/redeemRequest`, data, {
+        "Headers": {
+          'Content-Type': 'application/json',
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
+          "Access-Control-Allow-Methods": 'POST, PUT, GET, OPTIONS'
+        }
+      })
+      .then(res => {
+        let userInfo = res.data;
+        console.log(userInfo);
+        alert(res.data.message)
+        setIsLoading(false);
+      })
+      .catch(e => {
+        console.log(`login error ${e}`);
+        alert(`error ${e}`)
+        setIsLoading(false);
+      });
+  }
 
   const udpate_profile = (firstname, lastname, date, gender, add1, add2, city, state, country, zip, phone) => {
     setIsLoading(true);
@@ -121,7 +201,7 @@ export const AuthProvider = ({children}) => {
       let questions = res.data;
       setSurveyQuestion(questions);
       console.log(questions);
-      AsyncStorage.setItem('surveyQuestion', JSON.stringify(surveyQuestion));
+      // AsyncStorage.setItem('surveyQuestion', JSON.stringify(surveyQuestion));
       setIsLoading(false);
     })
     .catch(e => {
@@ -261,23 +341,6 @@ export const AuthProvider = ({children}) => {
     }
   };
 
-  const dashboard_survey = () => {
-    setIsLoading(true)
-    console.log(userInfo)
-    axios
-    .get(`${BASE_URL}/surveyListing/${parseInt(userInfo.Result.panelistID)}`)
-    .then(res => {
-      let responce_data = res.data;
-      console.log(res.data)
-      if(responce_data.status == 'success' && responce_data.message == 'OK'){
-        setDash_survey((items) => [...items, res.data.Results])
-      }
-      setIsLoading(false);
-    })
-    .catch(e => {
-    console.log(`register error ${e}`);
-    setLoading(false);})
-  }
 
   const panelistBasicDetails_func = () => {
     setIsLoading(true)
@@ -312,8 +375,6 @@ export const AuthProvider = ({children}) => {
         forgotpassword,
         surveyQuestion,
         survey_question_func,
-        dash_survey,
-        dashboard_survey,
         survey_question_func,
         surveyQuestion,
         changePassword,
@@ -322,7 +383,9 @@ export const AuthProvider = ({children}) => {
         panelist_basic_details,
         panelistBasicDetails_func,
         udpate_profile,
-
+        redeem_request,
+        avatar_set,
+        panelist_profiling_ans,
       }}>
       {children}
     </AuthContext.Provider>

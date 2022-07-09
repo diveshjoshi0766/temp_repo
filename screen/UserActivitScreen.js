@@ -78,13 +78,13 @@ export default function UserActivityScreen({navigation}) {
                     </View>
                 </View>
                 
-                <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-evenly', backgroundColor: '#d4d6d1', marginTop: 10}]}>
+                <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-between', backgroundColor: '#d4d6d1', marginTop: 10, paddingLeft: 6, paddingRight: 6}]}>
                     <Text style={styles.tabel_header}>Date</Text>
                     <Text style={styles.tabel_header}>Description</Text>
                     <Text style={styles.tabel_header}>Points</Text>
                 </View>
                 
-                <View style={[styles.products, {justifyContent: 'space-evenly', textAlign: 'center'}]}>
+                <View style={[styles.products, {justifyContent: 'space-between', textAlign: 'center', paddingLeft: 6, paddingRight: 6}]}>
                     <Text style={styles.table_row_data}>April 27,2022</Text>
                     <Text style={styles.table_row_data}>Spinner</Text>
                     <Text style={styles.table_row_data}>Points</Text>

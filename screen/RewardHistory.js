@@ -15,12 +15,7 @@ import {
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { BASE_URL } from "../config";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
@@ -52,8 +47,8 @@ export default function RewardHistory({navigation}) {
       console.log(comments)
     }, [comments])
     const fetchComments=async()=>{
-    const response=await axios(`http://staging.paneloptimus.com/api/transactionHistory/${parseInt(userInfo.Result.panelistID)}`);
-    setComments(response.data.activityDetails)    
+    const response=await axios(`${BASE_URL}/getReward/${parseInt(userInfo.Result.panelistID)}`);
+    setComments(response.data.redeemHistory)    
     }
 
     console.log(comments)
@@ -69,35 +64,35 @@ export default function RewardHistory({navigation}) {
     >
 
     {
-        comments && comments.map((comment) => {
+        comments && comments.map((ele) => {
             return(
                 <View style={styles.products}>
             <View style={[styles.center, {width: "50%", padding: 5}]}>
                 <View style={{alignItems: 'center', marginTop: '0'}}>
                     <Image
                         style={[styles.stretch]}
-                        source={require("../assets/amazon_gift.png")}
+                        source={ele.mode_picture}
                     />
                     <View style={styles.button}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('SignUpScreen')}
                             style={[styles.signIn, {
-                                backgroundColor: '#8C6E63',
+                                backgroundColor: ele.status == 'Processing' ? '#8C6E63': '#378C3C',
                             }]}
                         >
                             <Text style={[styles.textSign, {
                                 color: '#fff'
-                            }]}>{comment.Transaction_status}</Text>
+                            }]}>{ele.status}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
             <View style={styles.center}>
-                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Amazon</Text>
-                <Text style={{textAlign: 'center'}}>Redeem Points : {comment.Total_points}</Text>
-                <Text style={{textAlign: 'center'}}>Voucher worth : </Text>
-                <Text style={{textAlign: 'center'}}>Trans ID : </Text>
-                <Text style={{textAlign: 'center'}}>Date : {comment.Date}</Text>
+                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>{ele.mode_name}</Text>
+                <Text style={{textAlign: 'center'}}>Redeem Points : {ele.redeem_points}</Text>
+                <Text style={{textAlign: 'center'}}>Voucher worth : {ele.worth}</Text>
+                <Text style={{textAlign: 'center'}}>Trans ID : {ele.transaction_id}</Text>
+                <Text style={{textAlign: 'center'}}>Date : {ele.request_date}</Text>
             </View>
         </View>
 

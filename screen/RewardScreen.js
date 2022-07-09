@@ -8,16 +8,18 @@ import {
     Platform, 
     PixelRatio,
     ScrollView,
+    Button,
+
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config";
 import axios from 'axios'
+import Modal from "react-native-modal";
+import { TouchableOpacity } from "react-native-web";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
-console.log(SCREEN_HEIGHT)
-console.log(SCREEN_WIDTH)
 export function normalize(size) {
     const newSize = size * scale 
     if (Platform.OS === 'ios') {
@@ -26,15 +28,8 @@ export function normalize(size) {
       return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
     }
 }
-
-const rows = 3;
-const cols = 2;
-const marginHorizontal = 4;
-const marginVertical = 4;
-
-
 export default function RewardScreen({navigation}) {
-    const {userInfo, splashLoading} = useContext(AuthContext);
+    const {userInfo, redeem_request} = useContext(AuthContext);
 
     console.log(userInfo)
     const [comments,setComments]=useState(null)
@@ -50,6 +45,32 @@ export default function RewardScreen({navigation}) {
     }
 
     console.log(comments && comments.results[0])
+
+    const [modal_data, setModal_data] = useState(null)
+
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        console.log("toggle modal")
+        setModalVisible(!isModalVisible);
+    }; 
+
+    const setting_modal_data = (reward_points, ele) => {
+        console.log(ele)
+        let new_obj = {
+            "name": userInfo.Result.firstname,
+            "reward_points": reward_points,
+            "voucher_worth": userInfo.Result.countryID == 100 ? (reward_points/100) * 40 : (reward_points/100) * 40,                                     
+            "api_data": ele,
+        }
+        setModal_data(new_obj)
+    }
+    console.log(modal_data)
+
+    const coupon_button_press = (points, ele) => {
+        setting_modal_data(points, ele)
+        toggleModal()
+    }
+
    
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
@@ -61,7 +82,7 @@ export default function RewardScreen({navigation}) {
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
             <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Reward</Text>
             <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
-            {/* <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="history" size={20} color="black"/> <TouchableOpacity onPress={() => {navigation.navigate('Reward History')}}>History</TouchableOpacity></Text> */}
+            <TouchableOpacity style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }} onPress={() => {navigation.navigate('Reward History')}}><Icon name="history" size={20} color="black"/> </TouchableOpacity>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>
@@ -88,12 +109,12 @@ export default function RewardScreen({navigation}) {
                         <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
                             <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>{ele.mode_name}</Text>
                             <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                                <View style={[styles.cardElement]}>
+                                <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result.redeemed_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(2500, {ele})}}>
                                     <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                                </View>
-                                <View style={[styles.cardElement]}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result.redeemed_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(5000, {ele})}}>
                                     <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -101,6 +122,41 @@ export default function RewardScreen({navigation}) {
                 )
             })
         }
+
+        {/* modal */}
+        <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
+            <View style={styles.modal_}>
+                <View style={{textAlign: "center", marginTop: '0', width: '70%'}}>
+                    <Image
+                        style={[styles.stretch, {justifyContent: "center"}]}
+                        source={modal_data && modal_data.api_data.ele.mode_picture}
+                    />
+                </View>
+                <Text style={styles.modal_sub_heading}>Congratulation {modal_data &&modal_data.name}</Text>
+                <View>
+                <Text style={styles.modal_sub_heading}>You have requested {modal_data && modal_data.api_data.ele.mode_name} Voucher</Text>
+                </View>
+                <View>
+                <Text style={styles.modal_sub_heading}>Redeem:  {modal_data && modal_data.reward_points} Points</Text>
+                </View>
+                <View>
+                <Text style={styles.modal_sub_heading}>Voucher Worth:  {modal_data && modal_data.voucher_worth}</Text>
+                </View>
+                <View>
+                    <Text style={styles.modal_sub_heading}>Would you like to continue.</Text>
+                </View>
+                <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
+                    <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
+                    <Button title="YES, CONTINUE" onPress={() => {
+                        redeem_request(modal_data.reward_points, modal_data.api_data.ele.mode_id )
+                        toggleModal()
+                    }} style={styles.modal_btn} color='#378C3C'/>
+                </View>
+
+            </View>
+        </Modal>
+
+
   </View>
   </ScrollView>
     );
@@ -108,6 +164,26 @@ export default function RewardScreen({navigation}) {
 
 
 const styles = StyleSheet.create({
+    modal_:{
+        height: 'justifyContent', 
+        backgroundColor: '#fff', 
+        padding: 10,
+        borderRadius: 10,
+    },
+    modal_btn:{
+        width: SCREEN_WIDTH*0.2,
+        color: '#378C3C',
+        borderRadius: 20,
+    },
+    modal_sub_heading: {
+        fontWeight: 500, 
+        fontSize: normalize(15), 
+        marginTop: 10
+    },
+    modal_points:{
+        fontWeight: 400, 
+        fontSize: normalize(15),
+    },
     container: {
         backgroundColor: '#FAFAFA',
         padding: 10,
@@ -278,7 +354,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1
     },
     cardElement: {
-        backgroundColor: 'gray',
+        // backgroundColor: 'gray',
         height: SCREEN_HEIGHT*0.055,
         width: SCREEN_WIDTH*0.2,
         justifyContent: 'center',

@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     StyleSheet,
     Text,
     View,
     Image,
-    TextInput,
     TouchableOpacity,
     Dimensions,
     Platform, 
     PixelRatio,
     ImageBackground
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
 import background from '../assets/background.jpeg'
 import ConfettiCannon from 'react-native-confetti-cannon';
 
@@ -36,17 +29,6 @@ export function normalize(size) {
 
 
 export default function SurveyEndPages({navigation}) {
-    const { colors } = useTheme();
-    const [email, setEmail] = useState("");
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
-   
     return (
     <View style={styles.container}>
         <View style={{ padding: '20'}}>

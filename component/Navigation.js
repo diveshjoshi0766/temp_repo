@@ -20,6 +20,7 @@ import PrivacyPolicyScreen from '../screen/PrivacyPolicyScreen';
 import FAQs from '../screen/FAQs'
 import TermsAndConditions from '../screen/TermsAndConditions';
 import UpdateProfileScreen from '../screen/UpdateProfileScreen';
+import EndOfProfileSurveyScreen from '../screen/EndOfProfileSurveyScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,11 @@ const Stack = createNativeStackNavigator();
 //     <Stack.Screen
 //       name="Home"
 //       component={MyTabScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name="End Of Profile Survey Screen"
+//       component={EndOfProfileSurveyScreen}
 //       options={{headerShown: false}}
 //     />
 //   </>
@@ -49,7 +55,7 @@ const Navigation = () => {
             component={SplashScreen}
             options={{headerShown: false}}
           />
-        ) : 
+        ) :
         userInfo.Result  ? (<>
           <Stack.Screen name="Home" component={MyTabScreen} screenOptions={{headerShown: false}}/>
             <Stack.Screen

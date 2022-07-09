@@ -12,9 +12,11 @@ import {
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from "axios";
-
-import { useTheme } from 'react-native-paper';
 import { AuthContext } from "../context/AuthContext";
+import WebViewScreen from "./WebViewScreen";
+import { BASE_URL } from "../config";
+import { TouchableOpacity } from "react-native-web";
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -28,12 +30,13 @@ export function normalize(size) {
     }
 }
 
+
 export default function SpinnerScreen({navigation}) {
     const {userInfo, panelist_basic_details} = useContext(AuthContext);
     console.log(userInfo.Result.countryID)
     console.log(userInfo.Result.panelistID)
     const [comments,setComments]=useState(null)
-
+    const [link, setLink] = useState(null)
     useEffect(() => {
       fetchComments();
     }, [])
@@ -41,87 +44,89 @@ export default function SpinnerScreen({navigation}) {
       console.log(comments)
     }, [comments])
     const fetchComments=async()=>{
-    const response=await axios(`http://staging.paneloptimus.com/api/surveySpinner/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`);
+    const response=await axios(`${BASE_URL}/surveySpinner/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`);
     setComments(response.data.result)    
     }
-    console.log(panelist_basic_details)
-    return (
-    <ScrollView showsVerticalScrollIndicator ={false}>
-    <View style={styles.container}>
-        <View>
-            <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
-        </View>
-        {/* heading */}
-        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Spinner</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
-        </View>
-        <View style={styles.points}>
-            <View style={styles.center}>
-                <Text style={styles.text_box_black_header}>My Points</Text>
-                <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
+    console.log(link)
+    if(link === null){
+        return (
+        <ScrollView showsVerticalScrollIndicator ={false}>
+        <View style={styles.container}>
+            <View>
+                <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
             </View>
-            <View style={styles.center}>
-                <Text style={styles.text_box_black_header}>My Profile</Text>
-                <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
+            {/* heading */}
+            <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Spinner</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
             </View>
-        </View>
-        
-        <View style={styles.products}>
-            <View style={[styles.center, {flex: 1.2}]}>
-                <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>Opertunity to Earn 100 point every 3 hour</Text>
-            </View>
-            <View style={[styles.center, {flex: 0.8}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <ImageBackground style={[styles.stretch]}
-                        source={require("../assets/spinner_edited.gif")} resizeMode="cover">
-                        <Image
-                            style={{width: 70, height: 70}}
-                            source={require("../assets/yellow_spinner.png")}
-                        />
-                    </ImageBackground>
+            <View style={styles.points}>
+                <View style={styles.center}>
+                    <Text style={styles.text_box_black_header}>My Points</Text>
+                    <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
+                </View>
+                <View style={styles.center}>
+                    <Text style={styles.text_box_black_header}>My Profile</Text>
+                    <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
                 </View>
             </View>
-        </View>
+            
 
-        <View style={styles.products}>
-            <View style={[styles.center, {flex: 0.8}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <ImageBackground style={[styles.stretch]}
-                        source={require("../assets/spinner_edited.gif")} resizeMode="cover">
-                        <Image
-                            style={{width: 70, height: 70}}
-                            source={require("../assets/green_spinner.png")}
-                        />
-                    </ImageBackground>
-                </View>
-            </View>
-            <View style={[styles.center, {flex: 1.2}]}>
-                <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>Opertunity to Earn 75 point every 2 hour</Text>
-            </View>
+            {
+                comments && comments.map((ele, val) => {  
+                    if(val % 2 == 0){
+                        return (
+                            <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
+                                <View style={[styles.center, {flex: 1.2}]}>
+                                    <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>{ele.Description}</Text>
+                                </View>
+                                <View style={[styles.center, {flex: 0.8}]}>
+                                    <View style={{alignItems: 'center', marginTop: '0'}}>
+                                        <ImageBackground style={[styles.stretch]}
+                                            source={require("../assets/spinner_edited.gif")} resizeMode="cover">
+                                            <Image
+                                                style={{width: 70, height: 70}}
+                                                source={require(`../assets/${ele.Incentive}.png`)}
+                                            />
+                                        </ImageBackground>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }
+                    else{
+                        return (
+                            <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
+                                <View style={[styles.center, {flex: 0.8}]}>
+                                    <View style={{alignItems: 'center', marginTop: '0'}}>
+                                        <ImageBackground style={[styles.stretch]}
+                                            source={require("../assets/spinner_edited.gif")} resizeMode="cover">
+                                            <Image
+                                                style={{width: 70, height: 70}}
+                                                source={require(`../assets/${ele.Incentive}.png`)}
+                                            />
+                                        </ImageBackground>
+                                    </View>
+                                </View>
+                                <View style={[styles.center, {flex: 1.2}]}>
+                                    <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>{ele.Description}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }
+                })
+            }
         </View>
-
-        <View style={styles.products}>
-            <View style={[styles.center, {flex: 1.2}]}>
-                <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>Opertunity to Earn 50 point every 1 hour</Text>
-            </View>
-            <View style={[styles.center, {flex: 0.8}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
-                    <ImageBackground style={[styles.stretch]}
-                        source={require("../assets/spinner_edited.gif")} resizeMode="cover">
-                        <Image
-                            style={{width: 70, height: 70}}
-                            source={require("../assets/red_spinner.png")}
-                        />
-                    </ImageBackground>
-                </View>
-            </View>
-        </View>
-  </View>
-  </ScrollView>
-    );
-  }
-
+        </ScrollView>
+        )   
+    }
+    else{
+        console.log(link)
+        return (
+            <WebViewScreen link={link}></WebViewScreen>
+        )
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -274,4 +279,4 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 0.1
     }
-  });
+  })
