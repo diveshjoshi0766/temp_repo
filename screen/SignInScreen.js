@@ -72,8 +72,6 @@ export default function SignInScreen({navigation}) {
         {/* TagLine */}
         <TagLine/>
 
-
-
         <View style={styles.action}>
             <FontAwesome 
                 name="user-o"

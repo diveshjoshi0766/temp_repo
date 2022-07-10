@@ -209,7 +209,7 @@ export default function MyAccountScreen({navigation}) {
 
             <View style={[styles.action, {backgroundColor: '#ffffff', fontFamily: "Poppins", justifyContent: "space-around"}]}>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                        <Icon name="arrow-right-from-bracket" color="#378C3C" size={30}></Icon>
+                        <Icon name="sign-out" color="#378C3C" size={30}></Icon>
                     </View>
                     <TouchableOpacity 
                     style={{flex:0.6,

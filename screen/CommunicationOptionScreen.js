@@ -34,7 +34,6 @@ export default function CommunicationOptionScreen({navigation}) {
     };
 
     return (
-        
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -43,9 +42,9 @@ export default function CommunicationOptionScreen({navigation}) {
         }]}
     >
        
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 5}}>Email Opt out</Text>
-            <Text style={{marginTop: 10,  textAlign: 'center'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
+        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between', fontFamily: 'Poppins Regular 400'}]}>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(17), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Email Opt out</Text>
+            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center', fontFamily: 'Poppins Regular 400'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
                     onPress={toggleModal}
@@ -62,8 +61,8 @@ export default function CommunicationOptionScreen({navigation}) {
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 5}}>Deactivate Account</Text>
-            <Text style={{marginTop: 10, textAlign: 'center'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(17), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Deactivate Account</Text>
+            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center', fontFamily: 'Poppins Regular 400'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Deactivation Confirmation Screen')}
@@ -217,6 +216,7 @@ const styles = StyleSheet.create({
     },
     textSign: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'Poppins Regular 400'
     },
   });

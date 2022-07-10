@@ -37,6 +37,11 @@ export default function ChangePasswordScreen({navigation}) {
 
     const {isLoading, changePassword} = useContext(AuthContext);
 
+    const [curr_pass_sec, set_curr_pass_sec] = useState(true)
+    const [pass_sec, setPass_sec] = useState(true)
+    const [confPassSec, setConfPassSec] = useState(true)
+
+
     return (
     <View style={styles.container}>
     <Animatable.View 
@@ -46,7 +51,7 @@ export default function ChangePasswordScreen({navigation}) {
         }]}
     >
 
-        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'gray', fontFamily: 'Poppins Regular 400',}}>Change Password</Text>
+        <Text style={{fontSize: normalize(18), color: 'gray', fontFamily: 'Poppins Regular 400',}}>Change Password</Text>
         
         <View style={[styles.action, {backgroundColor: '#ffffff', marginTop: 20}]}>
             <FontAwesome 
@@ -63,16 +68,23 @@ export default function ChangePasswordScreen({navigation}) {
                 autoCapitalize="none"
                 onChangeText={(val) => setCurrentPassword(val)}
                 onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                secureTextEntry={curr_pass_sec} 
             />
-            <Animatable.View
-                animation="bounceIn"
-            >
+            <TouchableOpacity onPress={() => {set_curr_pass_sec(!curr_pass_sec)}}>
+                {curr_pass_sec ? 
                 <Feather 
-                    name="check-circle"
+                    name="eye-off"
+                    color="grey"
+                    size={20}
+                />
+                :
+                <Feather 
+                    name="eye"
                     color="green"
                     size={20}
                 />
-            </Animatable.View>
+                }
+            </TouchableOpacity>
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
@@ -89,10 +101,10 @@ export default function ChangePasswordScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setNewPassword(val)}
+                secureTextEntry={pass_sec} 
             />
-            <TouchableOpacity
-            >
-                {/* {data.secureTextEntry ? 
+            <TouchableOpacity onPress={() => {setPass_sec(!pass_sec)}}>
+                {pass_sec ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -101,15 +113,10 @@ export default function ChangePasswordScreen({navigation}) {
                 :
                 <Feather 
                     name="eye"
-                    color="grey"
+                    color="green"
                     size={20}
                 />
-                } */}
-                <Feather 
-                    name="eye-off"
-                    color="grey"
-                    size={20}
-                />
+                }
             </TouchableOpacity>
         </View>
 
@@ -127,10 +134,10 @@ export default function ChangePasswordScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setConfirmPassword(val)}
+                secureTextEntry={confPassSec} 
             />
-            <TouchableOpacity
-            >
-                {/* {data.secureTextEntry ? 
+            <TouchableOpacity onPress={() => {setConfPassSec(!confPassSec)}}>
+                {confPassSec ? 
                 <Feather 
                     name="eye-off"
                     color="grey"
@@ -139,15 +146,10 @@ export default function ChangePasswordScreen({navigation}) {
                 :
                 <Feather 
                     name="eye"
-                    color="grey"
+                    color="green"
                     size={20}
                 />
-                } */}
-                <Feather 
-                    name="eye"
-                    color="grey"
-                    size={20}
-                />
+                }
             </TouchableOpacity>
         </View>
         <View style={styles.button}>
@@ -210,14 +212,14 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(10),
-        minHeight: 40,
+        minHeight: normalize(37),
         flex:1,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
     },
     actionError: {
         flexDirection: 'row',

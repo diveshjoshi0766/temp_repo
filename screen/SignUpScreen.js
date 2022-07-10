@@ -189,7 +189,6 @@ export default function SignUpScreen({navigation}) {
                 onChangeText={(val) => setFirstName(val)}
             />
         </View>
-
         
         <View style={styles.action}>
             <TextInput 

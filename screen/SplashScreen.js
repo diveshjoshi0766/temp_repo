@@ -8,6 +8,6 @@ const SplashScreen = () => {
       <ActivityIndicator size="large" color="#ffffff" />
     </View>
   );
-};
+}
 
 export default SplashScreen;

@@ -36,7 +36,7 @@ export function normalize(size) {
 
 export default function UpdateProfileScreen({navigation}) {
     
-    const {userInfo, panelist_basic_details,udpate_profile, avatar_set} = useContext(AuthContext);
+    const {userInfo, Panelist_basic_details, panelistBasicDetails_func, udpate_profile, avatar_set} = useContext(AuthContext);
     const [comments,setComments]=useState(null)
 
     useEffect(() => {
@@ -49,7 +49,6 @@ export default function UpdateProfileScreen({navigation}) {
         const response=await axios(`${BASE_URL}/getBasicProfiling/${parseInt(userInfo.Result.panelistID)}`);
         setComments(response.data)    
     }
-
     const { colors } = useTheme();
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
@@ -61,7 +60,7 @@ export default function UpdateProfileScreen({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
-    const [firstName, setFirstName] = useState("")
+    const [firstName, setFirstName] = useState(comments && comments.Results.firstname)
     const [lastName, setLastName] = useState("")
     const [isSelected, setSelection] = useState(false);
     const [checked, setChecked] = React.useState('first');
@@ -80,13 +79,9 @@ export default function UpdateProfileScreen({navigation}) {
     const displayDatepicker = () => {
     showMode('date');
     };
+    const [mydate, setMydate] = useState()
 
-
-    if(comments && comments.Results.firstname != undefined){
-        console.log(comments.Results.firstname)
-    }
-
-    console.log(comments && comments.Results.email)
+    console.log(comments)
 
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
@@ -94,6 +89,7 @@ export default function UpdateProfileScreen({navigation}) {
     };
 
     const [avatar,setAvatar]=useState(null)
+    const [avatarLink, setAvatarLink] = useState(null);
     useEffect(() => {
       fetchAvatar();
     }, [])
@@ -105,14 +101,8 @@ export default function UpdateProfileScreen({navigation}) {
     setAvatar(response.data)    
     }
 
-    console.log(avatar && avatar.results ? avatar.results : " nothing")
+    console.log(comments && comments.Results.firstname)
 
-    if(avatar && avatar.results){
-        avatar.results.map((ele) => {
-            console.log(ele.avatarName)
-            console.log(ele.avatarLink)
-        })
-    }
 
     return (
     <View style={styles.container}>
@@ -124,23 +114,34 @@ export default function UpdateProfileScreen({navigation}) {
     >
 
         <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Presonal Details</Text>
-
+        {
+                comments && comments.Results ? 
+                
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
             <View style={{alignItems: 'center'}}>
-                <Icon name="user" size={50}></Icon>
+                {comments.Results.profilePic != null ? <Image
+                                style={[styles.stretch]}
+                                source={{uri:  `${comments.Results.profilePic}`}}
+                            /> : <Icon name="user" size={50}></Icon>}
                 <TouchableOpacity style={{color:'red', fontFamily: 'Poppins Regular 400'}} onPress={() => {toggleModal()}}>Change avatar</TouchableOpacity>
             </View>
-            <View style={{paddingLeft: normalize(10)}}>
-                <Text style={styles.label}>SOID: </Text>
-                <Text style={styles.label}>Profile Completion: </Text>
-                <Text style={styles.label}>Email: </Text>
-                <Text style={styles.label}>Earned Points: </Text>
-            </View>
+           
+                <View style={{paddingLeft: normalize(10)}}>
+                <Text style={styles.label}>SOID: {comments.Results.SOUID}</Text>
+                <Text style={styles.label}>Profile Completion: {comments.Results.profilePercentage}</Text>
+                <Text style={styles.label}>Email: {userInfo.Result.email}</Text>
+                <Text style={styles.label}>Earned Points: {comments.Results.current_point}</Text>            
+                </View> 
+            
         </View>
+        
+            : 
+            <></>
+        }
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="First Name"
+                placeholder={comments && comments.Results.firstname}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -148,13 +149,12 @@ export default function UpdateProfileScreen({navigation}) {
                 autoCapitalize="none"
                 onChangeText={(val) => setFirstName(val)}
                 onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-                value={email}
             />
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Last Name"
+                placeholder={comments && comments.Results.lastname}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -212,7 +212,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Address 1"
+                placeholder={comments && comments.Results.address1}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -223,7 +223,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Address 2"
+                placeholder={comments && comments.Results.address2}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -234,7 +234,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Choose City"
+                placeholder={comments && comments.Results.city}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -245,7 +245,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Country India"
+                placeholder={comments && comments.Results.state}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -256,7 +256,18 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Zipcode"
+                placeholder={comments && comments.Results.country}
+                placeholderTextColor="#666666"
+                style={[styles.textInput, {
+                    color: colors.text
+                }]}
+                autoCapitalize="none"
+                onChangeText={(val) => setCountry(val)}
+            />
+        </View>
+        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+            <TextInput 
+                placeholder={comments && comments.Results.zipcode}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -265,7 +276,7 @@ export default function UpdateProfileScreen({navigation}) {
                 onChangeText={(val) => setZip(val)}
             />
             <TextInput 
-                placeholder="Phone Number"
+                placeholder={comments && comments.Results.phone}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -288,7 +299,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
 
         {/* modal */}
-        <Modal transparent={true} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{height: SCREEN_HEIGHT*0.5}}>
+        <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{height: SCREEN_HEIGHT*0.5}}>
                 <ScrollView 
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
@@ -297,10 +308,13 @@ export default function UpdateProfileScreen({navigation}) {
                 {avatar && avatar.results.map((ele) => {
                     return(
                     <View style={styles.modal_} key={ele.avatarName}>
-                        <TouchableOpacity style={{alignItems: 'center', marginTop: '0', width: '60%'}} onPress={() => avatar_set(ele.avatarName)}>
+                        <TouchableOpacity style={{alignItems: 'center', marginTop: '0', width: '60%'}} onPress={() => {
+                            setAvatarLink(ele.avatarLink)
+                            avatar_set(ele.avatarName)
+                            setModalVisible(!isModalVisible)
+                            }}>
                             <Image
                                 style={[styles.stretch]}
-                                // source={{uri:  `${ele.avatarLink}`}}
                                 source={{uri:  `${ele.avatarLink}`}}
                             />
                             
@@ -383,14 +397,14 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(10),
-        minHeight: 40,
+        minHeight: normalize(37),
         flex:1,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingLeft: 15,
+        paddingRight: 15,
     },
     actionError: {
         flexDirection: 'row',

@@ -81,8 +81,8 @@ export default function RewardScreen({navigation}) {
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
             <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Reward</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
-            <TouchableOpacity style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }} onPress={() => {navigation.navigate('Reward History')}}><Icon name="history" size={20} color="black"/> </TouchableOpacity>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} style={{marginTop: 10}} color="black"/> Profile</Text>
+            <TouchableOpacity style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400', flexDirection: 'row'}} onPress={() => {navigation.navigate('Reward History')}}><Icon name="history" size={20} color="black" style={{marginTop: 10}}/><Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}> History</Text></TouchableOpacity>
         </View>
         <View style={styles.points}>
             <View style={styles.center}>

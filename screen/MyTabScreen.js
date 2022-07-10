@@ -16,6 +16,7 @@ export default function MyTabScreen() {
       initialRouteName="DashboardScreen"
       activeColor="#369239"
       barStyle={{ backgroundColor: '#fff' }}
+      screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
         name="Home"
@@ -27,7 +28,9 @@ export default function MyTabScreen() {
  ></Image>
           ),
         }}
+        screenOptions={{ headerShown: false }}
       />
+
       <Tab.Screen
         name="Spinner"
         component={SpinnerScreen}
@@ -40,6 +43,7 @@ export default function MyTabScreen() {
           ),
         }}
       />
+
       <Tab.Screen
         name="Reward"
         component={RewardScreen}
@@ -52,6 +56,7 @@ export default function MyTabScreen() {
           ),
         }}
       />
+
       <Tab.Screen
         name="Activity"
         component={UserActivityScreen}
@@ -63,6 +68,7 @@ export default function MyTabScreen() {
           ),
         }}
       />
+
       <Tab.Screen
         name="My Account"
         component={MyAccountScreen}
@@ -73,6 +79,7 @@ export default function MyTabScreen() {
           ),
         }}
       />
+      
     </Tab.Navigator>
   );
 }

@@ -54,8 +54,8 @@ export default function DeactivationConfirmation({navigation}) {
     >
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Are you sure?</Text>
-            <Text>After cancellation of your SurveyOptimus account, you will no longer be able to take part in survey, Spinners, access your account information. All your points will be erased and any rewards request will be cancelled.</Text>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(17), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Are you sure?</Text>
+            <Text style={{}}>After cancellation of your SurveyOptimus account, you will no longer be able to take part in survey, Spinners, access your account information. All your points will be erased and any rewards request will be cancelled.</Text>
             <Text>Please follow the below steps to Delete Account.</Text>
             <Text>1. Login to your account on web browser.</Text>
             <Text>2. GOTO "My Account".</Text>

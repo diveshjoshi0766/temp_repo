@@ -21,10 +21,9 @@ import FAQs from '../screen/FAQs'
 import TermsAndConditions from '../screen/TermsAndConditions';
 import UpdateProfileScreen from '../screen/UpdateProfileScreen';
 import EndOfProfileSurveyScreen from '../screen/EndOfProfileSurveyScreen';
+import LoadingScreen from '../screen/LoadingScreen';
 
 const Stack = createNativeStackNavigator();
-
-
 
 // (userInfo.message !== undefined && userInfo.message.split('!!')[0] == 'Congratulations') ? (
 //   <>
@@ -48,16 +47,16 @@ const Navigation = () => {
   const {userInfo, splashLoading} = useContext(AuthContext);
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         {splashLoading ? (
           <Stack.Screen
-            name="Splash Screen"
-            component={SplashScreen}
+            name="Loading Screen"
+            component={LoadingScreen}
             options={{headerShown: false}}
           />
         ) :
         userInfo.Result  ? (<>
-          <Stack.Screen name="Home" component={MyTabScreen} screenOptions={{headerShown: false}}/>
+          <Stack.Screen name="Home" component={MyTabScreen} screenOptions={{ headerShown: false }}/>
             <Stack.Screen
               name="Communication Option Screen"
               component={CommunicationOptionScreen}

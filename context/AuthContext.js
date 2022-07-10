@@ -17,7 +17,7 @@ export const AuthProvider = ({children}) => {
     console.log(userInfo)
     console.log(ans_key)
     axios
-      .put(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.results.panelistID)}`, ans_key, {
+      .post(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.results.panelistID)}`, ans_key, {
         "Headers": {
           'Content-Type': 'application/json',
           'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
@@ -46,11 +46,10 @@ export const AuthProvider = ({children}) => {
     })
 
     axios
-      .put(`${BASE_URL}/setAvatar/${parseInt(userInfo.Result.panelistID)}`, data, {
+      .post(`${BASE_URL}/setAvatar/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
-          "Access-Control-Allow-Methods": 'POST, PUT, GET, OPTIONS'
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
         }
       })
       .then(res => {
@@ -74,7 +73,7 @@ export const AuthProvider = ({children}) => {
     })
 
     axios
-      .put(`${BASE_URL}/redeemRequest`, data, {
+      .post(`${BASE_URL}/redeemRequest`, data, {
         "Headers": {
           'Content-Type': 'application/json',
           'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
@@ -110,7 +109,7 @@ export const AuthProvider = ({children}) => {
       })
       console.log(userInfo.Result.panelistID)
     axios
-      .put(`${BASE_URL}/setBasicProfiling/${parseInt(userInfo.Result.panelistID)}`, data, {
+      .post(`${BASE_URL}/setBasicProfiling/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
           'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
@@ -169,13 +168,13 @@ export const AuthProvider = ({children}) => {
   const changePassword = (curr_pass, new_pass, conf_new_pass) => {
     setIsLoading(true);
       const data = JSON.stringify({
-        "current_passwrod" : "111111", 
-        "new_password" : "1111111",
-        "confirm_new_password": "1111111"
+        "current_passwrod" : curr_pass, 
+        "new_password" : new_pass,
+        "confirm_new_password": conf_new_pass
       })
       console.log(userInfo.Result.panelistID)
     axios
-      .put(`${BASE_URL}/changePassword/${parseInt(userInfo.Result.panelistID)}`, data, {
+      .post(`${BASE_URL}/changePassword/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
         }
@@ -335,7 +334,7 @@ export const AuthProvider = ({children}) => {
       const data = JSON.stringify({
         email: email
       })
-      axios.put(
+      axios.post(
         `${BASE_URL}/forgotpassword`, data,{
           "Headers": {
             'Content-Type': 'application/json',
@@ -362,7 +361,6 @@ export const AuthProvider = ({children}) => {
 
       let userInfo = await AsyncStorage.getItem('userInfo');
       userInfo = JSON.parse(userInfo);
-
       if (userInfo) {
         setUserInfo(userInfo);
         console.log(userInfo)
@@ -382,8 +380,8 @@ export const AuthProvider = ({children}) => {
     .get(`${BASE_URL}/getBasicProfiling/${parseInt(userInfo.Result.panelistID)}`)
     .then(res => {
       let details = res.data;
-      setPanelist_basic_details(details);
       console.log(details);
+      setPanelist_basic_details(details);
       setIsLoading(false);
     })
     .catch(e => {
