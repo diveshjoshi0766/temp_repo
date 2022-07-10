@@ -12,12 +12,13 @@ export const AuthProvider = ({children}) => {
   const [surveyQuestion, setSurveyQuestion] = useState({});
   const [trans_history, setTrans_history] = useState([])
   const [panelist_basic_details, setPanelist_basic_details] = useState(null)
+  const [is_subscribed, setIs_subscribed] = useState(true)
 
   const panelist_profiling_ans = (ans_key) => {
     console.log(userInfo)
     console.log(ans_key)
     axios
-      .post(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.results.panelistID)}`, ans_key, {
+      .post(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.Result.panelistID)}`, ans_key, {
         "Headers": {
           'Content-Type': 'application/json',
           'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
@@ -36,7 +37,6 @@ export const AuthProvider = ({children}) => {
         setIsLoading(false);
       });
   }
-
 
   const avatar_set = (avatar_name) => {
     console.log(avatar_name)
@@ -164,6 +164,35 @@ export const AuthProvider = ({children}) => {
         setIsLoading(false);
       });
   };
+
+  
+  const emailSubscribe = () => {
+    setIsLoading(true);
+    let data = JSON.stringify({
+      "unsubscribe_code" : 1
+    })
+    console.log(data)
+    console.log(parseInt(userInfo.Result.panelistID))
+    axios
+      .post(`${BASE_URL}/subscribes/${parseInt(userInfo.Result.panelistID)}`, data, {
+        "Headers": {
+          'Content-Type': 'application/json',
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+        }
+      })  
+      .then(res => {
+        let info = res.data;
+        console.log(info);
+        alert(res.data.message)
+        setIs_subscribed(true)
+        setIsLoading(false);
+      })
+      .catch(e => {
+        console.log(`login error ${e}`);
+        setIsLoading(false);
+      });
+  };
+
   
   const changePassword = (curr_pass, new_pass, conf_new_pass) => {
     setIsLoading(true);
@@ -209,7 +238,7 @@ export const AuthProvider = ({children}) => {
     });
   }
 
-  const register = (email, password, confirmPassword, firstName, lastName) => {
+  const register = (email, password, confirmPassword, firstName, lastName, navigation) => {
     setIsLoading(true);
 
     const data =JSON.stringify({
@@ -232,11 +261,16 @@ export const AuthProvider = ({children}) => {
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
+        alert(userInfo.message)
+        navigation.navigate('Sign In Screen')
         console.log(userInfo);
+        return true;
       })
       .catch(e => {
         console.log(`register error ${e}`);
         setIsLoading(false);
+        alert(e )
+        return false;
       });
   }
 
@@ -274,7 +308,7 @@ export const AuthProvider = ({children}) => {
       });
   };
 
-  const login = (email, password) => {
+  const login = (email, password, navigation) => {
     setIsLoading(true);
       const data = JSON.stringify({
         "email" : email, 
@@ -293,6 +327,7 @@ export const AuthProvider = ({children}) => {
         console.log(userInfo);
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+        navigation.navigate('Profile Survey')
         setIsLoading(false);
       })
       .catch(e => {
@@ -301,7 +336,7 @@ export const AuthProvider = ({children}) => {
       });
   };
 
-  const logout = (email) => {
+  const logout = (email, navigation) => {
     setIsLoading(true);
     const data = JSON.stringify({
       email: email
@@ -321,6 +356,7 @@ export const AuthProvider = ({children}) => {
         console.log(res.data);
         AsyncStorage.removeItem('userInfo');
         setUserInfo({});
+        navigation.navigate('Defualt Screen')
         setIsLoading(false);
       })
       .catch(e => {
@@ -419,6 +455,9 @@ export const AuthProvider = ({children}) => {
         avatar_set,
         panelist_profiling_ans,
         login_via_google,
+        is_subscribed, 
+        setIs_subscribed,
+        emailSubscribe
       }}>
       {children}
     </AuthContext.Provider>

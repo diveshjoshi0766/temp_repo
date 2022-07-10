@@ -138,7 +138,7 @@ export default function SignInScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => login(email, password)}
+                onPress={() => login(email, password, navigation)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}

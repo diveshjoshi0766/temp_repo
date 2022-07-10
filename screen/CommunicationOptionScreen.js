@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -12,6 +12,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 import Modal from "react-native-modal";
 import { ScrollView } from "react-native-web";
+import { AuthContext } from "../context/AuthContext";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -33,6 +34,12 @@ export default function CommunicationOptionScreen({navigation}) {
         setModalVisible(!isModalVisible);
     };
 
+    const {isLoading, emailUnsubscribe, is_subscribed, setIs_subscribed, emailSubscribe} = useContext(AuthContext);
+
+    const subscribe_user = () => {
+        emailSubscribe()
+    }
+    console.log(is_subscribed)
     return (
     <View style={styles.container}>
     <Animatable.View 
@@ -46,6 +53,8 @@ export default function CommunicationOptionScreen({navigation}) {
             <Text style={{fontWeight: 'bold', fontSize: normalize(17), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Email Opt out</Text>
             <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center', fontFamily: 'Poppins Regular 400'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
             <View style={[styles.button]}>
+                
+            {is_subscribed ? 
                 <TouchableOpacity
                     onPress={toggleModal}
                     style={[styles.signIn, {
@@ -53,10 +62,25 @@ export default function CommunicationOptionScreen({navigation}) {
                         color: '#fff'
                     }]}
                 >
-                    <Text style={[styles.textSign, {
+                 <Text style={[styles.textSign, {
                         color: '#fff'
                     }]}>Unsubscribe</Text>
-                </TouchableOpacity>
+                    
+                </TouchableOpacity> 
+                : 
+                <TouchableOpacity
+                    onPress={subscribe_user}
+                    style={[styles.signIn, {
+                        backgroundColor: '#378C3C',
+                        color: '#fff'
+                    }]}
+                >
+                 <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}>Subscribe</Text>
+                    
+                </TouchableOpacity> 
+            }
             </View>
         </View>
 
@@ -120,6 +144,7 @@ const styles = StyleSheet.create({
         width: SCREEN_WIDTH*0.2,
         color: '#378C3C',
         borderRadius: 20,
+        fontSize: normalize(15)
     },
     modal_sub_heading: {
         fontWeight: 500, 

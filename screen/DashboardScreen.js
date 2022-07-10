@@ -52,7 +52,7 @@ export default function DashboardScreen({navigation}) {
     <ScrollView showsVerticalScrollIndicator ={false}>
     <View style={styles.container}>
         <View>
-            <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
+            <Text style={styles.header}>Good Morning, {userInfo.Result && userInfo.Result.firstname}</Text>
         </View>
         {/* heading */}
         <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
@@ -62,11 +62,11 @@ export default function DashboardScreen({navigation}) {
         <View style={styles.points}>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Points</Text>
-                <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.current_point}</Text>
             </View>
             <View style={styles.center}>
                 <Text style={styles.text_box_black_header}>My Profile</Text>
-                <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
+                <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
             </View>
         </View>
 

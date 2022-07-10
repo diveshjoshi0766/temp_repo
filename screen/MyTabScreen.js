@@ -28,7 +28,6 @@ export default function MyTabScreen() {
  ></Image>
           ),
         }}
-        screenOptions={{ headerShown: false }}
       />
 
       <Tab.Screen

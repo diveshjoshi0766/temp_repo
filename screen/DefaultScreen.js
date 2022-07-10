@@ -211,7 +211,16 @@ export default function DefaultScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => {register(email, password, confirmPassword, firstName, lastName)}}
+                onPress={async ()  => {
+                    const responce = await register(email, password, confirmPassword, firstName, lastName, navigation)
+                    // console.log(responce)
+                    // if(responce == true){
+                    //     console.log("True")
+                    //     navigation.navigate("Sign In Screen")
+                    // }else{
+                    //     console.log("False")
+                    // }
+                    }}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}

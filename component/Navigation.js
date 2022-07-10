@@ -1,4 +1,9 @@
 import React, {useContext} from 'react';
+import {
+  Text,
+  Button,
+  View,
+} from "react-native";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AuthContext} from '../context/AuthContext';
@@ -47,7 +52,9 @@ const Navigation = () => {
   const {userInfo, splashLoading} = useContext(AuthContext);
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      >
         {splashLoading ? (
           <Stack.Screen
             name="Loading Screen"
@@ -56,7 +63,11 @@ const Navigation = () => {
           />
         ) :
         userInfo.Result  ? (<>
-          <Stack.Screen name="Home" component={MyTabScreen} screenOptions={{ headerShown: false }}/>
+            <Stack.Screen 
+              name="Home" 
+              component={MyTabScreen} 
+              screenOptions={{ headerShown: false }}
+            />
             <Stack.Screen
               name="Communication Option Screen"
               component={CommunicationOptionScreen}
@@ -85,7 +96,17 @@ const Navigation = () => {
             <Stack.Screen
               name="Privacy Policy Screen"
               component={PrivacyPolicyScreen}
-              options={{headerShown: false}}
+              // options={{headerShown: false}}
+              options={{
+                headerTitle: () => {<Text>Privacy Policy</Text>},
+                headerRight: () => (
+                  <Button
+                    onPress={() => alert('This is a button!')}
+                    title="Info"
+                    color="#00cc00"
+                  />
+                ),
+              }}
             />
             <Stack.Screen
               name="FAQs Screen"
@@ -100,6 +121,16 @@ const Navigation = () => {
             <Stack.Screen
               name="Update Profile Screen"
               component={UpdateProfileScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Profile Survey"
+              component={ProfileSurvey1}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="End Of Profile Survey Screen"
+              component={EndOfProfileSurveyScreen}
               options={{headerShown: false}}
             />
           </>
@@ -144,6 +175,11 @@ const Navigation = () => {
               name="Terms And Conditions Screen"
               component={TermsAndConditions}
               options={{headerShown: false}}
+            />
+            <Stack.Screen 
+              name="Home" 
+              component={MyTabScreen} 
+              screenOptions={{ headerShown: false }}
             />
           </>
         )}

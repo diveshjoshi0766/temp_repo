@@ -13,6 +13,7 @@ import { useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native-web";
 import { AuthContext } from "../context/AuthContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -31,6 +32,18 @@ export default function MyAccountScreen({navigation}) {
     
     const {isLoading, logout, userInfo} = useContext(AuthContext);
     console.log(userInfo)
+
+    const check_for_survey = async () => {
+        // await AsyncStorage.removeItem('ans_obj');
+        let ans_obj = await AsyncStorage.getItem('ans_obj');
+        let ans_obj_arr = JSON.parse(ans_obj);
+        console.log(ans_obj_arr)
+        if(ans_obj_arr == null){
+        navigation.navigate('Profile Survey')
+        }else{
+            alert("Your survey has been submitted")
+        }
+    }
     return (
         
         <ScrollView showsVerticalScrollIndicator ={false}>
@@ -71,13 +84,20 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="group" color="#378C3C" size={30}></Icon>
                     </View>
-                    <View style={{flex:0.6,
+                    <TouchableOpacity 
+                    style={{flex:0.6,
                         flexDirection:'col',
                         justifyContent:'center'
-                    }}>
+                    }}
+                    onPress = {() => {
+                        check_for_survey()
+                    }}
+                    >
+                    <View>
                         <Text style={{fontWeight: 'bold', fontSize: 18}}>Profile Survey</Text>
                         <Text style={{fontStyle: 'italic'}}>your demographic information</Text>
                     </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
@@ -216,7 +236,7 @@ export default function MyAccountScreen({navigation}) {
                         flexDirection:'col',
                         justifyContent:'center'
                     }}
-                    onPress={() => logout(userInfo.Result.email)}
+                    onPress={() => logout(userInfo.Result.email, navigation)}
                     >
                     <View >
                         <Text style={{fontWeight: 'bold', fontSize: 18}}>Log Out</Text>

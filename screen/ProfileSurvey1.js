@@ -43,29 +43,38 @@ export default function ProfileSurvey1({navigation}) {
     const [ans, setAns] = useState([])
     const [ques_idx, setQues_idx] = useState(null)
 
-    useEffect(() => {
+    useEffect(async () => {
         // getQuiz()
-        let isMounted = true
-        setLoading(true)
-        axios
-        .get(`${BASE_URL}/getCountryQuestion/232/536`)
-        .then(res => {
-            let responce_data = res.data;
-            console.log()
-            
-            setData(Object.values(responce_data.Results))
-            setQues_idx(Object.keys(responce_data.Results))
-       
+
+        let ans_obj = await AsyncStorage.getItem('ans_obj');
+        let ans_obj_arr = JSON.parse(ans_obj);
+        if(ans_obj_arr == null){
+            let isMounted = true
+            setLoading(true)
+            axios
+            .get(`${BASE_URL}/getCountryQuestion/232/536`)
+            .then(res => {
+                let responce_data = res.data;
+                console.log()
+                
+                setData(Object.values(responce_data.Results))
+                setQues_idx(Object.keys(responce_data.Results))
+        
+                setLoading(false);
+            })
+            .catch(e => {
+            console.log(`register error ${e}`);
             setLoading(false);
-        })
-        .catch(e => {
-        console.log(`register error ${e}`);
-        setLoading(false);
-        });
-        return () => {
-            // setQuestions({}); // This worked for me
-            isMounted = false
-        };
+            });
+            return () => {
+                // setQuestions({}); // This worked for me
+                isMounted = false
+            };
+        }else{
+            navigation.navigate('Profile Survey')
+        }
+
+
     }, []);
     console.log(ques_idx)
 
@@ -121,6 +130,7 @@ export default function ProfileSurvey1({navigation}) {
             }; 
             ans_obj.push(temp)
         }
+        AsyncStorage.setItem('ans_obj', JSON.stringify(ans));
         console.log(ans_obj)
         panelist_profiling_ans(ans_obj)
         console.log("here")
@@ -150,6 +160,7 @@ export default function ProfileSurvey1({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
+        <Logo></Logo>
 
         <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), fontFamily: 'Poppins Regular 400', textAlign: "center"}}>Profile Survey</Text>
     

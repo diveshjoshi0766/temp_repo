@@ -54,15 +54,15 @@ export default function DeactivationConfirmation({navigation}) {
     >
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             
-            <Text style={{fontWeight: 'bold', fontSize: normalize(17), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Are you sure?</Text>
-            <Text style={{}}>After cancellation of your SurveyOptimus account, you will no longer be able to take part in survey, Spinners, access your account information. All your points will be erased and any rewards request will be cancelled.</Text>
-            <Text>Please follow the below steps to Delete Account.</Text>
-            <Text>1. Login to your account on web browser.</Text>
-            <Text>2. GOTO "My Account".</Text>
-            <Text>3. Click on "Manage Account".</Text>
-            <Text>4. Click on "Click to Deactivate" button under Deactivate Account.</Text>
-            <Text>5. Share FeedBack.</Text>
-            <Text>6. Click "Yes, Deactivate" button.</Text>
+            <Text style={{alignSelf: "center", fontWeight: 'bold', fontSize: normalize(19), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Are you sure?</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>After cancellation of your SurveyOptimus account, you will no longer be able to take part in survey, Spinners, access your account information. All your points will be erased and any rewards request will be cancelled.</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Please follow the below steps to Delete Account.</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>1. Login to your account on web browser.</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 2, fontFamily: 'Poppins Regular 400'}}>2. GOTO "My Account".</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 2, fontFamily: 'Poppins Regular 400'}}>3. Click on "Manage Account".</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 2, fontFamily: 'Poppins Regular 400'}}>4. Click on "Click to Deactivate" button under Deactivate Account.</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 2, fontFamily: 'Poppins Regular 400'}}>5. Share FeedBack.</Text>
+            <Text style={{fontSize: normalize(15), marginTop: 2, fontFamily: 'Poppins Regular 400'}}>6. Click "Yes, Deactivate" button.</Text>
         </View>
         
     </Animatable.View>
