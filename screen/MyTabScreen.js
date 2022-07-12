@@ -19,7 +19,7 @@ export default function MyTabScreen() {
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
-        name="Home"
+        name="Dashboard"
         component={DashboardScreen}
         options={{
           tabBarLabel: 'Home',

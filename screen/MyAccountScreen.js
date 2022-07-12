@@ -8,6 +8,7 @@ import {
     PixelRatio,
     ScrollView,
     Image,
+    Share,
 } from "react-native";
 import { useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -32,6 +33,18 @@ export default function MyAccountScreen({navigation}) {
     
     const {isLoading, logout, userInfo} = useContext(AuthContext);
     console.log(userInfo)
+
+    const onShare = async () => {
+        try {
+          await Share.share({
+            message: 'Share the referral link with your friends, colleagues and family members',
+            url: `https://surveyoptimus.com/?referral=${userInfo.Result.SOUID}`
+          });
+        } catch (error) {
+          alert(error.message);
+        }
+      };
+    
 
     const check_for_survey = async () => {
         // await AsyncStorage.removeItem('ans_obj');
@@ -151,13 +164,18 @@ export default function MyAccountScreen({navigation}) {
                     <View style={{flex: 0.2, alignItems: 'center'}}>
                         <Icon name="user-plus" color="#378C3C" size={30}></Icon>
                     </View>
-                    <View style={{flex:0.6,
-                        flexDirection:'col',
-                        justifyContent:'center'
-                    }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18}}>Refer a friend</Text>
-                        <Text style={{fontStyle: 'italic'}}>invite your friends to join</Text>
-                    </View>
+                    <TouchableOpacity style={{flex:0.6,
+                            flexDirection:'col',
+                            justifyContent:'center'
+                        }}
+                        onPress={onShare} 
+                        // title="Share" 
+                        >
+                        <View>
+                            <Text style={{fontWeight: 'bold', fontSize: 18}}>Refer a friend</Text>
+                            <Text style={{fontStyle: 'italic'}}>invite your friends to join</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>

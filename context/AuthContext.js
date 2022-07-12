@@ -28,6 +28,7 @@ export const AuthProvider = ({children}) => {
       .then(res => {
         let responce = res.data;
         console.log(responce);
+
         alert(res.data.message)
         setIsLoading(false);
       })

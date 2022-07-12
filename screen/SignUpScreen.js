@@ -9,10 +9,10 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    CheckBox,
     Animated,
     Easing 
 } from "react-native";
+import CheckBox from '@react-native-community/checkbox';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';

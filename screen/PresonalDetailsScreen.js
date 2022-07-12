@@ -9,7 +9,6 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    CheckBox,
     Animated,
     Easing ,
     Button
