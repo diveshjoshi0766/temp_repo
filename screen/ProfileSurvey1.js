@@ -74,7 +74,7 @@ export default function ProfileSurvey1({navigation}) {
         if(!flag){
             setQues(ques+1)
         }
-        return !flag;
+        return flag;
     }
 
     console.log(ques)
@@ -83,7 +83,7 @@ export default function ProfileSurvey1({navigation}) {
     //so which one to take
 
     const handle_option_press=(ques_id, ans_id, ans_idx)=>{
-        data_arr[ques].AnswerList[ans_idx].is_answered = !data_arr[ques].AnswerList[ans_idx].is_answered;
+        data_arr[ques].AnswerList[ans_idx].is_answered = true;
         
         //make every option false except answer one
         for(let i=0;i<data_arr[ques].AnswerList.length;i++){
@@ -99,32 +99,71 @@ export default function ProfileSurvey1({navigation}) {
             }
         }
         if(!flag){
-            alert("Please select one of the above")
+            alert("Please select the updated option")
         }
-
-        
+        else{
             console.log("here ans state is updated")
-            const len = data.length
-            console.log(len)
-            console.log(ques)
-            let obj = {
-                ques_id: ques_id,
-                ans_id: ans_id
+            let len = data.length
+            let temp_arr = ans;
+            let temp = true;
+            //checking whether the ans state already contains the present ques_id or not
+            for(let i=0;i<temp_arr.length;i++){
+                if(temp_arr[i].ques_id == ques_id){
+                    let obj = {
+                        ques_id: ques_id,
+                        ans_id: ans_id
+                    }
+                    setQues(ques+1)
+                    setAns([...ans, obj]);
+                    if(ques == (len-1)){
+                        // AsyncStorage.setItem('answers', JSON.stringify(ans));
+                        handleShowResult()
+                        console.log("size equal")
+                    }            
+                }
             }
-            setQues(ques+1)
-            setAns([...ans, obj]);
-            if(ques == (len-1)){
-                // AsyncStorage.setItem('answers', JSON.stringify(ans));
-                handleShowResult()
-                console.log("size equal")
+            if(temp){
+                console.log("I am ifdsafasfsafdsafsaf")
+                data_arr[ques].AnswerList[ans_idx].is_answered = true
+                console.log(len)
+                console.log(ques)
+                let obj = {
+                    ques_id: ques_id,
+                    ans_id: ans_id
+                }
+                setQues(ques+1)
+                setAns([...ans, obj]);
+                if(ques == (len-1)){
+                    // AsyncStorage.setItem('answers', JSON.stringify(ans));
+                    handleShowResult()
+                    console.log("size equal")
+                }            
             }
-        
+        }
     }
     let data_arr = null
     if(data && data) {
-        console.log(data)
         data_arr = data
-        console.log(typeof(data_arr))
+        if(userInfo.Result.answerList.length > 0){
+            for(let i=0;i<userInfo.Result.answerList.length;i++){
+                let obj = userInfo.Result.answerList[i]
+                let ques_id_ = obj.ques_id
+                let ans_id_ = obj.ans_id
+                let ans_id_arr = ans_id_.split(',')
+                for(let j=0;j<data_arr.length;j++){
+                    if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
+                        for(let k=0;k<data_arr[j].AnswerList.length;k++){
+                            for(let x=0;x<ans_id_arr.length;x++){
+                                if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
+                                    data_arr[j].AnswerList[k].is_answered = true
+                                    console.log("hittttttttttttttttttt")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     const [multi_ans, setMulti_ans] = useState("");
     const [isSelected, setIsSelected] = useState([])
@@ -135,30 +174,24 @@ export default function ProfileSurvey1({navigation}) {
         console.log(data_arr[ques].AnswerList[ans_idx] && data_arr[ques].AnswerList[ans_idx])
         data_arr[ques].AnswerList[ans_idx].is_answered = !data_arr[ques].AnswerList[ans_idx].is_answered;
         console.log(ans_selected)
-        setIsSelected([...isSelected, ans_id])
-        setMulti_ans(multi_ans+ans_id+",")
-        console.log(multi_ans)
-    }
-    
-    const isPresent = (val, ques) => {
-        let arr = isSelected
-        console.log(arr)
-        console.log(val)
-        for(let i=0;i<arr.length;i++){
-            console.log(val + " -- "+arr[i])
-            if(arr[i] != null && val == arr[i]){
-                console.log("True HIT")
-                data_arr[ques].AnswerList[ques].is_answered = !data_arr[ques].AnswerList[ques].is_answered;
-                return false
+        let temp_arr = isSelected
+        let flag = true;
+        for(let i=0;i<temp_arr.length;i++){
+            if(temp_arr[i] == ans_id){
+                console.log("I am here")
+                data_arr[ques].AnswerList[ans_idx].is_answered = false
+                flag = false;
             }
         }
-        return data_arr[ques].AnswerList[ques].is_answered
+        if(flag){
+            setIsSelected([...isSelected, ans_id])
+            setMulti_ans(multi_ans+ans_id+",")
+            console.log(multi_ans)
+            console.log(isSelected)
+        }
     }
 
-   
-
     const next_question = (ques_id) => {
-
         let temp = ans
         let flag = true
         for(let i=0;i<temp.length;i++){
@@ -216,11 +249,35 @@ export default function ProfileSurvey1({navigation}) {
         //         }
         //     }   
         // }
-        AsyncStorage.setItem('ans_obj', JSON.stringify(ans));
+        
+        let arr = ans;
+        for(let i=0;i<arr.length;i++){
+            console.log(arr[i].ques_id)
+        }
+        let final_ans = []
+        for(let i=0;i<arr.length;i++){
+            for(let j=i+1;j<arr.length;j++){
+                if(arr[i].ques_id == arr[j].ques_id){
+                    console.log("HITTTTTTTTT")
+                    arr[i] = null;
+                }
+            }
+        }
+        console.log(arr)
+        let counter = 0;
+        for(let i=0;i<arr.length;i++){
+            if(arr[i]!=null){
+                final_ans[counter] = arr[i]
+                counter++;
+            }
+        }
+        arr = []
+        console.log(final_ans)
+        AsyncStorage.setItem('ans_obj', JSON.stringify(final_ans));
         // console.log(ans_obj)
-        panelist_profiling_ans(ans)
+        panelist_profiling_ans(final_ans)
         console.log("here")
-        ans_obj = []
+        setAns([])
         navigation.navigate('End Of Profile Survey Screen')
     }
     if(data_arr == null){

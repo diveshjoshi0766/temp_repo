@@ -16,9 +16,10 @@ export const AuthProvider = ({children}) => {
 
   const panelist_profiling_ans = (ans_key) => {
     console.log(userInfo)
+    const data = JSON.stringify(userInfo)
     console.log(ans_key)
     axios
-      .post(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.Result.panelistID)}`, ans_key, {
+      .post(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
           'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
