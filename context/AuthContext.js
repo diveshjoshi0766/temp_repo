@@ -13,6 +13,7 @@ export const AuthProvider = ({children}) => {
   const [trans_history, setTrans_history] = useState([])
   const [panelist_basic_details, setPanelist_basic_details] = useState(null)
   const [is_subscribed, setIs_subscribed] = useState(true)
+  const [temp_password, setTemp_password] = useState("")
 
   const panelist_profiling_ans = (ans_key) => {
     console.log(userInfo)
@@ -95,7 +96,7 @@ export const AuthProvider = ({children}) => {
       });
   }
 
-  const udpate_profile = (firstname, lastname, date, gender, add1, add2, city, state, country, zip, phone) => {
+  const update_profile = (firstname, lastname, date, gender, add1, add2, city, state, country, zip, phone, code, navigation) => {
     console.log(firstname)
     console.log(lastname)
     console.log(date)
@@ -109,21 +110,21 @@ export const AuthProvider = ({children}) => {
     console.log(phone)
     setIsLoading(true);
       const data = JSON.stringify({
-        "firstname": "Vimal", 
-        "lastname": "Verma",
-        "dob": "09/09/2101",
-        "gender": 1,
-        "address1": "ABCD 19",
-        "address2": "XYZ 122002",
+        "firstname": firstname, 
+        "lastname": lastname,
+        "dob": date,
+        "gender": gender,
+        "address1": add1,
+        "address2": add2,
         "countryId": 100, 
-        "state": "Haryana",
-        "city": "Gurgaon",
-        "zipcode": "122002",
-        "phone": "1111111111"
+        "state": state,
+        "city": city,
+        "zipcode": zip,
+        "phone": phone
       })
-      console.log(userInfo.Result.panelistID)
+      console.log(panelist_basic_details.Results.panelistID)
     axios
-      .post(`${BASE_URL}/setBasicProfiling/${parseInt(userInfo.Result.panelistID)}`, data, {
+      .post(`${BASE_URL}/setBasicProfiling/${parseInt(panelist_basic_details.Results.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
           'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
@@ -134,6 +135,10 @@ export const AuthProvider = ({children}) => {
         let userInfo = res.data;
         console.log(userInfo);
         alert(res.data.message)
+        if(code == 1){
+          login_after_update_profile(panelist_basic_details.Results.email, temp_password)
+          navigation.navigate('Sign In Screen')
+        }
         setIsLoading(false);
         return res.date
       })
@@ -278,14 +283,18 @@ export const AuthProvider = ({children}) => {
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
         alert(userInfo.message)
-        navigation.navigate('Presonal Details Screen')
-        console.log(userInfo);
+        if(userInfo.message == 'failure'){
+          return false
+        }else{
+          navigation.navigate('Presonal Details Screen')
+          console.log(userInfo);
+        }
         return true;
       })
       .catch(e => {
         console.log(`register error ${e}`);
         setIsLoading(false);
-        alert(e )
+        alert(e)
         return false;
       });
   }
@@ -323,6 +332,35 @@ export const AuthProvider = ({children}) => {
         setIsLoading(false);
       });
   };
+
+  const login_after_update_profile = (email, password) => {
+    setIsLoading(true);
+      const data = JSON.stringify({
+        "email" : email, 
+        "password" : password
+      });
+      console.log(data)
+    axios
+      .post(`${BASE_URL}/login`, data, {
+        "Headers": {
+          'Content-Type': 'application/json',
+          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+        }
+      })
+      .then(res => {
+        let userInfo = res.data;
+        console.log(userInfo);
+        setUserInfo(userInfo);
+        console.log('Hey I am a new User and I am logged In')
+        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+        setIsLoading(false);
+      })
+      .catch(e => {
+        console.log(`login error ${e}`);
+        setIsLoading(false);
+      });
+  };
+
 
   const login = (email, password, navigation) => {
     setIsLoading(true);
@@ -416,6 +454,7 @@ export const AuthProvider = ({children}) => {
       if (userInfo) {
         setUserInfo(userInfo);
         console.log(userInfo)
+        panelistBasicDetails_func(userInfo.Result.panelistID)
       }
 
       setSplashLoading(false);
@@ -466,7 +505,7 @@ export const AuthProvider = ({children}) => {
         trans_history,
         panelist_basic_details,
         panelistBasicDetails_func,
-        udpate_profile,
+        update_profile,
         redeem_request,
         avatar_set,
         panelist_profiling_ans,
@@ -475,6 +514,7 @@ export const AuthProvider = ({children}) => {
         setIs_subscribed,
         emailSubscribe,
         panelist_basic_details,
+        setTemp_password
       }}>
       {children}
     </AuthContext.Provider>

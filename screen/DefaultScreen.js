@@ -61,7 +61,7 @@ export default function DefaultScreen({navigation}) {
     const [isSelected, setSelection] = useState(false);
     const [pass_sec, setPass_sec] = useState(true)
     const [confPassSec, setConfPassSec] = useState(true)
-    const {isLoading, register} = useContext(AuthContext);
+    const {isLoading, register, setTemp_password} = useContext(AuthContext);
     console.log(isSelected)
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
@@ -224,6 +224,7 @@ export default function DefaultScreen({navigation}) {
                     console.log(firstName)
                     console.log(lastName)
                     console.log(lastName)
+                    setTemp_password(password)
                     const responce = await register(email, password, confirmPassword, firstName, lastName, navigation)
                     }}
                 style={[styles.signIn, {

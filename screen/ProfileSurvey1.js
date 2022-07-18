@@ -29,10 +29,22 @@ export function normalize(size) {
 
 export default function ProfileSurvey1({navigation}) {
     
-    const {userInfo, panelist_profiling_ans} = useContext(AuthContext);
+    const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
-    console.log(userInfo)
-
+    console.log(userInfo && userInfo)
+    console.log(panelist_basic_details && panelist_basic_details)
+    if(panelist_basic_details && panelist_basic_details){
+        console.log(panelist_basic_details.Results.profilePercentage)
+        if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
+            navigation.navigate('Home')
+        }
+    }
+    if(userInfo && userInfo){
+        console.log(userInfo.Result.profilePercentage)
+        if(parseInt(userInfo.Result.profilePercentage) == 100){
+            navigation.navigate('Home')
+        }
+    }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
     const [data, setData] = useState(null)
@@ -40,10 +52,11 @@ export default function ProfileSurvey1({navigation}) {
     const [ans, setAns] = useState([])
     const [ques_idx, setQues_idx] = useState(null)
     useEffect(async () => {
+
         let isMounted = true
         setLoading(true)
         axios
-        .get(`${BASE_URL}/getCountryQuestion/232/536`)
+        .get(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
         .then(res => {
             let responce_data = res.data;
             console.log()

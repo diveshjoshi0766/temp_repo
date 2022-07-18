@@ -31,7 +31,7 @@ export default function ProfileSurvey2({navigation}) {
     
     const {userInfo, panelist_profiling_ans} = useContext(AuthContext);
 
-    console.log(userInfo)
+    console.log(userInfo && userInfo)
 
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
@@ -43,7 +43,7 @@ export default function ProfileSurvey2({navigation}) {
         let isMounted = true
         setLoading(true)
         axios
-        .get(`${BASE_URL}/getCountryQuestion/232/536`)
+        .get(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
         .then(res => {
             let responce_data = res.data;
             console.log()
@@ -71,7 +71,7 @@ export default function ProfileSurvey2({navigation}) {
                 flag == true
             }
         }
-        if(flag){
+        if(!flag){
             setQues(ques+1)
         }
         return flag;
@@ -143,9 +143,27 @@ export default function ProfileSurvey2({navigation}) {
     }
     let data_arr = null
     if(data && data) {
-        console.log(data)
         data_arr = data
-        console.log(typeof(data_arr))
+        if(userInfo.Result.answerList.length > 0){
+            for(let i=0;i<userInfo.Result.answerList.length;i++){
+                let obj = userInfo.Result.answerList[i]
+                let ques_id_ = obj.ques_id
+                let ans_id_ = obj.ans_id
+                let ans_id_arr = ans_id_.split(',')
+                for(let j=0;j<data_arr.length;j++){
+                    if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
+                        for(let k=0;k<data_arr[j].AnswerList.length;k++){
+                            for(let x=0;x<ans_id_arr.length;x++){
+                                if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
+                                    data_arr[j].AnswerList[k].is_answered = true
+                                    console.log("hittttttttttttttttttt")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     const [multi_ans, setMulti_ans] = useState("");
     const [isSelected, setIsSelected] = useState([])
@@ -156,30 +174,24 @@ export default function ProfileSurvey2({navigation}) {
         console.log(data_arr[ques].AnswerList[ans_idx] && data_arr[ques].AnswerList[ans_idx])
         data_arr[ques].AnswerList[ans_idx].is_answered = !data_arr[ques].AnswerList[ans_idx].is_answered;
         console.log(ans_selected)
-        setIsSelected([...isSelected, ans_id])
-        setMulti_ans(multi_ans+ans_id+",")
-        console.log(multi_ans)
-    }
-    
-    const isPresent = (val, ques) => {
-        let arr = isSelected
-        console.log(arr)
-        console.log(val)
-        for(let i=0;i<arr.length;i++){
-            console.log(val + " -- "+arr[i])
-            if(arr[i] != null && val == arr[i]){
-                console.log("True HIT")
-                data_arr[ques].AnswerList[ques].is_answered = !data_arr[ques].AnswerList[ques].is_answered;
-                return false
+        let temp_arr = isSelected
+        let flag = true;
+        for(let i=0;i<temp_arr.length;i++){
+            if(temp_arr[i] == ans_id){
+                console.log("I am here")
+                data_arr[ques].AnswerList[ans_idx].is_answered = false
+                flag = false;
             }
         }
-        return data_arr[ques].AnswerList[ques].is_answered
+        if(flag){
+            setIsSelected([...isSelected, ans_id])
+            setMulti_ans(multi_ans+ans_id+",")
+            console.log(multi_ans)
+            console.log(isSelected)
+        }
     }
 
-   
-
     const next_question = (ques_id) => {
-
         let temp = ans
         let flag = true
         for(let i=0;i<temp.length;i++){
@@ -284,12 +296,12 @@ export default function ProfileSurvey2({navigation}) {
         >
             <Logo></Logo>
 
-            <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), fontFamily: 'Poppins Regular 400', textAlign: "center"}}>Profile Survey</Text>
+            <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), textAlign: "center"}}>Profile Survey</Text>
         
             {
                 data_arr[ques] && data_arr[ques].Question ?
                 <>
-                    <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(20), fontFamily: 'Poppins Regular 400', fontWeight: 'bold'}}>{data_arr[ques].Question.question_title}</Text> 
+                    <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(20), fontWeight: 'bold'}}>{data_arr[ques].Question.question_title}</Text> 
                 </>  
                 :
                 <View style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
@@ -299,9 +311,9 @@ export default function ProfileSurvey2({navigation}) {
         
             {
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 3 ?
-                <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', fontFamily: 'Poppins Regular 400',}}>You can select multiple options</Text>
+                <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', }}>You can select multiple options</Text>
                 :
-                <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', fontFamily: 'Poppins Regular 400',}}>Please select any one of them</Text>
+                <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', }}>Please select any one of them</Text>
             }
             
             
@@ -312,9 +324,9 @@ export default function ProfileSurvey2({navigation}) {
                     if(data_arr[ques].Question.question_type_id == 2){
                         return (
                         <View key={val}>
-                            <TouchableOpacity style={{minHeight: 'justifyContent'}} key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code, val)}>
+                            <TouchableOpacity  key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code, val)}>
                                 <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                    <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 500'}}>{ele.description}</Text>
+                                    <Text style={{ fontSize: normalize(19), }}>{ele.description}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -323,7 +335,7 @@ export default function ProfileSurvey2({navigation}) {
                     else{
                         return (
                             <View key={val}>
-                                <TouchableOpacity style={{minHeight: 'justifyContent', }} key={ele.answer_code} onPress={() => {
+                                <TouchableOpacity key={ele.answer_code} onPress={() => {
                                     console.log(ele.answer_code)
                                     let flag = false;
                                     for(let i=0;i<ans_selected.length;i++){
@@ -338,7 +350,7 @@ export default function ProfileSurvey2({navigation}) {
                                     console.log(ans_selected)
                                     handle_multiple_select(ele.profile_question_id, ele.answer_code, val)}}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                        <Text style={{ fontSize: normalize(19), fontFamily: 'Poppins Regular 500'}}>{ele.description} ansCode {ele.answer_code}</Text>
+                                        <Text style={{ fontSize: normalize(19), }}>{ele.description}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

@@ -61,7 +61,7 @@ export default function MyAccountScreen({navigation}) {
         // let ans_obj_arr = JSON.parse(ans_obj);
         // console.log(ans_obj_arr)
         // if(ans_obj_arr == null){
-        navigation.navigate('Profile Survey')
+        navigation.navigate('Profile Survey 2')
         // }else{
         //     alert("Your survey has been submitted")
         // }

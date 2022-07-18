@@ -222,6 +222,7 @@ import TermsAndConditions from '../screen/TermsAndConditions';
 import UpdateProfileScreen from '../screen/UpdateProfileScreen';
 import EndOfProfileSurveyScreen from '../screen/EndOfProfileSurveyScreen';
 import LoadingScreen from '../screen/LoadingScreen';
+import ProfileSurvey2 from '../screen/ProfileSurvey2';
 
 const Stack = createNativeStackNavigator();
 
@@ -328,6 +329,11 @@ const Navigation = () => {
               component={EndOfProfileSurveyScreen}
               options={{headerShown: false}}
             />
+            <Stack.Screen
+              name="Profile Survey 2"
+              component={ProfileSurvey2}
+              options={{headerShown: false}}
+            />
           </>
         ) : (
           <>
@@ -380,6 +386,82 @@ const Navigation = () => {
               name="Home" 
               component={MyTabScreen} 
               screenOptions={{ headerShown: false }}
+            />
+
+            <Stack.Screen 
+              name="Home" 
+              component={MyTabScreen} 
+              screenOptions={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Communication Option Screen"
+              component={CommunicationOptionScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Deactivation Confirmation Screen"
+              component={DeactivationConfirmation}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Unsubscribe Reason Screen"
+              component={UnsubscribeReason}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Reward History"
+              component={RewardHistory}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Change Password Screen"
+              component={ChangePasswordScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Privacy Policy Screen"
+              component={PrivacyPolicyScreen}
+              // options={{headerShown: false}}
+              options={{
+                headerTitle: () => {<Text>Privacy Policy</Text>},
+                headerRight: () => (
+                  <Button
+                    onPress={() => alert('This is a button!')}
+                    title="Info"
+                    color="#00cc00"
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="FAQs Screen"
+              component={FAQs}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Terms And Conditions Screen"
+              component={TermsAndConditions}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Update Profile Screen"
+              component={UpdateProfileScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Profile Survey"
+              component={ProfileSurvey1}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="End Of Profile Survey Screen"
+              component={EndOfProfileSurveyScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Profile Survey 2"
+              component={ProfileSurvey2}
+              options={{headerShown: false}}
             />
           </>
         )}

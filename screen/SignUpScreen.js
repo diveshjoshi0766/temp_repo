@@ -221,7 +221,7 @@ export default function SignUpScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => register(email, password, confirmPassword, firstName, lastName)}
+                onPress={() => register(email, password, confirmPassword, firstName, lastName, navigation)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}

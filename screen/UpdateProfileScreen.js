@@ -37,7 +37,7 @@ export function normalize(size) {
 
 export default function UpdateProfileScreen({navigation}) {
     
-    const {userInfo, Panelist_basic_details, panelistBasicDetails_func, udpate_profile, avatar_set} = useContext(AuthContext);
+    const {userInfo, Panelist_basic_details, panelistBasicDetails_func, update_profile, avatar_set} = useContext(AuthContext);
     const [comments,setComments]=useState(null)
 
     useEffect(() => {
@@ -300,7 +300,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => udpate_profile(firstName, lastName, date, checked, add1, add2, city, state, country, zip, phone)}
+                onPress={() => update_profile(firstName, lastName, date, checked, add1, add2, city, state, country, zip, phone, 2, navigation)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}

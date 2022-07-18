@@ -52,7 +52,7 @@ const _data = [
 
 export default function PresonalDetailsScreen({navigation}) {
 
-    const {userInfo, panelist_basic_details,udpate_profile, panelistBasicDetails_func} = useContext(AuthContext);
+    const {userInfo, panelist_basic_details,update_profile, panelistBasicDetails_func} = useContext(AuthContext);
         // console.log(userInfo.Result.countryID)
         // console.log(userInfo.Result.panelistID)
     // const [data, setData] = useState([])
@@ -400,28 +400,27 @@ export default function PresonalDetailsScreen({navigation}) {
                 autoCapitalize="none"
                 onChangeText={(val) => setZipcode(val)}
             />
-            <TextInput 
-                placeholder="Phone Number"
-                placeholderTextColor="#666666"
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => setPhone(val)}
-            />
+            <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+                <TextInput 
+                    placeholder="Phone Number"
+                    placeholderTextColor="#666666"
+                    style={[styles.textInput, {
+                        color: colors.text
+                    }]}
+                    autoCapitalize="none"
+                    onChangeText={(val) => setPhone(val)}
+                />
+            </View>
         </View>
 
         <View style={styles.button}>
-
             <TouchableOpacity
                 onPress={() => {
-                    let res = udpate_profile(firstName, lastName, date, checked, address1, address2, city, state, country, zipcode, phone)
-                    if(res.status == "success"){
-                        navigation.navigate("Profile Survey")
-                    }
+                    let res = update_profile(firstName, lastName, date, checked, address1, address2, city, state, country, zipcode, phone, 1, navigation)
+                        console.log(res)
                     }}
                 style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
+                    backgroundColor: '#378C3C', 
                 }]}
             >
                 <Text style={[styles.textSign, {
