@@ -18,7 +18,6 @@ import { RadioButton } from 'react-native-paper'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Dropdown } from 'react-native-element-dropdown';
 import axios from "axios";
-
 import { useTheme } from 'react-native-paper';
 import { BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
@@ -53,12 +52,14 @@ const _data = [
 
 export default function PresonalDetailsScreen({navigation}) {
 
-    const {userInfo, panelist_basic_details,udpate_profile} = useContext(AuthContext);
+    const {userInfo, panelist_basic_details,udpate_profile, panelistBasicDetails_func} = useContext(AuthContext);
         // console.log(userInfo.Result.countryID)
         // console.log(userInfo.Result.panelistID)
     // const [data, setData] = useState([])
-
+    console.log(userInfo)
+    console.log(panelist_basic_details && panelist_basic_details)
     React.useEffect(() => {
+        panelistBasicDetails_func(userInfo.results && userInfo.results.panelistID)
         Animated.timing(spinValue, {
             toValue: 1,
             duration: 1500,
@@ -72,7 +73,8 @@ export default function PresonalDetailsScreen({navigation}) {
         outputRange: ['0deg', '360deg'],
     });
     const { colors } = useTheme();
-
+    const [state, setState] = useState(null);
+    console.log(panelist_basic_details && panelist_basic_details)
     const [state_,setState_data]=useState(null)
     const [state_code, setState_code] = useState(null);
     const [city, setCity] = useState(null); 
@@ -132,9 +134,6 @@ export default function PresonalDetailsScreen({navigation}) {
 
     console.log(state_code && state_code.value ? state_code.value + " <- state code" : ' no state_code')
 
-  
-
-    
     const [firstName, setFirstName] = useState(null)
     const [lastName, setLastName] = useState(null)
 
@@ -163,6 +162,8 @@ export default function PresonalDetailsScreen({navigation}) {
 
     const handleConfirm = (date) => {
         console.warn("A date has been picked: ", date);
+        setDate(date)
+        console.log(date)
         hideDatePicker();
     };
 
@@ -205,21 +206,21 @@ export default function PresonalDetailsScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Good Afternoon, RamChara</Text>
-        <Text style={{color: '#000000', marginTop:normalize(5), fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Presonal Details</Text>
-
-        <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
+     
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(20)}}>Good Afternoon</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontSize: normalize(20)}}>Presonal Details</Text>
+    
+        <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: 0
+        }}>
             <Image
                 style={styles.stretch}
                 source={require('../assets/logo_remove_bg.png')}
             />
-            <View style={{paddingLeft: normalize(10)}}>
-                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}]}>SOID: </Text>
-                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}]}>Profile Completion: </Text>
-                <Text style={[styles.label, { fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}]}>Email: </Text>
+            <View style={{paddingLeft: normalize(10), backgroundColor: 'rgb(235 235 25)', marginTop: -35}}>
+                <Text style={[styles.label, { fontSize: normalize(15)}]}>SOID: {panelist_basic_details && panelist_basic_details.Results.SOUID}{'\n'}Profile Completion: {panelist_basic_details && panelist_basic_details.Results.profilePercentage}{'\n'}Email: {panelist_basic_details && panelist_basic_details.Results.email}</Text>
             </View>
         </View>
-
+    
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder="First Name"
@@ -228,11 +229,10 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                onChangeText={(val) => setFirstName(val)}
             />
         </View>
-
+    
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder="Last Name"
@@ -241,7 +241,7 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setLastName(val)}
             />
         </View>
 
@@ -259,7 +259,7 @@ export default function PresonalDetailsScreen({navigation}) {
         >
         <View >
             <Text style={{paddingLeft: 4}}>Select date of Birth</Text>
-            <Image source={require('../assets/date.png')} size={{height: 20, width: 20}}></Image>
+            {/* <Image source={require('../assets/date.png')} size={{height: 10, width: 10}}/>  */}
         </View>
         </TouchableOpacity>
         <DateTimePickerModal
@@ -270,6 +270,7 @@ export default function PresonalDetailsScreen({navigation}) {
         />
         
         </View>
+        
         <View style={[styles.action]}>
             
             <Text style={[styles.textInput, {
@@ -278,12 +279,12 @@ export default function PresonalDetailsScreen({navigation}) {
             <RadioButton
                 value="first"
                 status={ checked === 'first' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('first')}
+                onPress={() => setChecked('Male')}
             />
             <RadioButton
                 value="second"
                 status={ checked === 'second' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('second')}
+                onPress={() => setChecked('Female')}
             />
 
         </View>
@@ -296,7 +297,7 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setAddress1(val)}
             />
         </View>
 
@@ -308,7 +309,7 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setAddress2(val)}
             />
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
@@ -376,17 +377,16 @@ export default function PresonalDetailsScreen({navigation}) {
             />
         </View>
         )}
-        
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Country India"
+                placeholder="Country"
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setCountry(val)}
             />
         </View>
 
@@ -398,7 +398,7 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setZipcode(val)}
             />
             <TextInput 
                 placeholder="Phone Number"
@@ -407,25 +407,29 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => setPhone(val)}
             />
         </View>
 
         <View style={styles.button}>
 
             <TouchableOpacity
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => {
+                    let res = udpate_profile(firstName, lastName, date, checked, address1, address2, city, state, country, zipcode, phone)
+                    if(res.status == "success"){
+                        navigation.navigate("Profile Survey")
+                    }
+                    }}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
             >
                 <Text style={[styles.textSign, {
-                    color: '#fff',
-                    fontFamily: 'Poppins Regular 400'
+                    color: '#fff'
                 }]}>Next</Text>
             </TouchableOpacity>
         </View>
-    </Animatable.View>
+    </Animatable.View> 
   </View>
 );
 }
@@ -433,7 +437,6 @@ export default function PresonalDetailsScreen({navigation}) {
 
 const styles = StyleSheet.create({
     dropdown: {
-        height: 'justifyContent',
         width: '100%',
         borderColor: 'gray',
         borderWidth: 0.5,
@@ -446,9 +449,6 @@ const styles = StyleSheet.create({
       label: {
         position: 'absolute',
         backgroundColor: 'white',
-        left: 22,
-        top: 8,
-        zIndex: 999,
         paddingHorizontal: 8,
         fontSize: 14,
       },
@@ -478,7 +478,6 @@ const styles = StyleSheet.create({
     stretch: {
         width: SCREEN_WIDTH*0.20,
         height: SCREEN_WIDTH*0.20,
-        textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
     },

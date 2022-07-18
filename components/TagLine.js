@@ -33,12 +33,10 @@ function TagLine() {
 
   return (
     <View style={{alignItems: "center"}}>
-        <View style={{width: 'fit-content'}}>
-            <TouchableOpacity>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Welcome to <Text style={{fontWeight: 'bold', fontFamily: 'Poppins SemiBold 600'}}>SurveyOptimus!</Text></Text>
-                <Text style={{ textAlign: "right", fontSize:normalize(15), fontFamily:'Poppins Italic 400'}}>it's quick and easy</Text>
-            </TouchableOpacity>
-        </View>
+      <View style={{width: 'fit-content'}}>
+        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
+        <Text style={{ textAlign: "right", fontSize:normalize(15),}}>it's quick and easy</Text>
+      </View>
     </View>
   )
 }

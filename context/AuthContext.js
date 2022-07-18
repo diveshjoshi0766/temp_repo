@@ -96,6 +96,17 @@ export const AuthProvider = ({children}) => {
   }
 
   const udpate_profile = (firstname, lastname, date, gender, add1, add2, city, state, country, zip, phone) => {
+    console.log(firstname)
+    console.log(lastname)
+    console.log(date)
+    console.log(gender)
+    console.log(add1)
+    console.log(add2)
+    console.log(city)
+    console.log(state)
+    console.log(country)
+    console.log(zip)
+    console.log(phone)
     setIsLoading(true);
       const data = JSON.stringify({
         "firstname": "Vimal", 
@@ -104,7 +115,8 @@ export const AuthProvider = ({children}) => {
         "gender": 1,
         "address1": "ABCD 19",
         "address2": "XYZ 122002",
-        "countryId": 100, "state": "Haryana",
+        "countryId": 100, 
+        "state": "Haryana",
         "city": "Gurgaon",
         "zipcode": "122002",
         "phone": "1111111111"
@@ -123,9 +135,11 @@ export const AuthProvider = ({children}) => {
         console.log(userInfo);
         alert(res.data.message)
         setIsLoading(false);
+        return res.date
       })
       .catch(e => {
-        console.log(`login error ${e}`);
+        console.log(`Update Profile error ${e}`)
+        alert(`Update Profile error ${e}`)
         setIsLoading(false);
       });
   };
@@ -264,7 +278,7 @@ export const AuthProvider = ({children}) => {
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
         alert(userInfo.message)
-        navigation.navigate('Sign In Screen')
+        navigation.navigate('Presonal Details Screen')
         console.log(userInfo);
         return true;
       })
@@ -412,10 +426,10 @@ export const AuthProvider = ({children}) => {
   };
 
 
-  const panelistBasicDetails_func = () => {
+  const panelistBasicDetails_func = (panelistID) => {
     setIsLoading(true)
     axios
-    .get(`${BASE_URL}/getBasicProfiling/${parseInt(userInfo.Result.panelistID)}`)
+    .get(`${BASE_URL}/getBasicProfiling/${parseInt(panelistID)}`)
     .then(res => {
       let details = res.data;
       console.log(details);
@@ -459,7 +473,8 @@ export const AuthProvider = ({children}) => {
         login_via_google,
         is_subscribed, 
         setIs_subscribed,
-        emailSubscribe
+        emailSubscribe,
+        panelist_basic_details,
       }}>
       {children}
     </AuthContext.Provider>

@@ -9,11 +9,11 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    CheckBox,
     Animated,
     Easing ,
-    ScrollView
+    ScrollView,
 } from "react-native";
+import CheckBox from 'react-native-check-box'
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -72,11 +72,20 @@ export default function DefaultScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-        {/* Logo */}
-        <Logo/>
-        {/* TagLine */}
-        <TagLine/>
-
+        <Image
+            style={{ width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center'  }}
+            source={require('../assets/logo_remove_bg.png')}
+        >
+        </Image>
+        <View style={{alignItems: "center"}}>
+            <View style={{width: '100%'}}>
+                <TouchableOpacity>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
+                    <Text style={{ textAlign: "right", fontSize:normalize(15),}}>it's quick and easy</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+        
         <View style={styles.action}>
             <FontAwesome 
                 name="user-o"
@@ -198,28 +207,24 @@ export default function DefaultScreen({navigation}) {
             />
         </View>
 
-        {/* <View style={styles.container}> */}
         <View style={styles.checkboxContainer}>
             <CheckBox
-            value={isSelected}
-            onValueChange={setSelection}
+            isChecked={isSelected}
+            onClick={()=>{setSelection(!isSelected)}}
             style={styles.checkbox}
             />
-            <Text style={styles.label}>I accept the <TouchableOpacity style={{color: '#1E96F0'}} onPress={() => navigation.navigate('Terms And Conditions Screen')}>terms and aggrement</TouchableOpacity></Text>
+            <TouchableOpacity style={styles.label} onPress={() => navigation.navigate('Terms And Conditions Screen')}><Text>I accept the terms and aggrement</Text></TouchableOpacity>
         </View>
-        {/* </View> */}
 
         <View style={styles.button}>
             <TouchableOpacity
                 onPress={async ()  => {
+                    console.log(email)
+                    console.log(password)
+                    console.log(firstName)
+                    console.log(lastName)
+                    console.log(lastName)
                     const responce = await register(email, password, confirmPassword, firstName, lastName, navigation)
-                    // console.log(responce)
-                    // if(responce == true){
-                    //     console.log("True")
-                    //     navigation.navigate("Sign In Screen")
-                    // }else{
-                    //     console.log("False")
-                    // }
                     }}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
@@ -230,10 +235,9 @@ export default function DefaultScreen({navigation}) {
                     color: '#fff'
                 }]}>SIGN IN</Text>
             </TouchableOpacity>
-        </View>
-            
+        </View> 
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins Regular 400', fontSize: 20}}>Or continue with</Text>
+        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
 
@@ -242,13 +246,13 @@ export default function DefaultScreen({navigation}) {
             
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Sign In Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: '500', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20)}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: '500'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
         </Animatable.View>
     </View>
     </ScrollView>
     );
-  }
+}
 
 
 const styles = StyleSheet.create({

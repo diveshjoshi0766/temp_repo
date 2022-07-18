@@ -18,9 +18,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { BASE_URL } from "../config";
 import axios from "axios";
 import Modal from "react-native-modal";
-
+import DatePicker from 'react-native-datepicker'
 import { useTheme } from 'react-native-paper';
 import { AuthContext } from "../context/AuthContext";
+
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -65,12 +66,12 @@ export default function UpdateProfileScreen({navigation}) {
     const [isSelected, setSelection] = useState(false);
     const [checked, setChecked] = React.useState('first');
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(new Date())
     const [displaymode, setMode] = useState('date');
     const [isDisplayDate, setShow] = useState(false);
     const changeSelectedDate = (event, selectedDate) => {
     const currentDate = selectedDate || mydate;
-    setDate(currentDate);
+        setDate(currentDate);
     };
     const showMode = (currentMode) => {
     setShow(true);
@@ -113,33 +114,30 @@ export default function UpdateProfileScreen({navigation}) {
         }]}
     >
 
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Presonal Details</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(20)}}>Presonal Details</Text>
         {
                 comments && comments.Results ? 
-                
-        <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: '0'}}>
-            <View style={{alignItems: 'center'}}>
-                {comments.Results.profilePic != null ? <Image
-                                style={[styles.stretch]}
-                                source={{uri:  `${comments.Results.profilePic}`}}
-                            /> : <Icon name="user" size={50}></Icon>}
-                <TouchableOpacity style={{color:'red', fontFamily: 'Poppins Regular 400'}} onPress={() => {toggleModal()}}>Change avatar</TouchableOpacity>
-            </View>
-           
-                <View style={{paddingLeft: normalize(10)}}>
-                <Text style={styles.label}>SOID: {comments.Results.SOUID}</Text>
-                <Text style={styles.label}>Profile Completion: {comments.Results.profilePercentage}</Text>
-                <Text style={styles.label}>Email: {userInfo.Result.email}</Text>
-                <Text style={styles.label}>Earned Points: {comments.Results.current_point}</Text>            
-                </View> 
+            <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: 0}}>
+                <View style={{alignItems: 'center'}}>
+                    {comments.Results.profilePic != null ? <Image
+                                    style={[styles.stretch]}
+                                    source={{uri:  `${comments.Results.profilePic}`}}
+                                /> : <Icon name="user" size={50}></Icon>}
+                    <TouchableOpacity style={{color:'red'}} onPress={() => {toggleModal()}}><Text>Change avatar</Text></TouchableOpacity>
+                </View>
             
-        </View>
-        
+                <View style={{paddingLeft: normalize(10)}}>
+                    <Text style={styles.label}>SOID: {comments.Results.SOUID}</Text>
+                    <Text style={styles.label}>Profile Completion: {comments.Results.profilePercentage}</Text>
+                    <Text style={styles.label}>Email: {userInfo.Result.email}</Text>
+                    <Text style={styles.label}>Earned Points: {comments.Results.current_point}</Text>            
+                </View> 
+            </View>
             : 
             <></>
         }
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
                 placeholder={comments && comments.Results.firstname}
                 placeholderTextColor="#666666"
@@ -181,15 +179,30 @@ export default function UpdateProfileScreen({navigation}) {
             <Image source={require('../assets/date.png')} size={{height: 20, width: 20}}></Image>
         </View>
         </TouchableOpacity>
-        {isDisplayDate && (
-            <DateTimePicker
-                testID="dateTimePicker"
-                value={mydate}
-                mode={displaymode}
-                display="default"
-                onChange={changeSelectedDate}
-        />
-        )}
+        <DatePicker
+        style={{width: 200}}
+        date={date}
+        mode="date"
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        minDate="2016-05-01"
+        maxDate="2016-06-01"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0
+          },
+          dateInput: {
+            marginLeft: 36
+          }
+        }}
+        onDateChange={(date) => setDate(date)}
+      />
+
 
         
         </View>
@@ -296,9 +309,8 @@ export default function UpdateProfileScreen({navigation}) {
                     color: '#fff'
                 }]}>Update Profile</Text>
             </TouchableOpacity>
-        </View>
+        </View> 
 
-        {/* modal */}
         <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{height: SCREEN_HEIGHT*0.5}}>
                 <ScrollView 
                     showsVerticalScrollIndicator={false}
@@ -308,7 +320,7 @@ export default function UpdateProfileScreen({navigation}) {
                 {avatar && avatar.results.map((ele) => {
                     return(
                     <View style={styles.modal_} key={ele.avatarName}>
-                        <TouchableOpacity style={{alignItems: 'center', marginTop: '0', width: '60%'}} onPress={() => {
+                        <TouchableOpacity style={{alignItems: 'center', marginTop: 0, width: '60%'}} onPress={() => {
                             setAvatarLink(ele.avatarLink)
                             avatar_set(ele.avatarName)
                             setModalVisible(!isModalVisible)
@@ -334,7 +346,7 @@ export default function UpdateProfileScreen({navigation}) {
 
 const styles = StyleSheet.create({
     modal_:{
-        height: 'justifyContent', 
+        // height: 'justifyContent', 
         backgroundColor: '#fff', 
         padding: 10,
         alignItems: "center"
@@ -354,7 +366,7 @@ const styles = StyleSheet.create({
         fontSize: normalize(15),
     },
     label:{
-        fontFamily: 'Poppins Regular 400',
+        // fontFamily: 'Poppins Regular 400',
     },
     container: {
         flex: 1, 
@@ -443,7 +455,7 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: 18,
         fontWeight: 'bold',
-        fontFamily: 'Poppins Regular 400',
+        // fontFamily: 'Poppins Regular 400',
     },
   });
 

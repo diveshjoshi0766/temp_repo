@@ -67,10 +67,19 @@ export default function SignInScreen({navigation}) {
         }]}
     >
 
-        {/* Logo */}
-        <Logo/>
-        {/* TagLine */}
-        <TagLine/>
+        <Image
+            style={{ width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center'  }}
+            source={require('../assets/logo_remove_bg.png')}
+        >
+        </Image>
+        <View style={{alignItems: "center"}}>
+            <View style={{width: '100%'}}>
+                <TouchableOpacity>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
+                    <Text style={{ textAlign: "right", fontSize:normalize(15),}}>it's quick and easy</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
 
         <View style={styles.action}>
             <FontAwesome 
@@ -133,7 +142,7 @@ export default function SignInScreen({navigation}) {
         </View>
 
         <TouchableOpacity onPress={() => navigation.navigate('Forgot Password Screen')}>
-            <Text style={{color: '#009387', marginTop:15, paddingRight: 0, fontSize: normalize(15), fontFamily: 'Poppins Regular 400'}}>Forgot password?</Text>
+            <Text style={{color: '#009387', marginTop:15, paddingRight: 0, fontSize: normalize(15)}}>Forgot password?</Text>
         </TouchableOpacity>
 
         <View style={styles.button}>
@@ -141,7 +150,7 @@ export default function SignInScreen({navigation}) {
                 onPress={() => login(email, password, navigation)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
-                }]}
+                }]} 
                 disabled={isLoading}
             >
                 <Text style={[styles.textSign, {
@@ -151,7 +160,7 @@ export default function SignInScreen({navigation}) {
         </View>
             
         <TouchableOpacity>
-        <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins Regular 400', fontSize: 20}}>Or continue with</Text>
+        <Text style={{color: '#000000', marginTop:15, textAlign: "center",  fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
 
@@ -160,7 +169,7 @@ export default function SignInScreen({navigation}) {
             
         </View>
         <TouchableOpacity  onPress={() => navigation.navigate('Sign Up Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN UP</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), }}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </ScrollView>

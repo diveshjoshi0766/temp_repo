@@ -7,11 +7,11 @@ import {
     Dimensions,
     Platform, 
     PixelRatio,
-    Button
+    Button,
+    ScrollView
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Modal from "react-native-modal";
-import { ScrollView } from "react-native-web";
 import { AuthContext } from "../context/AuthContext";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
@@ -49,9 +49,9 @@ export default function CommunicationOptionScreen({navigation}) {
         }]}
     >
        
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between', fontFamily: 'Poppins Regular 400'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: normalize(17), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Email Opt out</Text>
-            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center', fontFamily: 'Poppins Regular 400'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
+        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 5}}>Email Opt out</Text>
+            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 
             {is_subscribed ? 
@@ -85,8 +85,8 @@ export default function CommunicationOptionScreen({navigation}) {
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: normalize(17), marginTop: 5, fontFamily: 'Poppins Regular 400'}}>Deactivate Account</Text>
-            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center', fontFamily: 'Poppins Regular 400'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 5, }}>Deactivate Account</Text>
+            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Deactivation Confirmation Screen')}
@@ -107,7 +107,7 @@ export default function CommunicationOptionScreen({navigation}) {
         <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
         <ScrollView>
             <View style={styles.modal_}>
-                <Text style={{fontWeight: 600, fontSize: normalize(25)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
+                <Text style={{fontWeight: "600", fontSize: normalize(25)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
                 <Text style={styles.modal_sub_heading}>Unsubscribeing means you will no longer receive Any email messages from SurveyOptimus which includes:</Text>
                 <View>
                 <Text style={styles.modal_points}>1. Invitations to survey</Text>
@@ -135,7 +135,6 @@ export default function CommunicationOptionScreen({navigation}) {
 
 const styles = StyleSheet.create({
     modal_:{
-        height: 'justifyContent', 
         backgroundColor: '#fff', 
         padding: 10,
         borderRadius: 10,
@@ -147,12 +146,12 @@ const styles = StyleSheet.create({
         fontSize: normalize(15)
     },
     modal_sub_heading: {
-        fontWeight: 500, 
+        fontWeight: "500", 
         fontSize: normalize(15), 
         marginTop: 10
     },
     modal_points:{
-        fontWeight: 400, 
+        fontWeight: "400", 
         fontSize: normalize(15),
     },
     container: {
@@ -196,8 +195,8 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(5),
-        maxHeight: "justifyContent",
-        flexDirection:'col',
+        // maxHeight: "justifyContent",
+        flexDirection:'column',
             alignItems:'center',
             // justifyContent:'center',
         borderRadius: normalize(10),
@@ -242,6 +241,5 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: 18,
         fontWeight: 'bold',
-        fontFamily: 'Poppins Regular 400'
     },
   });

@@ -9,7 +9,8 @@ import {
     Platform, 
     PixelRatio,
     Animated,
-    Easing 
+    Easing ,
+    Image
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -63,10 +64,19 @@ export default function ForgotPasswordScreen({navigation}) {
         }]}
     >
 
-        {/* Logo */}
-        <Logo/>
-        {/* TagLine */}
-        <TagLine/>
+        <Image
+            style={{ width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center'  }}
+            source={require('../assets/logo_remove_bg.png')}
+        >
+        </Image>
+        <View style={{alignItems: "center"}}>
+            <View style={{width: '100%'}}>
+                <TouchableOpacity>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
+                    <Text style={{ textAlign: "right", fontSize:normalize(15),}}>it's quick and easy</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
 
         <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>Forgot Password</Text>
 

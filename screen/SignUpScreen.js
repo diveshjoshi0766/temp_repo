@@ -12,7 +12,7 @@ import {
     Animated,
     Easing 
 } from "react-native";
-import CheckBox from '@react-native-community/checkbox';
+import CheckBox from 'react-native-check-box'
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -77,11 +77,19 @@ export default function SignUpScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-
-        {/* Logo */}
-        <Logo/>
-        {/* TagLine */}
-        <TagLine/>
+        <Image
+            style={{ width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center'  }}
+            source={require('../assets/logo_remove_bg.png')}
+        >
+        </Image>
+        <View style={{alignItems: "center"}}>
+            <View style={{width: '100%'}}>
+                <TouchableOpacity>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
+                    <Text style={{ textAlign: "right", fontSize:normalize(15),}}>it's quick and easy</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
         <View style={styles.action}>
             <FontAwesome 
                 name="user-o"
@@ -201,16 +209,15 @@ export default function SignUpScreen({navigation}) {
                 onChangeText={(val) => setLastName(val)}
             />
         </View>
-        <View style={styles.container}>
-            <View style={styles.checkboxContainer}>
-                <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-                />
-                <Text style={styles.label}>I accept the <Text style={{color: '#1E96F0'}}>terms and aggrement</Text></Text>
-            </View>
+        <View style={styles.checkboxContainer}>
+            <CheckBox
+            isChecked={isSelected}
+            onClick={()=>{setSelection(!isSelected)}}
+            style={styles.checkbox}
+            />
+            <TouchableOpacity style={styles.label} onPress={() => navigation.navigate('Terms And Conditions Screen')}><Text>I accept the terms and aggrement</Text></TouchableOpacity>
         </View>
+
 
         <View style={styles.button}>
             <TouchableOpacity
@@ -226,14 +233,14 @@ export default function SignUpScreen({navigation}) {
         </View>
             
         <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontFamily: 'Poppins Regular 400', fontSize: 20}}>Or continue with</Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center",  fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
             <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50}}></Image>
             <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Sign In Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN IN</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20),}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>

@@ -9,15 +9,13 @@ import {
     PixelRatio,
     ScrollView,
     Button,
-
+    TouchableOpacity
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config";
 import axios from 'axios'
 import Modal from "react-native-modal";
-import { TouchableOpacity } from "react-native-web";
-
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 export function normalize(size) {
@@ -40,11 +38,11 @@ export default function RewardScreen({navigation}) {
       console.log(comments)
     }, [comments])
     const fetchComments=async()=>{
-    const response=await axios(`${BASE_URL}/getReward/${parseInt(userInfo.Result.panelistID)}`);
+    const response=await axios(`${BASE_URL}/getReward/${parseInt(userInfo.Result && userInfo.Result.panelistID)}`);
     setComments(response.data)    
     }
 
-    console.log(comments && comments.results[0])
+    console.log(comments && comments.results && comments.results[0])
 
     const [modal_data, setModal_data] = useState(null)
 
@@ -74,40 +72,36 @@ export default function RewardScreen({navigation}) {
    
     return (
     <ScrollView showsVerticalScrollIndicator ={false}>
-    <View style={styles.container}>
-        <View>
-            <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
-        </View>
-        {/* heading */}
-        <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Reward</Text>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} style={{marginTop: 10}} color="black"/> Profile</Text>
-            <TouchableOpacity style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400', flexDirection: 'row'}} onPress={() => {navigation.navigate('Reward History')}}><Icon name="history" size={20} color="black" style={{marginTop: 10}}/><Text style={{color: '#000000', textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}> History</Text></TouchableOpacity>
-        </View>
-        <View style={styles.points}>
-            <View style={styles.center}>
-                <Text style={styles.text_box_black_header}>My Points</Text>
-                <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
+        <View style={styles.container}>
+            <View>
+                <Text style={styles.header}>Good Morning, {userInfo.Result && userInfo.Result.firstname}</Text>
             </View>
-            <View style={styles.center}>
-                <Text style={styles.text_box_black_header}>My Profile</Text>
-                <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
+            {/* heading */}
+            <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
+                <View><Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}>Reward</Text></View>
+                <View><Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}><Icon name="user" size={20} style={{marginTop: 10}} color="black"/> Profile</Text></View>
+                <TouchableOpacity onPress={() => {navigation.navigate('Reward History')}}><Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20)}}><Icon name="history" size={20} style={{marginTop: 10}} color="black"/> History</Text></TouchableOpacity>
             </View>
-        </View>
-
-        {
-            comments && comments.results.map((ele, key) => {
-                return(
-                <View key={key} style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}} >
+            <View style={styles.points}>
+                <View style={styles.center}>
+                    <Text style={styles.text_box_black_header}>My Points</Text>
+                    <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.current_point}</Text>
+                </View>
+                <View style={styles.center}>
+                    <Text style={styles.text_box_black_header}>My Profile</Text>
+                    <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
+                </View>
+            </View>
+            {/* <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}} >
                     <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
                         <View style={{alignItems: 'center', marginTop: '0', flex: 0.5}}>
                             <Image
                                 style={[styles.stretch]}
-                                source={ele.mode_picture}
+                                sorce={require("../assets/amazon.png")}
                             />
                         </View>
-                        <View style={{flexDirection: 'col', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
-                            <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>{ele.mode_name}</Text>
+                        <View style={{flexDirection: 'column', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
+                            <Text style={{fontWeight: 'bold', fontSize: normalize(20), fontFamily: 'Poppins Regular 400'}}>Amazon</Text>
                             <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                                 <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result.redeemed_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(2500, {ele})}}>
                                     <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
@@ -118,46 +112,70 @@ export default function RewardScreen({navigation}) {
                             </View>
                         </View>
                     </View>
+                </View> */}
+            {
+                comments && comments.results.map((ele, key) => {
+                    return(
+            <View key={key} style={{display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
+                <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
+                    <View style={{alignItems: 'center', marginTop: 0, flex: 0.5}}>
+                        <Image
+                            style={[styles.stretch]}
+                            source={require("../assets/amazon.png")}
+                        />
+                    </View>
+                    <View style={{flexDirection: 'column', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
+                        <Text style={{fontWeight: 'bold', fontSize: normalize(20), }}>{ele.mode_name}</Text>
+                        <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
+                            <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result && userInfo.Result.redeemed_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(2500, {ele})}}>
+                                <Text style={styles.cardElement_text}>2500 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result && userInfo.Result.redeemed_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(5000, {ele})}}>
+                                <Text style={styles.cardElement_text}>5000 <Icon name="star" size={normalize(20)} color="#fff"/></Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
-                )
-            })
-        }
-
-        {/* modal */}
-        <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
-            <View style={styles.modal_}>
-                <View style={{textAlign: "center", marginTop: '0', width: '70%'}}>
-                    <Image
-                        style={[styles.stretch, {justifyContent: "center"}]}
-                        source={modal_data && modal_data.api_data.ele.mode_picture}
-                    />
-                </View>
-                <Text style={styles.modal_sub_heading}>Congratulation {modal_data &&modal_data.name}</Text>
-                <View>
-                <Text style={styles.modal_sub_heading}>You have requested {modal_data && modal_data.api_data.ele.mode_name} Voucher</Text>
-                </View>
-                <View>
-                <Text style={styles.modal_sub_heading}>Redeem:  {modal_data && modal_data.reward_points} Points</Text>
-                </View>
-                <View>
-                <Text style={styles.modal_sub_heading}>Voucher Worth:  {modal_data && modal_data.voucher_worth}</Text>
-                </View>
-                <View>
-                    <Text style={styles.modal_sub_heading}>Would you like to continue.</Text>
-                </View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
-                    <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
-                    <Button title="YES, CONTINUE" onPress={() => {
-                        redeem_request(modal_data.reward_points, modal_data.api_data.ele.mode_id )
-                        toggleModal()
-                    }} style={styles.modal_btn} color='#378C3C'/>
-                </View>
-
             </View>
-        </Modal>
+                    )
+                })
+            }
+
+            {/* modal */}
+            <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
+                <View style={styles.modal_}>
+                    <View style={{textAlign: "center", marginTop: 0, width: '70%'}}>
+                        <Image
+                            style={[styles.stretch, {justifyContent: "center"}]}
+                            source={modal_data && modal_data.api_data.ele.mode_picture}
+                        />
+                    </View>
+                    <Text style={styles.modal_sub_heading}>Congratulation {modal_data &&modal_data.name}</Text>
+                    <View>
+                    <Text style={styles.modal_sub_heading}>You have requested {modal_data && modal_data.api_data.ele.mode_name} Voucher</Text>
+                    </View>
+                    <View>
+                    <Text style={styles.modal_sub_heading}>Redeem:  {modal_data && modal_data.reward_points} Points</Text>
+                    </View>
+                    <View>
+                    <Text style={styles.modal_sub_heading}>Voucher Worth:  {modal_data && modal_data.voucher_worth}</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.modal_sub_heading}>Would you like to continue.</Text>
+                    </View>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
+                        <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
+                        <Button title="YES, CONTINUE" onPress={() => {
+                            redeem_request(modal_data.reward_points, modal_data.api_data.ele.mode_id )
+                            toggleModal()
+                        }} style={styles.modal_btn} color='#378C3C'/>
+                    </View>
+
+                </View>
+            </Modal>
 
 
-  </View>
+    </View>
   </ScrollView>
     );
   }
@@ -165,7 +183,7 @@ export default function RewardScreen({navigation}) {
 
 const styles = StyleSheet.create({
     modal_:{
-        height: 'justifyContent', 
+        // height: 'justifyContent', 
         backgroundColor: '#fff', 
         padding: 10,
         borderRadius: 10,
@@ -176,31 +194,31 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
     modal_sub_heading: {
-        fontWeight: 500, 
+        fontWeight: "500", 
         fontSize: normalize(15), 
         marginTop: 10
     },
     modal_points:{
-        fontWeight: 400, 
+        fontWeight: "400", 
         fontSize: normalize(15),
     },
     container: {
         backgroundColor: '#FAFAFA',
         padding: 10,
-        flexDirection:'col',
+        flexDirection:'column',
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
     },
     cardElement_text: {
-        fontWeight: 500,
+        fontWeight: "500",
         fontSize: normalize(18),
         color: '#fff',
-        fontFamily: 'Poppins Regular 400',
+        // fontFamily: 'Poppins Regular 400',
     },
     stretch: {
         width: '100%' ,
         height: SCREEN_WIDTH*0.3,
-        textAlign: 'center',
+        // textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -209,16 +227,16 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
     text_box_black_header: {
         color: '#fff', 
         marginTop:10, 
-        fontWeight: '300',
+        fontWeight: "300",
         textAlign: "center", 
         fontSize:normalize(18),
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
     },
     text_box_black_points: {
         color: '#fff', 
@@ -226,7 +244,7 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
     },
     footer: {
         flex: 1,
@@ -287,7 +305,7 @@ const styles = StyleSheet.create({
     },
     textSign: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: "bold"
     },
     center :{
         justifyContent: 'center', //Centered vertically
@@ -310,7 +328,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#1a1a1a', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 20,
@@ -322,7 +340,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#fff', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 10,

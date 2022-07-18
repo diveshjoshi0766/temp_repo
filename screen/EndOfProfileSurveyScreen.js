@@ -35,7 +35,7 @@ export default function EndOfProfileSurveyScreen({navigation}) {
         }]}
     >
 
-        <View style={{alignItems: 'center', marginTop: '0'}}>
+        <View style={{alignItems: 'center', marginTop: 0}}>
             <Image
                 style={styles.stretch}
                 source={require('../assets/logo_comp.png')}
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     stretch: {
         width: SCREEN_WIDTH*0.5,
         height: SCREEN_WIDTH*0.5,
-        textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
     },

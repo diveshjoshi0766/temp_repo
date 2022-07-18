@@ -11,11 +11,9 @@ import {
     PixelRatio,
     ScrollView
 } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import axios from "axios"
 import { BASE_URL } from "../config";
-import { useTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from "../context/AuthContext";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -78,10 +76,9 @@ export default function UserActivityScreen({navigation}) {
                 <View>
                     <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
                 </View>
-                {/* heading */}
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Points History</Text>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), }}>Points History</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), }}><Icon name="user" size={20} color="black"/> Profile</Text>
                 </View>
                 <View style={styles.points}>
                     <View style={styles.center}>
@@ -110,8 +107,7 @@ export default function UserActivityScreen({navigation}) {
                         )
                     })
                 }
-                
-          </View>
+               </View>
           </ScrollView>
 
        
@@ -142,12 +138,12 @@ const styles = StyleSheet.create({
         color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(18)
     },
     tabel_header: {
-        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins_Thin100', fontWeight: 'bold'
+        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'
     },
     container: {
         backgroundColor: '#FAFAFA',
         padding: 10,
-        flexDirection:'col',
+        flexDirection:'column',
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
     },
@@ -163,7 +159,7 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
     text_box_black_header: {
@@ -172,7 +168,7 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: "center", 
         fontSize:normalize(18),
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
     },
     text_box_black_points: {
         color: '#fff', 
@@ -180,7 +176,7 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
     },
     footer: {
         flex: 1,
@@ -254,7 +250,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#1a1a1a', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 20,
@@ -266,7 +262,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#fff', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 10,

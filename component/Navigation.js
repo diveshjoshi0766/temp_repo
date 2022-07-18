@@ -357,6 +357,11 @@ const Navigation = () => {
               options={{headerShown: false}}
             />
             <Stack.Screen
+              name="Profile Survey"
+              component={ProfileSurvey1}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
               name="Change Password Screen"
               component={ChangePasswordScreen}
               options={{headerShown: false}}

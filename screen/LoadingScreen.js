@@ -4,23 +4,12 @@ import {
     Text,
     View,
     Image,
-    TextInput,
-    TouchableOpacity,
     Dimensions,
     Platform, 
     PixelRatio,
     Animated,
     Easing 
 } from "react-native";
-import {Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
-// import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
-import { useTheme } from 'react-native-paper';
-
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -61,7 +50,7 @@ export default function LoadingScreen({navigation}) {
             />
         </View>
 
-        <View style={{ padding: '20', marginTop: SCREEN_HEIGHT*0.6 - 100}}>
+        <View style={{ padding: 20, marginTop: SCREEN_HEIGHT*0.6 - 100}}>
             <Image
                 style={styles.stretch}
                 source={require('../assets/icon_new_logo.png')}
@@ -75,7 +64,7 @@ export default function LoadingScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        flexDirection:'col',
+        flexDirection:'column',
         alignItems:'center',
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT
@@ -87,16 +76,16 @@ const styles = StyleSheet.create({
     header: {
         flex: 1,
         justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingHorizontal: "20",
+        paddingBottom: "50"
     },
     footer: {
         flex: 1,
         backgroundColor: 'rgb(235 235 235)',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingHorizontal: "20",
+        paddingVertical: "30"
     },
     text_header: {
         color: '#fff',
@@ -115,8 +104,8 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingLeft: "3",
+        paddingRight: "3",
     },
     actionError: {
         flexDirection: 'row',
@@ -127,7 +116,7 @@ const styles = StyleSheet.create({
     textInput: {
         height: normalize(20),
         flex: 1,
-        paddingLeft: 10,
+        paddingLeft: "10",
         color: '#05375a',
     },
     errorMsg: {

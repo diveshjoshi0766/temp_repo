@@ -8,14 +8,14 @@ import {
     Platform, 
     PixelRatio,
     ScrollView,
-    ImageBackground
+    ImageBackground,
+    TouchableOpacity
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import WebViewScreen from "./WebViewScreen";
 import { BASE_URL } from "../config";
-import { TouchableOpacity } from "react-native-web";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -32,9 +32,7 @@ export function normalize(size) {
 
 
 export default function SpinnerScreen({navigation}) {
-    const {userInfo, panelist_basic_details} = useContext(AuthContext);
-    console.log(userInfo.Result.countryID)
-    console.log(userInfo.Result.panelistID)
+    const {userInfo} = useContext(AuthContext);
     const [comments,setComments]=useState(null)
     const [link, setLink] = useState(null)
     useEffect(() => {
@@ -44,79 +42,82 @@ export default function SpinnerScreen({navigation}) {
       console.log(comments)
     }, [comments])
     const fetchComments=async()=>{
-    const response=await axios(`${BASE_URL}/surveySpinner/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`);
-    setComments(response.data.result)    
+        // const response=await axios(`${BASE_URL}/surveyListing/${parseInt(userInfo.Result.panelistID)}`);
+        axios.get(`${BASE_URL}/surveySpinner/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
+        .then(res => {
+        setComments(res.data.result)
+        })
+        .catch(e => {
+        console.log(`register error ${e}`);
+        setIsLoading(false);
+        });
     }
-    console.log(link)
     if(link === null){
         return (
         <ScrollView showsVerticalScrollIndicator ={false}>
-        <View style={styles.container}>
-            <View>
-                <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
-            </View>
-            {/* heading */}
-            <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400'}}>Spinner</Text>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), fontFamily: 'Poppins Regular 400' }}><Icon name="user" size={20} color="black"/> Profile</Text>
-            </View>
-            <View style={styles.points}>
-                <View style={styles.center}>
-                    <Text style={styles.text_box_black_header}>My Points</Text>
-                    <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
+            <View style={styles.container}>
+                <View>
+                    <Text style={styles.header}>Good Morning, {userInfo.Result && userInfo.Result.firstname}</Text>
                 </View>
-                <View style={styles.center}>
-                    <Text style={styles.text_box_black_header}>My Profile</Text>
-                    <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
+                {/* heading */}
+                <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22)}}>Spinner</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22)}}><Icon name="user" size={20} color="black"/> Profile</Text>
                 </View>
-            </View>
-            
+                <View style={styles.points}>
+                    <View style={styles.center}>
+                        <Text style={styles.text_box_black_header}>My Points</Text>
+                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.current_point}</Text>
+                    </View>
+                    <View style={styles.center}>
+                        <Text style={styles.text_box_black_header}>My Profile</Text>
+                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
+                    </View>
+                </View>
+                
 
-            {
-                comments && comments.map((ele, val) => {  
-                    if(val % 2 == 0){
-                        return (
+                {
+                    comments && comments.map((ele, val) => {  
+                        if(val % 2 == 0){
+                            return (
                             <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
-                                <View style={[styles.center, {flex: 1.2}]}>
-                                    <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>{ele.Description}</Text>
+                                <View style={[styles.center_, {flex: 1.2}]}>
+                                    <Text style={{textAlign: 'center', fontSize: 15, fontWeight: "500"}}>{ele.Description}</Text>
                                 </View>
-                                <View style={[styles.center, {flex: 0.8}]}>
-                                    <View style={{alignItems: 'center', marginTop: '0'}}>
-                                        <ImageBackground style={[styles.stretch]}
-                                            source={require("../assets/spinner_edited.gif")} resizeMode="cover">
-                                            <Image
+                                <View style={[styles.center_, {flex: 0.8, alignItems: 'center', marginTop: 0}]}>
+                                    <ImageBackground style={styles.stretch}
+                                        source={require("../assets/spinner_edited.gif")} resizeMode="cover">
+                                        <Image
                                                 style={{width: 70, height: 70}}
-                                                source={require(`../assets/${ele.Incentive}.png`)}
+                                                source={require("../assets/100.png")}
+                                                // source={{uri:  `../assets/${ele.Incentive}.png`}}
                                             />
-                                        </ImageBackground>
-                                    </View>
+                                    </ImageBackground>
                                 </View>
                             </TouchableOpacity>
-                        )
-                    }
-                    else{
-                        return (
-                            <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
-                                <View style={[styles.center, {flex: 0.8}]}>
-                                    <View style={{alignItems: 'center', marginTop: '0'}}>
-                                        <ImageBackground style={[styles.stretch]}
-                                            source={require("../assets/spinner_edited.gif")} resizeMode="cover">
-                                            <Image
-                                                style={{width: 70, height: 70}}
-                                                source={require(`../assets/${ele.Incentive}.png`)}
-                                            />
-                                        </ImageBackground>
-                                    </View>
-                                </View>
-                                <View style={[styles.center, {flex: 1.2}]}>
-                                    <Text style={{textAlign: 'center', fontSize: 15, fontFamily: 'Poppins Regular 400', fontWeight: '500'}}>{ele.Description}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    }
-                })
-            }
-        </View>
+                            )
+                        }
+                        else{
+                            return (
+                        <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
+                            <View style={[styles.center_, {flex: 0.8, alignItems: 'center', marginTop: 0}]}>
+                                <ImageBackground style={styles.stretch}
+                                    source={require("../assets/spinner_edited.gif")} resizeMode="cover">
+                                    <Image
+                                            style={{width: 70, height: 70}}
+                                            source={require(`../assets/100.png`)}
+                                        />
+                                </ImageBackground>
+                            </View>
+                            <View style={[styles.center_, {flex: 1.2}]}>
+                                <Text style={{textAlign: 'center', fontSize: 15, fontWeight: "500"}}>{ele.Description}</Text>
+                            </View>
+                        </TouchableOpacity>
+                            )
+                        }
+                    })
+                }
+            </View>
         </ScrollView>
         )   
     }
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#FAFAFA',
         padding: 10,
-        flexDirection:'col',
+        flexDirection:'column',
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
     },
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
         // fontFamily: 'Poppins_Black900' 
     },
     footer: {
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    center :{
+    center_ :{
         justifyContent: 'center', //Centered vertically
         alignItems: 'center', // Centered horizontally
     },
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#1a1a1a', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 20,
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: "center", 
         fontSize:normalize(18),
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
     },
     text_box_black_points: {
         color: '#fff', 
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        fontFamily: 'Poppins Regular 400'
+        // fontFamily: 'Poppins Regular 400'
     },
     items:{
         display:'flex', 
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#fff', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 10,
@@ -264,12 +265,12 @@ const styles = StyleSheet.create({
     products: {
         maxHeight: 120,
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
         display:'flex',
         flexDirection:'row', 
         borderRadius: 10,
         marginTop: normalize(10),
-        borderColor: 'black',
+        borderColor: '#000000',
         borderRadius: 10,
         shadowColor: '#000000',
         shadowOffset: {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { Text, View, StyleSheet, Platform } from 'react-native';
+import { View, Platform } from 'react-native';
 
 export default function FAQs () {
 

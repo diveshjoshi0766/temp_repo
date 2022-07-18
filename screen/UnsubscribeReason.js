@@ -11,11 +11,7 @@ import {
     PixelRatio
 } from "react-native";
 import {Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import facebook from '../assets/facebook.png'
-import google from '../assets/google.png'
+import * as Animatable from 'react-native-animatable'
 
 import { useTheme } from 'react-native-paper';
 import { AuthContext } from "../context/AuthContext";
@@ -55,11 +51,11 @@ export default function UnsubscribeReason({navigation}) {
         }]}
     >
         {/* heading */}
-        <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 10, fontFamily: 'Poppins Regular 400'}}>You will be missed!?</Text>
+        <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 10}}>You will be missed!?</Text>
 
         {/* Question */}
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontFamily: 'Poppins Regular 400'}}>You are requesting to Unsubscribe/opt-out from receiving email survey invitations, marketing message and notices from SurveyOptimus.</Text>
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontFamily: 'Poppins Regular 400'}}>Please take a monument to tell us why you no longer wish to receive email invitations, marketing messagae and notices:</Text>
+        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>You are requesting to Unsubscribe/opt-out from receiving email survey invitations, marketing message and notices from SurveyOptimus.</Text>
+        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>Please take a monument to tell us why you no longer wish to receive email invitations, marketing messagae and notices:</Text>
 
         <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(1)}} disabled={select}>
             <Text style={styles.option}>I receive too many emails and messages from you</Text>
@@ -76,7 +72,7 @@ export default function UnsubscribeReason({navigation}) {
         <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(5)}} disabled={select}>
             <Text style={styles.option}>Email Survey don't interest me</Text>
         </TouchableOpacity>
-        <View style={[styles.action, {backgroundColor: '#ffffff', display: select ? 'none' : ''}]}>
+        <View style={[styles.action, {backgroundColor: '#ffffff', display: select == true ? 'none' : 'flex'}]}>
             <TextInput 
                 placeholder="Other (Please explain below)"
                 placeholderTextColor="#666666"
@@ -163,7 +159,7 @@ const styles = StyleSheet.create({
         borderColor: "black",
         paddingLeft: 3,
         paddingRight: 3,
-        fontFamily: 'Poppins Regular 400',
+        // fontFamily: 'Poppins Regular 400',
         fontSize: normalize(15)
     },
     actionError: {

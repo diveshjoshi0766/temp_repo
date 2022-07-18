@@ -34,9 +34,6 @@ export function normalize(size) {
 
 export default function RewardHistory({navigation}) {
 
-    const [data, setData] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [trans_history, setTrans_history] = useState()
     const {userInfo} = useContext(AuthContext);
     console.log(userInfo)
     const [comments,setComments]=useState(null)
@@ -47,7 +44,7 @@ export default function RewardHistory({navigation}) {
       console.log(comments)
     }, [comments])
     const fetchComments=async()=>{
-    const response=await axios(`${BASE_URL}/getReward/${parseInt(userInfo.Result.panelistID)}`);
+    const response=await axios(`${BASE_URL}/getReward/${parseInt(userInfo.Result && userInfo.Result.panelistID)}`);
     setComments(response.data.redeemHistory)    
     }
 
@@ -64,14 +61,14 @@ export default function RewardHistory({navigation}) {
     >
 
     {
-        comments && comments.map((ele) => {
+        comments && comments.map((ele, val) => {
             return(
-                <View style={styles.products}>
+                <View style={styles.products} key={val}>
             <View style={[styles.center, {width: "50%", padding: 5}]}>
-                <View style={{alignItems: 'center', marginTop: '0'}}>
+                <View style={{alignItems: 'center', marginTop: 0}}>
                     <Image
                         style={[styles.stretch]}
-                        source={ele.mode_picture}
+                        source={require("../assets/amazon_gift.png")}
                     />
                     <View style={styles.button}>
                         <TouchableOpacity
@@ -222,7 +219,7 @@ const styles = StyleSheet.create({
     },
     textSign: {
         fontSize: 18,
-        fontWeight: 500,
+        fontWeight: "500",
     },
     center :{
         justifyContent: 'center', //Centered vertically
@@ -235,7 +232,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#1a1a1a', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 10,
@@ -246,7 +243,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
         backgroundColor: '#fff', 
         alignContent: "center",
-        height: 'justifyContent',
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 10,
@@ -265,7 +262,7 @@ const styles = StyleSheet.create({
     products: {
         marginTop: 10,
         backgroundColor: '#fff',
-        height: 'justifyContent',
+        // height: 'justifyContent',
         display:'flex',
         flexDirection:'row', 
         borderRadius: 10,

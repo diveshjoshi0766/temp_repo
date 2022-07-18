@@ -51,7 +51,7 @@ export default function ChangePasswordScreen({navigation}) {
         }]}
     >
 
-        <Text style={{fontSize: normalize(18), color: 'gray', fontFamily: 'Poppins Regular 400',}}>Change Password</Text>
+        <Text style={{fontSize: normalize(18), color: 'gray'}}>Change Password</Text>
         
         <View style={[styles.action, {backgroundColor: '#ffffff', marginTop: 20}]}>
             <FontAwesome 
@@ -171,14 +171,12 @@ export default function ChangePasswordScreen({navigation}) {
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1, 
+    container:{
+        marginTop: SCREEN_HEIGHT * 0.4,
         backgroundColor: 'rgb(235 235 235)',
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
     },
     stretch: {
         width: SCREEN_WIDTH*0.20,
