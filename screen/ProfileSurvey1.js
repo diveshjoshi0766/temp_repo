@@ -31,20 +31,20 @@ export default function ProfileSurvey1({navigation}) {
     
     const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
-    console.log(userInfo && userInfo)
-    console.log(panelist_basic_details && panelist_basic_details)
-    if(panelist_basic_details && panelist_basic_details){
-        console.log(panelist_basic_details.Results.profilePercentage)
-        if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
-            navigation.navigate('Home')
-        }
-    }
-    if(userInfo && userInfo){
-        console.log(userInfo.Result.profilePercentage)
-        if(parseInt(userInfo.Result.profilePercentage) == 100){
-            navigation.navigate('Home')
-        }
-    }
+    // console.log(userInfo && userInfo)
+    // console.log(panelist_basic_details && panelist_basic_details)
+    // if(panelist_basic_details && panelist_basic_details){
+    //     console.log(panelist_basic_details.Results.profilePercentage)
+    //     if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
+    //         navigation.navigate('Home')
+    //     }
+    // }
+    // if(userInfo && userInfo){
+    //     console.log(userInfo.Result.profilePercentage)
+    //     if(parseInt(userInfo.Result.profilePercentage) == 100){
+    //         navigation.navigate('Home')
+    //     }
+    // }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
     const [data, setData] = useState(null)
@@ -56,7 +56,7 @@ export default function ProfileSurvey1({navigation}) {
         let isMounted = true
         setLoading(true)
         axios
-        .get(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
+        .get(`${BASE_URL}/getCountryQuestion/100/396`)
         .then(res => {
             let responce_data = res.data;
             console.log()
@@ -377,13 +377,13 @@ export default function ProfileSurvey1({navigation}) {
                 <></>
                 :
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 2 ? 
-                <View style={styles.button}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => back_question()}>
+                <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius: 40}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63',}]} onPress={() => {let ret = move_to_next() 
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius: 40}]} onPress={() => {let ret = move_to_next() 
                     if(!ret){alert("Please select one of the above")}
                     
                     }}>
@@ -393,13 +393,13 @@ export default function ProfileSurvey1({navigation}) {
                     </TouchableOpacity>
                 </View> 
                 :
-                <View style={styles.button}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => back_question()}>
+                <View style={[styles.button, {display: 'flex', flexDirection: 'row'}]}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => next_question(ques)}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40}]} onPress={() => next_question(ques)}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Next</Text>
@@ -508,7 +508,8 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.2,
         shadowRadius: 3,
-
+        borderWidth: 1,
+        borderColor: "#2955a9"
 
     },
     actionError: {
@@ -532,7 +533,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // bottom: 20,
         flex: 1,
-        justifyContent: 'flex-end',
         marginBottom: SCREEN_WIDTH*0.03,
         width: SCREEN_WIDTH*0.3,
         marginLeft: SCREEN_WIDTH*0.35,
