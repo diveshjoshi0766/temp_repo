@@ -31,20 +31,20 @@ export default function ProfileSurvey1({navigation}) {
     
     const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
-    // console.log(userInfo && userInfo)
-    // console.log(panelist_basic_details && panelist_basic_details)
-    // if(panelist_basic_details && panelist_basic_details){
-    //     console.log(panelist_basic_details.Results.profilePercentage)
-    //     if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
-    //         navigation.navigate('Home')
-    //     }
-    // }
-    // if(userInfo && userInfo){
-    //     console.log(userInfo.Result.profilePercentage)
-    //     if(parseInt(userInfo.Result.profilePercentage) == 100){
-    //         navigation.navigate('Home')
-    //     }
-    // }
+    console.log(userInfo && userInfo)
+    console.log(panelist_basic_details && panelist_basic_details)
+    if(panelist_basic_details && panelist_basic_details){
+        console.log(panelist_basic_details.Results.profilePercentage)
+        if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
+            navigation.navigate('Home')
+        }
+    }
+    if(userInfo && userInfo){
+        console.log(userInfo.Result.profilePercentage)
+        if(parseInt(userInfo.Result.profilePercentage) == 100){
+            navigation.navigate('Home')
+        }
+    }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
     const [data, setData] = useState(null)

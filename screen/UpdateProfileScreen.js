@@ -65,7 +65,7 @@ export default function UpdateProfileScreen({navigation}) {
     const [isSelected, setSelection] = useState(false);
     const [checked, setChecked] = React.useState('first');
 
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState()
     const [displaymode, setMode] = useState('date');
     const [isDisplayDate, setShow] = useState(false);
     const changeSelectedDate = (event, selectedDate) => {
@@ -300,7 +300,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => update_profile(firstName, lastName, date, checked, add1, add2, city, state, country, zip, phone, 2, navigation)}
+                onPress={() => update_profile(firstName, lastName, date, checked == 'first' ? 1 : 2, add1, add2, city, state, country, zip, phone, 2, navigation)}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}

@@ -267,7 +267,6 @@ const Navigation = () => {
                 color: 'white'
               }
               }}
-
             />
             <Stack.Screen
               name="My Account Screen"

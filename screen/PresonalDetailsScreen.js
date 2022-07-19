@@ -123,7 +123,7 @@ export default function PresonalDetailsScreen({navigation}) {
     const [lastName, setLastName] = useState(null)
 
     // date state
-    const [date, setDate] = useState("")
+    const [date, setDate] = useState()
     
     const [checked, setChecked] = React.useState('first');
     const [address1, setAddress1] = useState(null);
@@ -403,7 +403,7 @@ export default function PresonalDetailsScreen({navigation}) {
         <View style={styles.button}>
             <TouchableOpacity
                 onPress={() => {
-                    let res = update_profile(firstName, lastName, date, checked, address1, address2, city, state, country, zipcode, phone, 1, navigation)
+                    let res = update_profile(firstName, lastName, date, checked == 'first' ? 1 : 2, address1, address2, city, state, country, zipcode, phone, 1, navigation)
                         console.log(res)
                     }}
                 style={[styles.signIn, {
