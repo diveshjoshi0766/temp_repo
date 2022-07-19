@@ -83,11 +83,11 @@ export default function SignUpScreen({navigation}) {
         >
         </Image>
         <View style={{alignItems: "center"}}>
-            <View style={{width: '100%'}}>
-                <TouchableOpacity>
+            <View>
+                <View>
                     <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
                     <Text style={{ textAlign: "right", fontSize:normalize(15),}}>it's quick and easy</Text>
-                </TouchableOpacity>
+                </View>
             </View>
         </View>
         <View style={styles.action}>
@@ -228,19 +228,19 @@ export default function SignUpScreen({navigation}) {
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
-                }]}>SIGN IN</Text>
+                }]}>SIGN UP</Text>
             </TouchableOpacity>
         </View>
             
         <TouchableOpacity>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center",  fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
-        <View style={{alignItems: "center", flexDirection: 'row', justifyContent:'space-evenly', marginTop: 20}}>
-            <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50}}></Image>
-            <Image source={require('../assets/google_.png')} style={{height: 50, width: 50}}></Image>
+        <View style={{alignItems: "center",justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
+            <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50, marginRight: 10}}></Image>
+            <Image source={require('../assets/google_.png')} style={{height: 50, width: 50, marginLeft: 10}}></Image>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Sign In Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20),}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN IN</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: '500'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>

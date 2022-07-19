@@ -16,7 +16,6 @@ export const AuthProvider = ({children}) => {
   const [temp_password, setTemp_password] = useState("")
 
   const panelist_profiling_ans = (ans_key) => {
-    console.log(ans_key)
     const data = JSON.stringify(ans_key)
     console.log(ans_key)
     axios

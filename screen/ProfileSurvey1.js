@@ -77,6 +77,31 @@ export default function ProfileSurvey1({navigation}) {
     }, []);
     console.log(ques)
 
+    let data_arr = null
+    if(data && data) {
+        data_arr = data
+        if(userInfo.Result.answerList.length > 0){
+            for(let i=0;i<userInfo.Result.answerList.length;i++){
+                let obj = userInfo.Result.answerList[i]
+                let ques_id_ = obj.ques_id
+                let ans_id_ = obj.ans_id
+                let ans_id_arr = ans_id_.split(',')
+                for(let j=0;j<data_arr.length;j++){
+                    if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
+                        for(let k=0;k<data_arr[j].AnswerList.length;k++){
+                            for(let x=0;x<ans_id_arr.length;x++){
+                                if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
+                                    data_arr[j].AnswerList[k].is_answered = true
+                                    console.log("hittttttttttttttttttt")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     const move_to_next = () => {
         let flag = false
         for(let i=0;i<data_arr[ques].AnswerList.length;i++){
@@ -154,30 +179,7 @@ export default function ProfileSurvey1({navigation}) {
             }
         }
     }
-    let data_arr = null
-    if(data && data) {
-        data_arr = data
-        if(userInfo.Result.answerList.length > 0){
-            for(let i=0;i<userInfo.Result.answerList.length;i++){
-                let obj = userInfo.Result.answerList[i]
-                let ques_id_ = obj.ques_id
-                let ans_id_ = obj.ans_id
-                let ans_id_arr = ans_id_.split(',')
-                for(let j=0;j<data_arr.length;j++){
-                    if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
-                        for(let k=0;k<data_arr[j].AnswerList.length;k++){
-                            for(let x=0;x<ans_id_arr.length;x++){
-                                if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
-                                    data_arr[j].AnswerList[k].is_answered = true
-                                    console.log("hittttttttttttttttttt")
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
     const [multi_ans, setMulti_ans] = useState("");
     const [isSelected, setIsSelected] = useState([])
 
@@ -295,7 +297,7 @@ export default function ProfileSurvey1({navigation}) {
     }
     if(data_arr == null){
         return (
-            <Text>Loadingggg</Text>
+            <Text></Text>
         )
     }
     else{
@@ -307,8 +309,6 @@ export default function ProfileSurvey1({navigation}) {
                 backgroundColor: "rgb(235 235 235)"
             }]}
         >
-            <Logo></Logo>
-
             <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), textAlign: "center"}}>Profile Survey</Text>
         
             {
@@ -383,7 +383,7 @@ export default function ProfileSurvey1({navigation}) {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius: 40}]} onPress={() => {let ret = move_to_next() 
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius:40 }]} onPress={() => {let ret = move_to_next() 
                     if(!ret){alert("Please select one of the above")}
                     
                     }}>
@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
         maxHeight: 80,
         flexDirection:'row',
         alignItems:'center',
-        borderRadius: normalize(10),
+        borderRadius: normalize(3),
         shadowColor: '#171717',
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.2,

@@ -75,8 +75,8 @@ export default function DashboardScreen({navigation}) {
             </View>
             {/* heading */}
             <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), }}>Dashboard</Text>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), }}><Icon name="user" size={20} color="black"/> Profile</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Dashboard</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}><Icon name="user" size={20} color="black"/> Profile</Text>
             </View>
             <View style={styles.points}>
                 <View style={styles.center}>
@@ -163,13 +163,13 @@ const styles = StyleSheet.create({
     text_box_black_header: {
         color: '#fff', 
         marginTop:10, 
-        fontWeight: '300',
+        fontWeight: "200",
         textAlign: "center", 
-        fontSize:normalize(18),
+        fontSize:normalize(12),
     },
     text_box_black_points: {
         color: '#fff', 
-        marginTop:5, 
+        marginTop:2, 
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),

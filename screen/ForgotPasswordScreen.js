@@ -70,15 +70,15 @@ export default function ForgotPasswordScreen({navigation}) {
         >
         </Image>
         <View style={{alignItems: "center"}}>
-            <View style={{width: '100%'}}>
-                <TouchableOpacity>
+            <View>
+                <View>
                     <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
                     <Text style={{ textAlign: "right", fontSize:normalize(15),}}>it's quick and easy</Text>
-                </TouchableOpacity>
+                </View>
             </View>
         </View>
 
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>Forgot Password</Text>
+        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold'}}>Forgot Password</Text>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <FontAwesome 
@@ -121,8 +121,8 @@ export default function ForgotPasswordScreen({navigation}) {
             </TouchableOpacity>
         </View>
             
-        <TouchableOpacity onPress={() => navigation.navigate('Sign Up Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:normalize(20), fontFamily: 'Poppins Regular 400'}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold', fontFamily: 'Poppins Regular 400'}}>SIGN UP</Text></Text>
+        <TouchableOpacity  onPress={() => navigation.navigate('Sign Up Screen')}>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20 }}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(30),
-        minHeight: normalize(37),
+        height: normalize(37),
         flex:1,
         flexDirection:'row',
         alignItems:'center',
