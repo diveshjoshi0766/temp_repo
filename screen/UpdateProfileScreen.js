@@ -14,11 +14,10 @@ import {
 import * as Animatable from 'react-native-animatable';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { RadioButton } from 'react-native-paper'
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { BASE_URL } from "../config";
 import axios from "axios";
 import Modal from "react-native-modal";
-import DatePicker from 'react-native-datepicker'
 import { useTheme } from 'react-native-paper';
 import { AuthContext } from "../context/AuthContext";
 
@@ -105,6 +104,22 @@ export default function UpdateProfileScreen({navigation}) {
     console.log(comments && comments.Results.firstname)
 
 
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+    const handleConfirm = (date) => {
+        console.warn("A date has been picked: ", date);
+        setDate(date)
+        console.log(date)
+        hideDatePicker();
+    };
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+
     return (
     <View style={styles.container}>
     <Animatable.View 
@@ -172,40 +187,23 @@ export default function UpdateProfileScreen({navigation}) {
         paddingLeft: 3,
         paddingRight: 3,}}>
         <TouchableOpacity
-        onPress={displayDatepicker} 
+        onPress={showDatePicker}
         >
         <View >
             <Text style={{paddingLeft: 4}}>Select date of Birth</Text>
-            <Image source={require('../assets/date.png')} size={{height: 20, width: 20}}></Image>
+            {/* <Image source={require('../assets/date.png')} size={{height: 10, width: 10}}/>  */}
         </View>
         </TouchableOpacity>
-        <DatePicker
-        style={{width: 200}}
-        date={date}
-        mode="date"
-        placeholder="select date"
-        format="YYYY-MM-DD"
-        minDate="2016-05-01"
-        maxDate="2016-06-01"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0
-          },
-          dateInput: {
-            marginLeft: 36
-          }
-        }}
-        onDateChange={(date) => setDate(date)}
-      />
-
-
+        <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+        />
         
         </View>
+
+
         <View style={[styles.action]}>
             
             <Text style={[styles.textInput, {
@@ -213,11 +211,13 @@ export default function UpdateProfileScreen({navigation}) {
                 }]}>Gender</Text>
             <RadioButton
                 value="first"
+                label="Male"
                 status={ checked === 'first' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('first')}
             />
             <RadioButton
                 value="second"
+                label="Female"
                 status={ checked === 'second' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('second')}
             />

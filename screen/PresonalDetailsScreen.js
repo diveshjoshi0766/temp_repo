@@ -35,21 +35,6 @@ export function normalize(size) {
 }
 const spinValue = new Animated.Value(0);
 
-
-
-const _data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
-  ];
-
-
-
 export default function PresonalDetailsScreen({navigation}) {
 
     const {userInfo, panelist_basic_details,update_profile, panelistBasicDetails_func} = useContext(AuthContext);
@@ -223,7 +208,7 @@ export default function PresonalDetailsScreen({navigation}) {
     
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="First Name"
+                placeholder={panelist_basic_details && panelist_basic_details.Results.firstname}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -235,7 +220,7 @@ export default function PresonalDetailsScreen({navigation}) {
     
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Last Name"
+                placeholder={panelist_basic_details && panelist_basic_details.Results.lastname}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -278,11 +263,13 @@ export default function PresonalDetailsScreen({navigation}) {
                 }]}>Gender</Text>
             <RadioButton
                 value="first"
+                label="Male"
                 status={ checked === 'first' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('Male')}
             />
             <RadioButton
                 value="second"
+                label="Female"
                 status={ checked === 'second' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('Female')}
             />

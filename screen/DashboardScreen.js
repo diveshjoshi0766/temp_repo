@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from "../context/AuthContext";
 import axios from 'axios'
 import { BASE_URL } from "../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -29,6 +30,20 @@ export function normalize(size) {
 }
 
 export default function DashboardScreen({navigation}) {
+
+    const [isFirstLaunch, setIsFirstTimeLaunch] = useState(null)
+
+    useEffect(() => {
+        AsyncStorage.getItem('alreadyLaunched').then(value => {
+            if(value == null){
+                AsyncStorage.setItem('alreadyLaunched', 'true')
+                setIsFirstTimeLaunch(true)
+            }else{
+                setIsFirstTimeLaunch(false)
+            }
+        })
+    },[])
+
     const {userInfo} = useContext(AuthContext);
     const [comments,setComments]=useState(null)
     const [link, setLink] = useState(null)
