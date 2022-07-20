@@ -64,27 +64,27 @@ import EndOfProfileSurveyScreen from './screen/EndOfProfileSurveyScreen';
 
 const Stack = createNativeStackNavigator();
  
-// export default function App({ navigation }) {
-//   return (
-//     <AuthProvider>
-//       <Navigation></Navigation>
-//       {/* <SignInScreen></SignInScreen> */}
-//     </AuthProvider>
-//     // <Text>hi how are you i am fine</Text>
-//   );
-// }
-
-
 export default function App({ navigation }) {
-  // const {userInfo, splashLoading} = useContext(AuthContext);
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Home" component={EndOfProfileSurveyScreen } />
-          <Stack.Screen name="Details" component={EndOfProfileSurveyScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Navigation></Navigation>
+      {/* <SignInScreen></SignInScreen> */}
     </AuthProvider>
+    // <Text>hi how are you i am fine</Text>
   );
 }
+
+
+// export default function App({ navigation }) {
+//   // const {userInfo, splashLoading} = useContext(AuthContext);
+//   return (
+//     <AuthProvider>
+//       <NavigationContainer>
+//         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+//           <Stack.Screen name="Home" component={EndOfProfileSurveyScreen } />
+//           <Stack.Screen name="Details" component={EndOfProfileSurveyScreen} />
+//         </Stack.Navigator>
+//       </NavigationContainer>
+//     </AuthProvider>
+//   );
+// }

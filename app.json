@@ -7,7 +7,7 @@
     "icon": "./assets/logo_remove_bg.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash_screen_survey_optimus.png",
+      "image": "./assets/splash_screen_survey_optimus.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
