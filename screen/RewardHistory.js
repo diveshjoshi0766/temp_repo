@@ -70,26 +70,16 @@ export default function RewardHistory({navigation}) {
                         style={[styles.stretch]}
                         source={require("../assets/amazon_gift.png")}
                     />
-                    <View style={styles.button}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('SignUpScreen')}
-                            style={[styles.signIn, {
-                                backgroundColor: ele.status == 'Processing' ? '#8C6E63': '#378C3C',
-                            }]}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#fff'
-                            }]}>{ele.status}</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Text style={[styles.reward_his_text,{textAlign: 'center', fontWeight: '500'}]}>{ele.mode_name}</Text>
                 </View>
             </View>
             <View style={styles.center}>
-                <Text style={{textAlign: 'center', fontWeight: 'bold'}}>{ele.mode_name}</Text>
-                <Text style={{textAlign: 'center'}}>Redeem Points : {ele.redeem_points}</Text>
-                <Text style={{textAlign: 'center'}}>Voucher worth : {ele.worth}</Text>
-                <Text style={{textAlign: 'center'}}>Trans ID : {ele.transaction_id}</Text>
-                <Text style={{textAlign: 'center'}}>Date : {ele.request_date}</Text>
+                {/* <Text style={{textAlign: 'center', fontWeight: 'bold'}}>{ele.mode_name}</Text> */}
+                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Redeem Points : {ele.redeem_points}</Text>
+                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Voucher worth : {ele.worth}</Text>
+                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Trans ID : {ele.transaction_id}</Text>
+                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Date : {ele.request_date}</Text>
+                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Status : {ele.status}</Text>
             </View>
         </View>
 
@@ -99,7 +89,7 @@ export default function RewardHistory({navigation}) {
 
         
         {/* dummy data */}
-        <View style={styles.products}>
+        {/* <View style={styles.products}>
             <View style={[styles.center, {width: "50%"}]}>
                 <View style={{alignItems: 'center'}}>
                     <Image
@@ -127,7 +117,7 @@ export default function RewardHistory({navigation}) {
                 <Text style={{textAlign: 'center'}}>Trans ID : </Text>
                 <Text style={{textAlign: 'center'}}>Date : </Text>
             </View>
-        </View>
+        </View> */}
 
 
     </Animatable.View>
@@ -138,6 +128,9 @@ export default function RewardHistory({navigation}) {
 
 
 const styles = StyleSheet.create({
+    reward_his_text:{
+        fontSize: normalize(14)
+    },
     container: {
         flex: 1, 
         backgroundColor: '#FAFAFA',
@@ -208,14 +201,13 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         marginTop: normalize(5),
-        height: 40,
+        height: normalize(30),
     },
     signIn: {
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 3,
-        padding: 5,
     },
     textSign: {
         fontSize: 18,
@@ -268,13 +260,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: normalize(10),
         borderColor: 'black',
-        borderRadius: 4,
-        shadowColor: '#000000',
-        shadowOffset: {
-        width: 0,
-        height: 1
-        },
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 0},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,  
+        elevation: 5,
         shadowRadius: 5,
-        shadowOpacity: 0.1
+        shadowOpacity: 1,
     }
   });

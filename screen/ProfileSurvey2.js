@@ -282,7 +282,7 @@ export default function ProfileSurvey2({navigation}) {
     }
     if(data_arr == null){
         return (
-            <Text>Loadingggg</Text>
+            <Text></Text>
         )
     }
     else{
@@ -294,9 +294,7 @@ export default function ProfileSurvey2({navigation}) {
                 backgroundColor: "rgb(235 235 235)"
             }]}
         >
-            <Logo></Logo>
-
-            <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'Bold', fontSize: normalize(23), textAlign: "center"}}>Profile Survey</Text>
+            <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(23), textAlign: "center"}}>Profile Survey</Text>
         
             {
                 data_arr[ques] && data_arr[ques].Question ?
@@ -311,9 +309,9 @@ export default function ProfileSurvey2({navigation}) {
         
             {
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 3 ?
-                <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', }}>You can select multiple options</Text>
+                <Text style={{ marginTop:10,  fontSize:normalize(20), color: 'red', }}>Pick <Text style={{color: '#000000'}}>All Applicable</Text></Text>
                 :
-                <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(17), color: 'red', }}>Please select any one of them</Text>
+                <Text style={{ marginTop:10,  fontSize:normalize(20), color: '#00a4de'}}>Pick <Text style={{color: '#000000'}}>One Answer</Text></Text>
             }
             
             
@@ -359,18 +357,19 @@ export default function ProfileSurvey2({navigation}) {
                 })}</ScrollView> : <Text>Loading</Text>
             }
 
+            
             {
                 ques == 0 ? 
                 <></>
                 :
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 2 ? 
-                <View style={styles.button}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => back_question()}>
+                <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius: 40}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63',}]} onPress={() => {let ret = move_to_next() 
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius:40 }]} onPress={() => {let ret = move_to_next() 
                     if(!ret){alert("Please select one of the above")}
                     
                     }}>
@@ -380,61 +379,19 @@ export default function ProfileSurvey2({navigation}) {
                     </TouchableOpacity>
                 </View> 
                 :
-                <View style={styles.button}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => back_question()}>
+                <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => next_question(ques)}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40}]} onPress={() => next_question(ques)}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Next</Text>
                     </TouchableOpacity>
                 </View>
             }
-
-            {/* {   data_arr && data_arr[ques] && data_arr[ques].AnswerList && ques == 0 && data_arr[ques].Question.question_type_id == 3 ? 
-                <View>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => next_question(ques)}>
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Next</Text>
-                    </TouchableOpacity>
-                </View> 
-                :
-                ques == 0 ? <></> 
-                :
-                data_arr[ques].Question.question_type_id == 3 ?
-                    <View style={styles.button}>
-                        <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => back_question()}>
-                            <Text style={[styles.textSign, {
-                                color: '#fff'
-                            }]}>Back</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => next_question(ques)}>
-                            <Text style={[styles.textSign, {
-                                color: '#fff'
-                            }]}>Next</Text>
-                        </TouchableOpacity>
-                    </View>
-                :
-                data_arr[ques].Question.question_type_id == 2 ?
-                <View style={styles.button}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',}]} onPress={() => back_question()}>
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Back</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63',}]} onPress={() => {move_to_next() && alert("Please select one of the above")}}>
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Next</Text>
-                    </TouchableOpacity>
-                </View>
-                :
-                <></>
-            } */}
             </Animatable.View>
         </View>
         );
@@ -490,13 +447,9 @@ const styles = StyleSheet.create({
         maxHeight: 80,
         flexDirection:'row',
         alignItems:'center',
-        borderRadius: normalize(10),
-        shadowColor: '#171717',
-        shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-
-
+        borderRadius: normalize(3),
+        borderWidth: 1,
+        borderColor: "#2955a9"
     },
     actionError: {
         flexDirection: 'row',

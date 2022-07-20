@@ -128,8 +128,7 @@ export default function UpdateProfileScreen({navigation}) {
             backgroundColor: "#f0f0f0"
         }]}
     >
-
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(20)}}>Presonal Details</Text>
+    <Text style={{fontSize: normalize(20)}}>Presonal Details</Text>
         {
                 comments && comments.Results ? 
             <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: 0}}>
@@ -215,13 +214,14 @@ export default function UpdateProfileScreen({navigation}) {
                 status={ checked === 'first' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('first')}
             />
+            <Text>Male</Text>
             <RadioButton
                 value="second"
                 label="Female"
                 status={ checked === 'second' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('second')}
             />
-
+            <Text>Female</Text>
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
@@ -367,6 +367,7 @@ const styles = StyleSheet.create({
     },
     label:{
         // fontFamily: 'Poppins Regular 400',
+        fontSize: normalize(14)
     },
     container: {
         flex: 1, 

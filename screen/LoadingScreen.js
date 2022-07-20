@@ -28,7 +28,7 @@ export default function LoadingScreen({navigation}) {
     React.useEffect(() => {
     Animated.timing(spinValue, {
         toValue: 1,
-        duration: 1500,
+        duration: 3000,
         easing: Easing.linear,
         useNativeDriver: true,
     }).start();
@@ -40,38 +40,41 @@ export default function LoadingScreen({navigation}) {
     });
 
     return (
-        
     <View style={styles.container}>
-
         <View style={{alignItems: 'center', marginTop: SCREEN_HEIGHT*0.2}}>
             <Animated.Image
                 style={{ transform: [{ rotate: spin }], width: SCREEN_HEIGHT*0.2, height: SCREEN_HEIGHT*0.2 }}
                 source={require('../assets/logo_remove_bg.png')}
             />
         </View>
-
         <View style={{ padding: 20, marginTop: SCREEN_HEIGHT*0.6 - 100}}>
             <Image
-                style={styles.stretch}
+                style={styles.stretch_logo}
                 source={require('../assets/icon_new_logo.png')}
             />
-        </View>
-  </View>   
+            <Text style={{alignSelf: "center"}}>v.1.0.3</Text>
+        </View> 
+    </View>   
     );
   }
 
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
+        flex: 1,
         flexDirection:'column',
         alignItems:'center',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        backgroundColor: "#fff"
     },
-    stretch: {
+    stretch_logo: {
         width: SCREEN_WIDTH * 0.5,
         height: 60,
+        // width: "80%"
+    },
+    stretch: {
+        // width: SCREEN_WIDTH * 0.5,
+        height: 60,
+        width: 60
     },
     header: {
         flex: 1,

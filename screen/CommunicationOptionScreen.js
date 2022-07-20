@@ -50,8 +50,8 @@ export default function CommunicationOptionScreen({navigation}) {
     >
        
         <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 5}}>Email Opt out</Text>
-            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Email Opt out</Text>
+            <Text style={{marginTop: 6,fontSize: normalize(15),  textAlign: 'center'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 
             {is_subscribed ? 
@@ -85,8 +85,8 @@ export default function CommunicationOptionScreen({navigation}) {
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 5, }}>Deactivate Account</Text>
-            <Text style={{marginTop: 10,fontSize: normalize(15),  textAlign: 'center'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(18), marginTop: 5, }}>Deactivate Account</Text>
+            <Text style={{marginTop: 6,fontSize: normalize(15),  textAlign: 'center'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Deactivation Confirmation Screen')}
@@ -107,26 +107,56 @@ export default function CommunicationOptionScreen({navigation}) {
         <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
         <ScrollView>
             <View style={styles.modal_}>
-                <Text style={{fontWeight: "600", fontSize: normalize(25)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
+                <Text style={{fontWeight: "600", fontSize: normalize(18)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
                 <Text style={styles.modal_sub_heading}>Unsubscribeing means you will no longer receive Any email messages from SurveyOptimus which includes:</Text>
                 <View>
                 <Text style={styles.modal_points}>1. Invitations to survey</Text>
                 <Text style={styles.modal_points}>2. Redeem points request from us</Text>
                 <Text style={styles.modal_points}>3. Newsletters and offers</Text>
                 </View>
-                <Text style={styles.modal_sub_heading}>Do you really want to miss out on offers like this ?</Text>
+                <Text style={[styles.modal_sub_heading, {fontWeight: "500"}]}>Do you really want to miss out on offers like this ?</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
-                    <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
-                    <Button title="YES, Continue" onPress={() => {
+                <TouchableOpacity
+                    style={[{
+                        backgroundColor: '#9e9e9e',
+                        color: '#fff',
+                        width: SCREEN_WIDTH*0.27,
+                        height: 40,
+                        justifyContent: 'center',
+                        alignItems: "center",
+                        borderRadius: 30,
+                    }]}
+                    onPress={() => {
+                        toggleModal()
+                    }}
+                >
+                    <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}>Cancel</Text>
+                </TouchableOpacity>
+                    <TouchableOpacity
+                    style={[{
+                        backgroundColor: '#378C3C',
+                        color: '#fff',
+                        width: SCREEN_WIDTH*0.27,
+                        height: 40,
+                        justifyContent: 'center',
+                        alignItems: "center",
+                        borderRadius: 30,
+                    }]}
+                    onPress={() => {
                         toggleModal()
                         navigation.navigate('Unsubscribe Reason Screen')
-                    }} style={styles.modal_btn} color='#378C3C'/>
+                    }}
+                >
+                    <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}>Yes</Text>
+                </TouchableOpacity>
                 </View>
             </View>
         </ScrollView>
         </Modal>
-
-        
     </Animatable.View>
   </View>
     );
@@ -135,18 +165,19 @@ export default function CommunicationOptionScreen({navigation}) {
 
 const styles = StyleSheet.create({
     modal_:{
+        marginTop: SCREEN_HEIGHT*0.21,
         backgroundColor: '#fff', 
         padding: 10,
         borderRadius: 10,
     },
     modal_btn:{
+        backgroundColor: "#9e9e9e",
         width: SCREEN_WIDTH*0.2,
         color: '#378C3C',
-        borderRadius: 20,
+        borderRadius: 40,
         fontSize: normalize(15)
     },
     modal_sub_heading: {
-        fontWeight: "500", 
         fontSize: normalize(15), 
         marginTop: 10
     },
@@ -202,11 +233,15 @@ const styles = StyleSheet.create({
         borderRadius: normalize(10),
         paddingLeft: 3,
         paddingRight: 3,
-        padding: 5,
-        shadowColor: '#171717',
-        shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+        padding: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 0},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,  
+        elevation: 5,
+        shadowRadius: 5,
+        shadowOpacity: 1,
+        borderRadius: 10,
     },
     actionError: {
         flexDirection: 'row',

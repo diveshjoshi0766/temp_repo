@@ -4,6 +4,7 @@ import {
   Text,
   Button,
   View,
+  Touchable,
 } from "react-native";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -31,6 +32,8 @@ import LoadingScreen from '../screen/LoadingScreen';
 import ProfileSurvey2 from '../screen/ProfileSurvey2';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import OnboardingScreen from '../screen/OnBoardingScreen';
+import { TouchableOpacity } from 'react-native-web';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Stack = createNativeStackNavigator();
 
@@ -106,8 +109,20 @@ const Navigation = () => {
             },
             headerTitleStyle: {
               color: 'white'
-            }
+            },
+            // headerLeft: () => (
+            //   <TouchableOpacity
+            //     onPress={() => Navigation.navigate('Communication Option Screen')}>
+            //       <Icon name="angle-left" color="#378C3C" size={25}></Icon>  
+            //     </TouchableOpacity>
+            // ),
+
+            // header: ({ goBack }) => ({
+            //     left: ( <Icon name="angle-right" color="#fff" size={25} onPress={ () => { goBack() } }></Icon>),  
+            // }),
+
             }}
+            headerLeft={<Icon name="angle-right" color="#fff" size={25} ></Icon>}
           />
           <Stack.Screen
             name="Deactivation Confirmation Screen"

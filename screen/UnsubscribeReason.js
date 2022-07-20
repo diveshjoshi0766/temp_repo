@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    ScrollView
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable'
@@ -31,7 +32,7 @@ export function normalize(size) {
 export default function UnsubscribeReason({navigation}) {
     const { colors } = useTheme();
     const {isLoading, emailUnsubscribe, is_subscribed, setIs_subscribed} = useContext(AuthContext);
-    const [number, setNumber] = useState(0);
+    const [number, setNumber] = useState(null);
     const [text, setText] = useState("");
     const [select, setSelect] = useState(false)
     const un_subscribe = () => {
@@ -43,66 +44,67 @@ export default function UnsubscribeReason({navigation}) {
 
     return (
         
+    <ScrollView >
     <View style={styles.container}>
-    <Animatable.View 
-        animation="fadeInUpBig"
-        style={[styles.footer, {
-            backgroundColor: "rgb(235 235 235)"
-        }]}
-    >
-        {/* heading */}
-        <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 10}}>You will be missed!?</Text>
+        <Animatable.View 
+            animation="fadeInUpBig"
+            style={[styles.footer, {
+                backgroundColor: "rgb(235 235 235)"
+            }]}
+        >
+            {/* heading */}
+            <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 10}}>You will be missed!?</Text>
 
-        {/* Question */}
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>You are requesting to Unsubscribe/opt-out from receiving email survey invitations, marketing message and notices from SurveyOptimus.</Text>
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>Please take a monument to tell us why you no longer wish to receive email invitations, marketing messagae and notices:</Text>
+            {/* Question */}
+            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>You are requesting to Unsubscribe/opt-out from receiving email survey invitations, marketing message and notices from SurveyOptimus.</Text>
+            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>Please take a monument to tell us why you no longer wish to receive email invitations, marketing messagae and notices:</Text>
 
-        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(1)}} disabled={select}>
-            <Text style={styles.option}>I receive too many emails and messages from you</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(2)}} disabled={select}>
-            <Text style={styles.option}>I don't receive enough survey from you</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(3)}} disabled={select}>
-            <Text style={styles.option}>I am having touble opening your email messages</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(4)}} disabled={select}>
-            <Text style={styles.option}>I never qualify for surveys</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.action, {backgroundColor: '#ffffff'}]} onPress={()=>{setSelect(!select); setNumber(5)}} disabled={select}>
-            <Text style={styles.option}>Email Survey don't interest me</Text>
-        </TouchableOpacity>
-        <View style={[styles.action, {backgroundColor: '#ffffff', display: select == true ? 'none' : 'flex'}]}>
-            <TextInput 
-                placeholder="Other (Please explain below)"
-                placeholderTextColor="#666666"
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => 
-                {   setNumber(6)
-                    setText(val)}}
-                
-            />
-        </View>
-
-        <View style={styles.button}>
-
-            <TouchableOpacity
-                onPress={un_subscribe}
-                style={[styles.signIn, {
-                    backgroundColor: '#378C3C',
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color: '#fff'
-                }]}>Unsubscribe</Text>
+            <TouchableOpacity style={[styles.action, {backgroundColor: number  == 1 ? "#378C3C" : "#ffffff"}]} onPress={()=>{setSelect(!select); setNumber(1)}}>
+                <Text style={styles.option}>I receive too many emails and messages from you</Text>
             </TouchableOpacity>
-        </View>
-        
-    </Animatable.View>
-  </View>
+            <TouchableOpacity style={[styles.action, {backgroundColor: number  == 2 ? "#378C3C" : "#ffffff"}]} onPress={()=>{setSelect(!select); setNumber(2)}}>
+                <Text style={styles.option}>I don't receive enough survey from you</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.action, {backgroundColor: number  == 3 ? "#378C3C" : "#ffffff"}]} onPress={()=>{setSelect(!select); setNumber(3)}}>
+                <Text style={styles.option}>I am having touble opening your email messages</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.action, {backgroundColor: number  == 4 ? "#378C3C" : "#ffffff"}]} onPress={()=>{setSelect(!select); setNumber(4)}}>
+                <Text style={styles.option}>I never qualify for surveys</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.action, {backgroundColor: number  == 5 ? "#378C3C" : "#ffffff"}]} onPress={()=>{setSelect(!select); setNumber(5)}}>
+                <Text style={styles.option}>Email Survey don't interest me</Text>
+            </TouchableOpacity>
+            <View style={[styles.action, {backgroundColor: '#ffffff', display: number != null ? 'none' : 'flex'}]}>
+                <TextInput 
+                    placeholder="Other (Please explain below)"
+                    placeholderTextColor="#666666"
+                    style={[styles.textInput, {
+                        color: colors.text
+                    }]}
+                    autoCapitalize="none"
+                    onChangeText={(val) => 
+                    {   setNumber(6)
+                        setText(val)}}
+                    
+                />
+            </View>
+
+            <View style={styles.button}>
+
+                <TouchableOpacity
+                    onPress={un_subscribe}
+                    style={[styles.signIn, {
+                        backgroundColor: '#378C3C',
+                    }]}
+                >
+                    <Text style={[styles.textSign, {
+                        color: '#fff'
+                    }]}>Unsubscribe</Text>
+                </TouchableOpacity>
+            </View>
+        </Animatable.View>
+    </View>
+    </ScrollView>
     );
   }
 
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
         // justifyContent:'center',
         borderRadius: normalize(10),
         borderWidth: 1,
-        borderColor: "black",
+        borderColor: "#2955a9",
         paddingLeft: 3,
         paddingRight: 3,
         // fontFamily: 'Poppins Regular 400',

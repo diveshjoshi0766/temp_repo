@@ -61,8 +61,8 @@ export default function SpinnerScreen({navigation}) {
                 </View>
                 {/* heading */}
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22)}}>Spinner</Text>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22)}}><Icon name="user" size={20} color="black"/> Profile</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Spinner</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}><Icon name="user" size={20} color="black"/> Profile</Text>
                 </View>
                 <View style={styles.points}>
                     <View style={styles.center}>
@@ -74,10 +74,12 @@ export default function SpinnerScreen({navigation}) {
                         <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
                     </View>
                 </View>
-                
+                    
 
                 {
                     comments && comments.map((ele, val) => {  
+                        let path = `../assets/${ele.Incentive}.png`
+                        console.log(path)
                         if(val % 2 == 0){
                             return (
                             <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
@@ -87,26 +89,64 @@ export default function SpinnerScreen({navigation}) {
                                 <View style={[styles.center_, {flex: 0.8, alignItems: 'center', marginTop: 0}]}>
                                     <ImageBackground style={styles.stretch}
                                         source={require("../assets/spinner_edited.gif")} resizeMode="cover">
-                                        <Image
+                                        {ele.Incentive == 100 ? 
+                                        
+                                            <Image
                                                 style={{width: 70, height: 70}}
-                                                source={require("../assets/100.png")}
-                                                // source={{uri:  `../assets/${ele.Incentive}.png`}}
+                                                // source={{uri: `${path}`}}
+                                                source={require('../assets/100.png')}
                                             />
+                                         :
+                                        ele.Incentive == 75 ? 
+                                            <Image
+                                                style={{width: 70, height: 70}}
+                                                // source={{uri: `${path}`}}
+                                                source={require('../assets/75.png')}
+                                            />
+                                         :
+                                          
+                                        <Image
+                                            style={{width: 70, height: 70}}
+                                            // source={{uri: `${path}`}}
+                                            source={require('../assets/50.png')}
+                                        />
+                                        
+                                        }
                                     </ImageBackground>
                                 </View>
                             </TouchableOpacity>
                             )
                         }
                         else{
+                            {/* let path = `../assets/${ele.Incentive}/.png` */}
                             return (
                         <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
                             <View style={[styles.center_, {flex: 0.8, alignItems: 'center', marginTop: 0}]}>
                                 <ImageBackground style={styles.stretch}
                                     source={require("../assets/spinner_edited.gif")} resizeMode="cover">
-                                    <Image
+                                    {ele.Incentive == 100 ? 
+                                        
+                                        <Image
                                             style={{width: 70, height: 70}}
-                                            source={require(`../assets/100.png`)}
+                                            // source={{uri: `${path}`}}
+                                            source={require('../assets/100.png')}
                                         />
+                                     :
+                                    ele.Incentive == 75 ? 
+                                        <Image
+                                            style={{width: 70, height: 70}}
+                                            // source={{uri: `${path}`}}
+                                            source={require('../assets/75.png')}
+                                        />
+                                     :
+                                      
+                                    <Image
+                                        style={{width: 70, height: 70}}
+                                        // source={{uri: `${path}`}}
+                                        source={require('../assets/50.png')}
+                                    />
+                                    
+                                    }
                                 </ImageBackground>
                             </View>
                             <View style={[styles.center_, {flex: 1.2}]}>
@@ -149,8 +189,6 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
-        // fontFamily: 'Poppins Regular 400'
-        // fontFamily: 'Poppins_Black900' 
     },
     footer: {
         flex: 1,
@@ -227,18 +265,15 @@ const styles = StyleSheet.create({
     text_box_black_header: {
         color: '#fff', 
         marginTop:10, 
-        fontWeight: '300',
+        fontWeight: "200",
         textAlign: "center", 
-        fontSize:normalize(18),
-        // fontFamily: 'Poppins Regular 400'
+        fontSize:normalize(12),
     },
     text_box_black_points: {
         color: '#fff', 
-        marginTop:5, 
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        // fontFamily: 'Poppins Regular 400'
     },
     items:{
         display:'flex', 
@@ -270,14 +305,13 @@ const styles = StyleSheet.create({
         flexDirection:'row', 
         borderRadius: 10,
         marginTop: normalize(10),
-        borderColor: '#000000',
-        borderRadius: 10,
-        shadowColor: '#000000',
-        shadowOffset: {
-        width: 0,
-        height: 1
-        },
+        borderColor: 'black',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 0},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,  
+        elevation: 5,
         shadowRadius: 5,
-        shadowOpacity: 0.1
+        shadowOpacity: 1,
     }
   })

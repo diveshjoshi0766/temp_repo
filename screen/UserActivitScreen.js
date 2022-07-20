@@ -74,27 +74,27 @@ export default function UserActivityScreen({navigation}) {
         <ScrollView showsVerticalScrollIndicator ={false}>
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.header}>Good Morning, {userInfo.Result.firstname}</Text>
+                    <Text style={styles.header}>Good Morning, {userInfo.Result && userInfo.Result.firstname}</Text>
                 </View>
+                {/* heading */}
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), }}>Points History</Text>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(22), }}><Icon name="user" size={20} color="black"/> Profile</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Points History</Text>
+                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}><Icon name="user" size={20} color="black"/> Profile</Text>
                 </View>
                 <View style={styles.points}>
                     <View style={styles.center}>
                         <Text style={styles.text_box_black_header}>My Points</Text>
-                        <Text style={styles.text_box_black_points}>{userInfo.Result.current_point}</Text>
+                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.current_point}</Text>
                     </View>
                     <View style={styles.center}>
                         <Text style={styles.text_box_black_header}>My Profile</Text>
-                        <Text style={styles.text_box_black_points}>{userInfo.Result.profilePercentage}%</Text>
+                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
                     </View>
                 </View>
-                
                 <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-between', backgroundColor: '#d4d6d1', marginTop: 10, paddingLeft: 6, paddingRight: 6}]}>
-                    <Text style={styles.tabel_header}>Date</Text>
-                    <Text style={styles.tabel_header}>Description</Text>
-                    <Text style={styles.tabel_header}>Points</Text>
+                    <Text style={[styles.tabel_header, {flex: 0.4}]}>Date</Text>
+                    <Text style={[styles.tabel_header, {flex: 0.4}]}>Description</Text>
+                    <Text style={[styles.tabel_header, {flex: 0.2}]}>Points</Text>
                 </View>
                 {
                     comments && comments.activityDetails.map((ele, val) => {
@@ -135,10 +135,10 @@ export default function UserActivityScreen({navigation}) {
 
 const styles = StyleSheet.create({
     table_row_data:{
-        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(18)
+        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(15)
     },
     tabel_header: {
-        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'
+        color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(16), fontWeight: 'bold'
     },
     container: {
         backgroundColor: '#FAFAFA',
@@ -159,24 +159,19 @@ const styles = StyleSheet.create({
         marginTop:10, 
         fontSize:normalize(25),
         fontWeight: 'bold',
-        // fontFamily: 'Poppins Regular 400'
-        // fontFamily: 'Poppins_Black900' 
     },
     text_box_black_header: {
         color: '#fff', 
         marginTop:10, 
-        fontWeight: '300',
+        fontWeight: "200",
         textAlign: "center", 
-        fontSize:normalize(18),
-        // fontFamily: 'Poppins Regular 400'
+        fontSize:normalize(12),
     },
     text_box_black_points: {
         color: '#fff', 
-        marginTop:5, 
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
-        // fontFamily: 'Poppins Regular 400'
     },
     footer: {
         flex: 1,

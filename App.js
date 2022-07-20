@@ -57,33 +57,34 @@ import ForgotPasswordScreen from './screen/ForgotPasswordScreen';
 import ProfileSurvey1 from './screen/ProfileSurvey1';
 import ProfileSurvey2 from './screen/ProfileSurvey2';
 import OnboardingScreen from './screen/OnBoardingScreen';
+import LoadingScreen from './screen/LoadingScreen';
+import EndOfProfileSurveyScreen from './screen/EndOfProfileSurveyScreen';
 //testing fonts
 // import fontTest from './screen/FontTest';
 
 const Stack = createNativeStackNavigator();
  
-export default function App({ navigation }) {
-  return (
-    <AuthProvider>
-      <Navigation></Navigation>
-      {/* <SignInScreen></SignInScreen> */}
-    </AuthProvider>
-    // <Text>hi how are you i am fine</Text>
-  );
-}
-
-
 // export default function App({ navigation }) {
-//   // const {userInfo, splashLoading} = useContext(AuthContext);
 //   return (
 //     <AuthProvider>
-//       <NavigationContainer>
-//         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-//           <Stack.Screen name="Home" component={ProfileSurvey1 } />
-//           <Stack.Screen name="Details" component={ProfileSurvey1} />
-//         </Stack.Navigator>
-//       </NavigationContainer>
-//   </AuthProvider>
-
+//       <Navigation></Navigation>
+//       {/* <SignInScreen></SignInScreen> */}
+//     </AuthProvider>
+//     // <Text>hi how are you i am fine</Text>
 //   );
 // }
+
+
+export default function App({ navigation }) {
+  // const {userInfo, splashLoading} = useContext(AuthContext);
+  return (
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Home" component={EndOfProfileSurveyScreen } />
+          <Stack.Screen name="Details" component={EndOfProfileSurveyScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
+  );
+}

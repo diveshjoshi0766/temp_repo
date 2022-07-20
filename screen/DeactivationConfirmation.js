@@ -102,14 +102,16 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(5),
-        // maxHeight: 'justifyContent',
-        // flex:1,
-        // alignItems:'center',
-        // justifyContent:'center',
         borderRadius: normalize(10),
-        borderWidth: 1,
-        borderColor: "black",
-        padding: 4
+        padding: 10,
+        borderColor: 'black',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 0},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,  
+        elevation: 5,
+        shadowRadius: 5,
+        shadowOpacity: 1,
     },
     actionError: {
         flexDirection: 'row',

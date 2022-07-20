@@ -94,15 +94,15 @@ export default function DashboardScreen({navigation}) {
                     return (
                         <View style={styles.products} key={ele.survey_id}>
                         <View style={[styles.center, {justifyContent: "space-between"}]}>
-                            <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>{ele.survey_title}</Text>
+                            <Text style={{fontWeight: 'bold', fontSize: normalize(16)}}>{ele.survey_title}</Text>
                             <View style={{flex: 1,display:'flex', flexDirection:'row', justifyContent: "space-around"}}>
                                 <View style={{padding: 10, alignItems: 'center', paddingBottom: 4}}>
                                     <Image source={require('../assets/LOI.png')} style={styles.product_sml_icon_1}></Image>
-                                    <Text style={styles.points_}>{ele.survey_duration}m</Text>
+                                    <Text style={styles.points_}>{ele.survey_duration}<Text style={{fontWeight: "400", fontSize: normalize(16)}}>min</Text></Text>
                                 </View>
                                 <View style={{padding: 10, alignItems: 'center',paddingBottom: 4}}>
                                     <Image source={require('../assets/reward_Gr.png')} style={styles.product_sml_icon_2}></Image>
-                                    <Text style={styles.points_}>{ele.survey_incentive}pts</Text>
+                                    <Text style={styles.points_}>{ele.survey_incentive}<Text style={{fontWeight: "400", fontSize: normalize(16)}}>pts</Text></Text>
                                 </View>
                             </View>
                             <View style={{alignItems: 'center', borderRadius: '50'}}>
@@ -120,7 +120,7 @@ export default function DashboardScreen({navigation}) {
                         </View>
                         <View style={[styles.center, {width: "50%"}]}> 
                             <Image
-                                style={{width: 100, height: 100, alignItems: 'center', marginTop: 0}}
+                                style={{width: 115, height: 115, alignItems: 'center', marginTop: 0}}
                                 source={require('../assets/health.png')}
                             />
                         </View>
@@ -169,7 +169,6 @@ const styles = StyleSheet.create({
     },
     text_box_black_points: {
         color: '#fff', 
-        marginTop:2, 
         // fontWeight: '500',
         textAlign: "center", 
         fontSize: normalize(30),
@@ -258,6 +257,8 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: normalize(14),
         fontWeight: "500",
+        paddingLeft: 10,
+        paddingRight: 10
     },
     center :{
         justifyContent: 'center', //Centered vertically
@@ -267,9 +268,10 @@ const styles = StyleSheet.create({
     points: {
         display:'flex', 
         flexDirection:'row', 
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-evenly', 
         backgroundColor: '#1a1a1a', 
         alignContent: "center",
+        // height: 'justifyContent',
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 20,
@@ -298,6 +300,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0
     },
     products: {
+        padding: 4,
+        width: SCREEN_WIDTH*0.9,
+        alignSelf: "center",
         backgroundColor: '#fff',
         minHeight:140,
         display:'flex',

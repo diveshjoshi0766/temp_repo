@@ -11,6 +11,7 @@ import {
     PixelRatio
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
+import ConfettiCannon from 'react-native-confetti-cannon';
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -35,10 +36,10 @@ export default function EndOfProfileSurveyScreen({navigation}) {
         }]}
     >
 
-        <View style={{alignItems: 'center', marginTop: 0}}>
+        <View style={{alignItems: 'center', marginTop: 20}}>
             <Image
                 style={styles.stretch}
-                source={require('../assets/logo_comp.png')}
+                source={require('../assets/logo_remove_bg.png')}
             />
         </View>
 
@@ -47,14 +48,14 @@ export default function EndOfProfileSurveyScreen({navigation}) {
         </TouchableOpacity>
 
         {/* heading */}
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Profile Survey  </Text>
+        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(18), fontWeight: 'bold'}}>Profile Survey  </Text>
 
         {/* Question */}
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontWeight: 'bold'}}>You have successfully updated your profile</Text>
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>To activate your account & start receving exiting survey, an "Account Conformation" email has been send to</Text>
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), textAlign: 'center', fontWeight: 'bold', color: '#1E96F0'}}>vimalverma24@gmail.com</Text>
-        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), fontStyle: 'italic'}}>Please click on the "Active Account" button in the email Kindly check your Spam/Junk folder as well for the confirmation email</Text>
-
+        <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), }}>You have successfully updated your profile{'\n'}
+To activate your account & start receving exiting survey, an "Account Conformation" email has been send to
+        <Text style={{color: '#000000', color: '#1E96F0'}}> vimalverma24@gmail.com{'\n'}{'\n'} </Text>
+        Please click on the "Active Account" button in the email Kindly check your Spam/Junk folder as well for the confirmation email
+        </Text>
         <View style={styles.button}>
             <TouchableOpacity
                 onPress={() => navigation.navigate('Home')}
@@ -67,7 +68,7 @@ export default function EndOfProfileSurveyScreen({navigation}) {
                 }]}>GOTO Dashboard</Text>
             </TouchableOpacity>
         </View>
-        
+        <ConfettiCannon count={200} origin={{x: -10, y: 0}} />
     </Animatable.View>
   </View>
     );
@@ -85,8 +86,8 @@ const styles = StyleSheet.create({
         height: SCREEN_HEIGHT
     },
     stretch: {
-        width: SCREEN_WIDTH*0.5,
-        height: SCREEN_WIDTH*0.5,
+        width: SCREEN_WIDTH*0.4,
+        height: SCREEN_WIDTH*0.4,
         justifyContent: 'center',
         alignItems: 'center',
     },
