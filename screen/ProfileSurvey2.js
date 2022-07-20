@@ -370,7 +370,7 @@ export default function ProfileSurvey2({navigation}) {
                         }]}>Back</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius:40 }]} onPress={() => {let ret = move_to_next() 
-                    if(!ret){alert("Please select one of the above")}
+                    // if(!ret){alert("Please select one of the above")}
                     
                     }}>
                         <Text style={[styles.textSign, {
