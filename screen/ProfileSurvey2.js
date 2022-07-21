@@ -309,11 +309,10 @@ export default function ProfileSurvey2({navigation}) {
         
             {
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 3 ?
-                <Text style={{ marginTop:10,  fontSize:normalize(20), color: 'red', }}>Pick <Text style={{color: '#000000'}}>All Applicable</Text></Text>
+                <Text style={{ marginTop:10,  fontSize:normalize(20), color: '#00a4de', }}>Pick <Text style={{color: '#000000'}}>All Applicable</Text></Text>
                 :
                 <Text style={{ marginTop:10,  fontSize:normalize(20), color: '#00a4de'}}>Pick <Text style={{color: '#000000'}}>One Answer</Text></Text>
             }
-            
             
             {
                 data_arr && data_arr[ques] && data_arr[ques].AnswerList ? 
@@ -364,14 +363,13 @@ export default function ProfileSurvey2({navigation}) {
                 :
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 2 ? 
                 <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius: 40}]} onPress={() => back_question()}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius:40 }]} onPress={() => {let ret = move_to_next() 
-                    // if(!ret){alert("Please select one of the above")}
-                    
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius:40, marginLeft: 10 }]} onPress={() => {let ret = move_to_next() 
+                        // if(!ret){alert("Please select one of the above")}
                     }}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
@@ -380,12 +378,12 @@ export default function ProfileSurvey2({navigation}) {
                 </View> 
                 :
                 <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40}]} onPress={() => back_question()}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40}]} onPress={() => next_question(ques)}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40, marginLeft: 10}]} onPress={() => next_question(ques)}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Next</Text>
@@ -429,7 +427,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 30,
+        paddingBottom: 80,
     },
     text_header: {
         color: '#fff',
@@ -468,12 +467,12 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     button: {
-        // position: 'absolute',
+        position: 'absolute',
         alignItems: 'center',
         // bottom: 20,
         flex: 1,
         justifyContent: 'flex-end',
-        marginBottom: SCREEN_WIDTH*0.03,
+        bottom: SCREEN_WIDTH*0.03,
         width: SCREEN_WIDTH*0.3,
         marginLeft: SCREEN_WIDTH*0.35,
         marginRight: SCREEN_WIDTH*0.35,
@@ -482,11 +481,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignSelf: 'center',
         borderRadius: 10
     },
     textSign: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
   });

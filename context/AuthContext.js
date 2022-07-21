@@ -135,6 +135,7 @@ export const AuthProvider = ({children}) => {
         console.log(userInfo);
         alert(res.data.message)
         if(code == 1){
+          console.log(temp_password)
           login_after_update_profile(panelist_basic_details.Results.email, temp_password)
           navigation.navigate('Sign In Screen')
         }
@@ -409,7 +410,7 @@ export const AuthProvider = ({children}) => {
         console.log(res.data);
         AsyncStorage.removeItem('userInfo');
         setUserInfo({});
-        navigation.navigate('Defualt Screen')
+        navigation.navigate('Sign In Screen')
         setIsLoading(false);
       })
       .catch(e => {

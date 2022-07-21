@@ -66,7 +66,7 @@ export default function DashboardScreen({navigation}) {
       
     }
     console.log(comments)
-    if(link ==  null){
+    // if(link ==  null){
         return (
         <ScrollView showsVerticalScrollIndicator ={false}>
         <View style={styles.container}>
@@ -76,7 +76,11 @@ export default function DashboardScreen({navigation}) {
             {/* heading */}
             <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
                 <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Dashboard</Text>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}><Icon name="user" size={20} color="black"/> Profile</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), alignItems: "center", justifyContent: "center"}}>
+                    <Image
+                        style={{width: 27, height: 27}}
+                        source={{uri:  `${userInfo && userInfo.Result && userInfo.Result.profilePic}`}}
+                /> Profile</Text>
             </View>
             <View style={styles.points}>
                 <View style={styles.center}>
@@ -131,12 +135,12 @@ export default function DashboardScreen({navigation}) {
         </View>
         </ScrollView>
         );
-        }else{
-            console.log(link)
-            return (
-                <WebViewScreen link={link}></WebViewScreen>
-            )
-        }
+        // }else{
+        //     console.log(link)
+        //     return (
+        //         <WebViewScreen link={link}></WebViewScreen>
+        //     )
+        // }
       }
 
 
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
     header:{
         color: '#000000', 
         marginTop:10, 
-        fontSize:normalize(25),
+        fontSize:normalize(22),
         fontWeight: 'bold',
     },
     container: {
@@ -186,8 +190,8 @@ const styles = StyleSheet.create({
         maxWidth: 30,
     },
     stretch: {
-        width: SCREEN_WIDTH*0.5,
-        height: SCREEN_WIDTH*0.5,
+        width: 25,
+        height: 25,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',

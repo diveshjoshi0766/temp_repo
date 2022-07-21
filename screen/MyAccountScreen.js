@@ -9,12 +9,14 @@ import {
     ScrollView,
     Image,
     Share,
-    TouchableOpacity
+    TouchableOpacity,
+    Button
 } from "react-native";
 import { useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { AuthContext } from "../context/AuthContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Modal from "react-native-modal";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -58,6 +60,16 @@ export default function MyAccountScreen({navigation}) {
     const check_for_survey = async () => {
         navigation.navigate('Profile Survey 2')
     }
+
+    
+    const [modal_data, setModal_data] = useState(null)
+
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        console.log("toggle modal")
+        setModalVisible(!isModalVisible);
+    }; 
+
     return (
         
         <ScrollView showsVerticalScrollIndicator ={false}>
@@ -255,7 +267,7 @@ export default function MyAccountScreen({navigation}) {
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
-                    onPress={() => logout(userInfo.Result.email, navigation)}
+                    onPress={() => toggleModal()}
                     >
                     <View >
                         <Text style={{fontWeight: 'bold', fontSize: normalize(15)}}>Log Out</Text>
@@ -267,6 +279,23 @@ export default function MyAccountScreen({navigation}) {
                     </View>
             </View> 
 
+            {/* modal */}
+            <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
+                <View style={styles.modal_}>
+                    
+                    <Text style={[styles.modal_sub_heading, {fontSize: normalize(18), marginTop: 10}]}>Are you sure you want to logout of you app ?</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 50}}>
+                        <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
+                        <Button title="YES, LOG OUT" onPress={() => {
+                            logout(userInfo.Result.email, navigation)
+                            toggleModal()
+                        }} style={styles.modal_btn} color='#378C3C'/>
+                    </View>
+
+                </View>
+            </Modal>
+
+
             </View>
     </ScrollView>
     );
@@ -274,10 +303,30 @@ export default function MyAccountScreen({navigation}) {
 
 
 const styles = StyleSheet.create({
+     
+    modal_:{
+        // height: 'justifyContent', 
+        backgroundColor: '#fff', 
+        padding: 10,
+        borderRadius: 10,
+    },
+    modal_btn:{
+        width: SCREEN_WIDTH*0.2,
+        color: '#378C3C',
+        borderRadius: 20,
+    },
+    modal_sub_heading: {
+        fontWeight: "500", 
+        fontSize: normalize(15), 
+    },
+    modal_points:{
+        fontWeight: "400", 
+        fontSize: normalize(15),
+    },
     header:{
         color: '#000000', 
         marginTop:10, 
-        fontSize:normalize(25),
+        fontSize:normalize(22),
         fontWeight: 'bold',
     },
     container: {

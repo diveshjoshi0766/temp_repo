@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import ConfettiCannon from 'react-native-confetti-cannon';
+import { AuthContext } from "../context/AuthContext";
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
 console.log(SCREEN_HEIGHT)
@@ -26,7 +27,7 @@ export function normalize(size) {
 }
 
 export default function EndOfProfileSurveyScreen({navigation}) {
-    
+    const {userInfo} = useContext(AuthContext);
     return (
     <View style={styles.container}>
     <Animatable.View 
@@ -53,7 +54,7 @@ export default function EndOfProfileSurveyScreen({navigation}) {
         {/* Question */}
         <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), }}>You have successfully updated your profile{'\n'}
 To activate your account & start receving exiting survey, an "Account Conformation" email has been send to
-        <Text style={{color: '#000000', color: '#1E96F0'}}> vimalverma24@gmail.com{'\n'}{'\n'} </Text>
+        <Text style={{color: '#000000', color: '#1E96F0'}}> {userInfo && userInfo.Result.email}{'\n'}{'\n'} </Text>
         Please click on the "Active Account" button in the email Kindly check your Spam/Junk folder as well for the confirmation email
         </Text>
         <View style={styles.button}>

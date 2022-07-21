@@ -34,6 +34,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import OnboardingScreen from '../screen/OnBoardingScreen';
 import { TouchableOpacity } from 'react-native-web';
 import Icon from "react-native-vector-icons/FontAwesome";
+import WebViewScreen from '../screen/WebViewScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -86,16 +87,11 @@ const Navigation = () => {
               </Stack.Navigator>
             </NavigationContainer>
         ) :
-        userInfo.Result  ? isFirstLaunch == null ? <></> : (
+        userInfo.Result  ? (
         <NavigationContainer>
         <Stack.Navigator
         // screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen
-            name="OnBoarding Screen" 
-            component={OnboardingScreen} 
-            options={{headerShown: false}} 
-          />
           <Stack.Screen 
             name="Home" 
             component={MyTabScreen} 
@@ -105,22 +101,19 @@ const Navigation = () => {
             name="Communication Option Screen"
             component={CommunicationOptionScreen}
             options={{headerStyle: {
-              backgroundColor: '#378C3C'
-            },
-            headerTitleStyle: {
-              color: 'white'
-            },
-            // headerLeft: () => (
-            //   <TouchableOpacity
-            //     onPress={() => Navigation.navigate('Communication Option Screen')}>
-            //       <Icon name="angle-left" color="#378C3C" size={25}></Icon>  
-            //     </TouchableOpacity>
-            // ),
-
-            // header: ({ goBack }) => ({
-            //     left: ( <Icon name="angle-right" color="#fff" size={25} onPress={ () => { goBack() } }></Icon>),  
-            // }),
-
+                backgroundColor: '#378C3C'
+              },
+              headerTitleStyle: {
+                color: 'white'
+              },
+            }}
+            navigationOptions = {{
+              headerLeft:(
+                <TouchableOpacity onPress={() => navigation.toggleDrawer()} 
+                    style={{padding:10}}>
+                    <Icon color="#fff" size={27} name='user'/>
+                </TouchableOpacity>
+              )
             }}
             headerLeft={<Icon name="angle-right" color="#fff" size={25} ></Icon>}
           />
@@ -233,7 +226,17 @@ const Navigation = () => {
               color: 'white'
             }
             }}
-
+          />
+          <Stack.Screen
+            name="Web View"
+            component={WebViewScreen}
+            options={{headerStyle: {
+              backgroundColor: '#378C3C'
+            },
+            headerTitleStyle: {
+              color: 'white'
+            }
+            }}
           />
         </Stack.Navigator>
     </NavigationContainer>
@@ -423,214 +426,3 @@ export default Navigation;
 
 
 
-
-
-
-
-
-// const Navigation = () => {
-//   const {userInfo, splashLoading} = useContext(AuthContext);
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator
-//       screenOptions={{ headerShown: false }}
-//       >
-//         {splashLoading ? (
-//           <Stack.Screen
-//             name="Loading Screen"
-//             component={LoadingScreen}
-//             options={{headerShown: false}}
-//           />
-//         ) :
-//         userInfo.Result  ? (<>
-//             <Stack.Screen 
-//               name="Home" 
-//               component={MyTabScreen} 
-//               screenOptions={{ headerShown: false }}
-//             />
-//             <Stack.Screen
-//               name="Communication Option Screen"
-//               component={CommunicationOptionScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Deactivation Confirmation Screen"
-//               component={DeactivationConfirmation}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Unsubscribe Reason Screen"
-//               component={UnsubscribeReason}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Reward History"
-//               component={RewardHistory}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Change Password Screen"
-//               component={ChangePasswordScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Privacy Policy Screen"
-//               component={PrivacyPolicyScreen}
-//               // options={{headerShown: false}}
-//               options={{
-//                 headerTitle: () => {<Text>Privacy Policy</Text>},
-//                 headerRight: () => (
-//                   <Button
-//                     onPress={() => alert('This is a button!')}
-//                     title="Info"
-//                     color="#00cc00"
-//                   />
-//                 ),
-//               }}
-//             />
-//             <Stack.Screen
-//               name="FAQs Screen"
-//               component={FAQs}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Terms And Conditions Screen"
-//               component={TermsAndConditions}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Update Profile Screen"
-//               component={UpdateProfileScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Profile Survey"
-//               component={ProfileSurvey1}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="End Of Profile Survey Screen"
-//               component={EndOfProfileSurveyScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Profile Survey 2"
-//               component={ProfileSurvey2}
-//               options={{headerShown: false}}
-//             />
-//           </>
-//         ) : (
-//           <>
-//             <Stack.Screen
-//               name="Defualt Screen"
-//               component={DefaultScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Sign In Screen"
-//               component={SignInScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Forgot Password Screen"
-//               component={ForgotPasswordScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Sign Up Screen"
-//               component={SignUpScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Presonal Details Screen"
-//               component={PresonalDetailsScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Profile Survey"
-//               component={ProfileSurvey1}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Change Password Screen"
-//               component={ChangePasswordScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="My Account Screen"
-//               component={MyAccountScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Terms And Conditions Screen"
-//               component={TermsAndConditions}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen 
-//               name="Home" 
-//               component={MyTabScreen} 
-//               screenOptions={{ headerShown: false }}
-//             />
-//             <Stack.Screen
-//               name="Communication Option Screen"
-//               component={CommunicationOptionScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Deactivation Confirmation Screen"
-//               component={DeactivationConfirmation}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Unsubscribe Reason Screen"
-//               component={UnsubscribeReason}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Reward History"
-//               component={RewardHistory}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Privacy Policy Screen"
-//               component={PrivacyPolicyScreen}
-//               // options={{headerShown: false}}
-//               options={{
-//                 headerTitle: () => {<Text>Privacy Policy</Text>},
-//                 headerRight: () => (
-//                   <Button
-//                     onPress={() => alert('This is a button!')}
-//                     title="Info"
-//                     color="#00cc00"
-//                   />
-//                 ),
-//               }}
-//             />
-//             <Stack.Screen
-//               name="FAQs Screen"
-//               component={FAQs}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Update Profile Screen"
-//               component={UpdateProfileScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="End Of Profile Survey Screen"
-//               component={EndOfProfileSurveyScreen}
-//               options={{headerShown: false}}
-//             />
-//             <Stack.Screen
-//               name="Profile Survey 2"
-//               component={ProfileSurvey2}
-//               options={{headerShown: false}}
-//             />
-//           </>
-//         )}
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// };
-
-// export default Navigation;

@@ -52,7 +52,13 @@ export default function SpinnerScreen({navigation}) {
         setIsLoading(false);
         });
     }
-    if(link === null){
+
+    const handleNavigation = (link) => {
+        setLink(link)
+        console.log()
+        navigation.navigate('Web View', {link: link})
+    }
+    // if(link === null){
         return (
         <ScrollView showsVerticalScrollIndicator ={false}>
             <View style={styles.container}>
@@ -61,8 +67,12 @@ export default function SpinnerScreen({navigation}) {
                 </View>
                 {/* heading */}
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Spinner</Text>
-                    <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}><Icon name="user" size={20} color="black"/> Profile</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Spinner</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), alignItems: "center", justifyContent: "center"}}>
+                                <Image
+                                    style={{width: 25, height: 25}}
+                                    source={{uri:  `${userInfo && userInfo.Result && userInfo.Result.profilePic}`}}
+                                /> Profile</Text>
                 </View>
                 <View style={styles.points}>
                     <View style={styles.center}>
@@ -82,7 +92,7 @@ export default function SpinnerScreen({navigation}) {
                         console.log(path)
                         if(val % 2 == 0){
                             return (
-                            <TouchableOpacity style={styles.products} key={val} onPress={() => {setLink(ele.Link)}}>
+                            <TouchableOpacity style={styles.products} key={val} onPress={() => {handleNavigation(ele.Link)}}>
                                 <View style={[styles.center_, {flex: 1.2}]}>
                                     <Text style={{textAlign: 'center', fontSize: 15, fontWeight: "500"}}>{ele.Description}</Text>
                                 </View>
@@ -160,13 +170,13 @@ export default function SpinnerScreen({navigation}) {
             </View>
         </ScrollView>
         )   
-    }
-    else{
-        console.log(link)
-        return (
-            <WebViewScreen link={link}></WebViewScreen>
-        )
-    }
+    // }
+    // else{
+    //     console.log(link)
+    //     return (
+    //         <WebViewScreen link={link}></WebViewScreen>
+    //     )
+    // }
 }
 
 const styles = StyleSheet.create({
@@ -187,7 +197,7 @@ const styles = StyleSheet.create({
     header:{
         color: '#000000', 
         marginTop:10, 
-        fontSize:normalize(25),
+        fontSize:normalize(22),
         fontWeight: 'bold',
     },
     footer: {
@@ -246,9 +256,16 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
+    center:{  
+        justifyContent: 'center', //Centered vertically
+        alignItems: 'center', // Centered horizontally
+        flex:1, 
+    },
     center_ :{
         justifyContent: 'center', //Centered vertically
         alignItems: 'center', // Centered horizontally
+        // borderColor: 'black',
+
     },
     points: {
         display:'flex', 
@@ -313,5 +330,6 @@ const styles = StyleSheet.create({
         elevation: 5,
         shadowRadius: 5,
         shadowOpacity: 1,
+
     }
   })

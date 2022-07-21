@@ -8,9 +8,12 @@ import MyAccountScreen from './MyAccountScreen';
 import {
   Image,
 } from "react-native";
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 const Tab = createMaterialBottomTabNavigator();
 
 export default function MyTabScreen() {
+  const {userInfo, redeem_request} = useContext(AuthContext);
   return (
     <Tab.Navigator
       initialRouteName="DashboardScreen"
@@ -74,7 +77,10 @@ export default function MyTabScreen() {
         options={{
           tabBarLabel: 'My Account',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <Image
+              style={{width: 26, height: 26}}
+              source={{uri:  `${userInfo && userInfo.Result && userInfo.Result.profilePic}`}}
+            />
           ),
         }}
       />

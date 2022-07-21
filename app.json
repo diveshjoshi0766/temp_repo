@@ -4,10 +4,10 @@
     "slug": "survey_optimus",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo_remove_bg.png",
+    "icon": "./assets/company_logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash_screen_survey_optimus.jpg",
+      "image": "./assets/splash_screen_survey_optimus.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -28,7 +28,7 @@
       "package": "com.surveyoptimus.surveyoptimus"
     },
     "web": {
-      "favicon": "./assets/logo_remove_bg.png"
+      "favicon": "./assets/company_logo.png"
     }
   }
 }

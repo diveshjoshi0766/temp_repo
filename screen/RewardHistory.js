@@ -68,7 +68,7 @@ export default function RewardHistory({navigation}) {
                 <View style={{alignItems: 'center', marginTop: 0}}>
                     <Image
                         style={[styles.stretch]}
-                        source={require("../assets/amazon_gift.png")}
+                        source={{uri: `${ele.mode_picture}`}}
                     />
                     <Text style={[styles.reward_his_text,{textAlign: 'center', fontWeight: '500'}]}>{ele.mode_name}</Text>
                 </View>
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     stretch: {
         width: SCREEN_WIDTH*0.4,
         height: 100,
-        textAlign: 'center',
+        alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 7

@@ -81,8 +81,8 @@ export default function App({ navigation }) {
 //     <AuthProvider>
 //       <NavigationContainer>
 //         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-//           <Stack.Screen name="Home" component={EndOfProfileSurveyScreen } />
-//           <Stack.Screen name="Details" component={EndOfProfileSurveyScreen} />
+//           <Stack.Screen name="Home" component={ProfileSurvey2 } />
+//           <Stack.Screen name="Details" component={ProfileSurvey2 } />
 //         </Stack.Navigator>
 //       </NavigationContainer>
 //     </AuthProvider>

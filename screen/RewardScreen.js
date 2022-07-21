@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     header:{
         color: '#000000', 
         marginTop:10, 
-        fontSize:normalize(25),
+        fontSize:normalize(22),
         fontWeight: 'bold',
     },
     text_box_black_header: {
@@ -294,9 +294,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold"
     },
-    center :{
+    center:{  
         justifyContent: 'center', //Centered vertically
         alignItems: 'center', // Centered horizontally
+        flex:1, 
     },
     card : {
         borderColor: 'black'

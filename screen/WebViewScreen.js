@@ -1,10 +1,13 @@
 import React from 'react'
-import {Platform} from 'react-native'
+import {Platform, View} from 'react-native'
 import { WebView } from 'react-native-webview';
 
-function WebViewScreen(props) {
-    console.log(props)
-    let uri = props.link;
+function WebViewScreen({ route, navigation }) {
+    const { link } = route.params;
+    let uri = JSON.stringify(link);
+    console.log(uri)
+    console.log(navigation)
+    console.log(uri)
         return (
         Platform.OS === "web" ? (
         <iframe src={uri} height={'100%'} width={'100%'} />

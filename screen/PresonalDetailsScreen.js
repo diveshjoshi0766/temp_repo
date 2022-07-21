@@ -267,12 +267,14 @@ export default function PresonalDetailsScreen({navigation}) {
                 status={ checked === 'first' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('Male')}
             />
+            <Text>Male</Text>
             <RadioButton
                 value="second"
                 label="Female"
                 status={ checked === 'second' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('Female')}
             />
+            <Text>Female</Text>
 
         </View>
 

@@ -65,7 +65,7 @@ export default function SignUpScreen({navigation}) {
     const [pass_sec, setPass_sec] = useState(true)
     const [confPassSec, setConfPassSec] = useState(true)
 
-    const {isLoading, register} = useContext(AuthContext);
+    const {isLoading, register, setTemp_password} = useContext(AuthContext);
 
 
     return (
@@ -221,7 +221,9 @@ export default function SignUpScreen({navigation}) {
 
         <View style={styles.button}>
             <TouchableOpacity
-                onPress={() => register(email, password, confirmPassword, firstName, lastName, navigation)}
+                onPress={() => {
+                    setTemp_password(password)
+                    register(email, password, confirmPassword, firstName, lastName, navigation)}}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
