@@ -47,15 +47,12 @@ export default function EndOfProfileSurveyScreen({navigation}) {
         <TouchableOpacity>
             <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Congratulation!</Text>
         </TouchableOpacity>
-
-        {/* heading */}
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(18), fontWeight: 'bold'}}>Profile Survey  </Text>
-
-        {/* Question */}
+        
         <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), }}>You have successfully updated your profile{'\n'}
-To activate your account & start receving exiting survey, an "Account Conformation" email has been send to
-        <Text style={{color: '#000000', color: '#1E96F0'}}> {userInfo && userInfo.Result.email}{'\n'}{'\n'} </Text>
-        Please click on the "Active Account" button in the email Kindly check your Spam/Junk folder as well for the confirmation email
+To activate your account & start receving exiting survey, an "Account Conformation" email has been send to{'\n'}</Text>
+        <Text style={{color: '#000000', color: '#1E96F0', alignSelf: "center"}}> {userInfo && userInfo.Result.email}{'\n'} </Text>
+        {/* <Text style={{color: '#000000', color: '#1E96F0', alignSelf: "center"}}> dvieshjoshi34@gmail.com{'\n'} </Text> */}
+        <Text>Please click on the <Text style={{fontStyle: 'italic'}}>"Active Account" button in the email Kindly check your Spam/Junk folder as well for the confirmation email</Text>
         </Text>
         <View style={styles.button}>
             <TouchableOpacity
@@ -66,10 +63,10 @@ To activate your account & start receving exiting survey, an "Account Conformati
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
-                }]}>GOTO Dashboard</Text>
+                }]}>Go To Dashboard</Text>
             </TouchableOpacity>
         </View>
-        <ConfettiCannon count={200} origin={{x: -10, y: 0}} />
+        <ConfettiCannon count={200} origin={{x: -10, y: 0}} fallSpeed={7000}/>
     </Animatable.View>
   </View>
     );

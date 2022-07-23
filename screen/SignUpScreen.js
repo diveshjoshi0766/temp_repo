@@ -41,16 +41,16 @@ export default function SignUpScreen({navigation}) {
     React.useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 1,
-            duration: 1500,
+            duration: 3000,
             easing: Easing.linear,
             useNativeDriver: true,
         }).start();
         }, []);
-
+    
         const spin = spinValue.interpolate({
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg'],
-    });
+        });
     
 
     const { colors } = useTheme();
@@ -77,11 +77,10 @@ export default function SignUpScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-        <Image
-            style={{ width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center'  }}
+        <Animated.Image
+            style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center' }}
             source={require('../assets/logo_remove_bg.png')}
-        >
-        </Image>
+        />
         <View style={{alignItems: "center"}}>
             <View>
                 <View>
@@ -215,7 +214,7 @@ export default function SignUpScreen({navigation}) {
             onClick={()=>{setSelection(!isSelected)}}
             style={styles.checkbox}
             />
-            <TouchableOpacity style={styles.label} onPress={() => navigation.navigate('Terms And Conditions Screen')}><Text>I accept the terms and aggrement</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.label} onPress={() => navigation.navigate('Terms And Conditions Screen')}><Text>I accept the <Text style={{color: "#1E96F0"}}>Terms and Conditions</Text></Text></TouchableOpacity>
         </View>
 
 
@@ -234,15 +233,15 @@ export default function SignUpScreen({navigation}) {
             </TouchableOpacity>
         </View>
             
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
             <Text style={{color: '#000000', marginTop:15, textAlign: "center",  fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center",justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
             <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50, marginRight: 10}}></Image>
             <Image source={require('../assets/google_.png')} style={{height: 50, width: 50, marginLeft: 10}}></Image>
-        </View>
+        </View> */}
         <TouchableOpacity onPress={() => navigation.navigate('Sign In Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20}}>Already a member: <Text style={{color: '#1E96F0', fontWeight: '500'}}>SIGN IN</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20}}>Already a Member: <Text style={{color: '#1E96F0', fontWeight: '500'}}>SIGN IN</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>
@@ -279,7 +278,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 30,
+        marginTop: 30,
     },
     text_header: {
         color: '#fff',

@@ -51,7 +51,7 @@ export default function CommunicationOptionScreen({navigation}) {
        
         <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
             <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Email Opt out</Text>
-            <Text style={{marginTop: 6,fontSize: normalize(15),  textAlign: 'center'}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus</Text>
+            <Text style={{marginTop: 6,fontSize: normalize(15)}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus.</Text>
             <View style={[styles.button]}>
                 
             {is_subscribed ? 
@@ -84,9 +84,9 @@ export default function CommunicationOptionScreen({navigation}) {
             </View>
         </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
+        <View style={[styles.action_2, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
             <Text style={{fontWeight: 'bold', fontSize: normalize(18), marginTop: 5, }}>Deactivate Account</Text>
-            <Text style={{marginTop: 6,fontSize: normalize(15),  textAlign: 'center'}}>Deaccounting your account will disable your profile from SurveyOptimus</Text>
+            <Text style={{marginTop: 6,fontSize: normalize(15),}}>Deaccounting your account will disable your profile from SurveyOptimus.</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Deactivation Confirmation Screen')}
@@ -224,8 +224,27 @@ const styles = StyleSheet.create({
         color: '#05375a',
         fontSize: 18
     },
+    action_2: {
+        marginTop: normalize(15),
+        // maxHeight: "justifyContent",
+        flexDirection:'column',
+        alignItems:'center',
+        // justifyContent:'center',
+        borderRadius: normalize(10),
+        paddingLeft: 3,
+        paddingRight: 3,
+        padding: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 0},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,  
+        elevation: 5,
+        shadowRadius: 5,
+        shadowOpacity: 1,
+        borderRadius: 10,
+    },
     action: {
-        marginTop: normalize(5),
+        marginTop: normalize(8),
         // maxHeight: "justifyContent",
         flexDirection:'column',
             alignItems:'center',

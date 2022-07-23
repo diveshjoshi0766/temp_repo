@@ -70,16 +70,16 @@ export default function RewardHistory({navigation}) {
                         style={[styles.stretch]}
                         source={{uri: `${ele.mode_picture}`}}
                     />
-                    <Text style={[styles.reward_his_text,{textAlign: 'center', fontWeight: '500'}]}>{ele.mode_name}</Text>
+                    <Text style={[{textAlign: 'center', fontWeight: '500', fontSize: normalize(16)}]}>{ele.mode_name}</Text>
                 </View>
             </View>
             <View style={styles.center}>
                 {/* <Text style={{textAlign: 'center', fontWeight: 'bold'}}>{ele.mode_name}</Text> */}
-                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Redeem Points : {ele.redeem_points}</Text>
-                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Voucher worth : {ele.worth}</Text>
-                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Trans ID : {ele.transaction_id}</Text>
-                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Date : {ele.request_date}</Text>
-                <Text style={[styles.reward_his_text,{textAlign: 'center'}]}>Status : {ele.status}</Text>
+                <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Redeem Points</Text> : {ele.redeem_points}</Text>
+                <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Voucher worth</Text> : {ele.worth}</Text>
+                <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Trans ID</Text> : {ele.transaction_id}</Text>
+                <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Date</Text> : {ele.request_date}</Text>
+                <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Status</Text> : {ele.status}</Text>
             </View>
         </View>
 
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     },
     center :{
         justifyContent: 'center', //Centered vertically
-        alignItems: 'center', // Centered horizontally
+        // alignItems: 'center', // Centered horizontally
         flex:1, 
     },
     points: {

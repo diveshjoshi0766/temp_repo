@@ -58,7 +58,7 @@ export default function MyAccountScreen({navigation}) {
     
 
     const check_for_survey = async () => {
-        navigation.navigate('Profile Survey 2')
+        navigation.navigate('Update Profile Survey')
     }
 
     
@@ -116,7 +116,7 @@ export default function MyAccountScreen({navigation}) {
                         justifyContent:'center'
                     }}
                     onPress = {() => {
-                        check_for_survey(navigation)
+                        check_for_survey(navigation.navigate('Update Profile Survey'))
                     }}
                     >
                     <View>
@@ -330,6 +330,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     container: {
+        marginTop: 20,
         backgroundColor: '#FAFAFA',
         padding: 10,
         flexDirection:'column',

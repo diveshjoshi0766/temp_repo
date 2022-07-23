@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, {createContext, useEffect, useState} from 'react';
-import {BASE_URL} from '../config';
+import {BASE_URL, X_ACCESS_TOKEN} from '../config';
 
 export const AuthContext = createContext();
 
@@ -22,7 +22,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/setProfilingAnswer/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
+          'x-access-token': X_ACCESS_TOKEN,
           "Access-Control-Allow-Methods": 'POST, PUT, GET, OPTIONS'
         }
       })
@@ -51,7 +51,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/setAvatar/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          'x-access-token': X_ACCESS_TOKEN
         }
       })
       .then(res => {
@@ -126,7 +126,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/setBasicProfiling/${parseInt(panelist_basic_details.Results.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB',
+          'x-access-token': X_ACCESS_TOKEN,
           "Access-Control-Allow-Methods": 'POST, PUT, GET, OPTIONS'
         }
       })
@@ -171,7 +171,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/unsubscribes/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          'x-access-token': X_ACCESS_TOKEN
         }
       })  
       .then(res => {
@@ -198,7 +198,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/subscribes/${parseInt(userInfo.Result.panelistID)}`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          'x-access-token': X_ACCESS_TOKEN
         }
       })  
       .then(res => {
@@ -317,7 +317,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/googleapp`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          'x-access-token': X_ACCESS_TOKEN
         }
       })
       .then(res => {
@@ -344,7 +344,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/login`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          'x-access-token': X_ACCESS_TOKEN
         }
       })
       .then(res => {
@@ -373,7 +373,7 @@ export const AuthProvider = ({children}) => {
       .post(`${BASE_URL}/login`, data, {
         "Headers": {
           'Content-Type': 'application/json',
-          'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+          'x-access-token': X_ACCESS_TOKEN
         }
       })
       .then(res => {
@@ -402,7 +402,7 @@ export const AuthProvider = ({children}) => {
         {
           "Headers": {
             'Content-Type': 'application/json',
-            'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+            'x-access-token': X_ACCESS_TOKEN
           }
         },
       )
@@ -428,7 +428,7 @@ export const AuthProvider = ({children}) => {
         `${BASE_URL}/forgotpassword`, data,{
           "Headers": {
             'Content-Type': 'application/json',
-            'x-access-token': '3b5Udae8brA5yuXA7C3ZCnWVvwFUXPRB'
+            'x-access-token': X_ACCESS_TOKEN
           }
         }
       )

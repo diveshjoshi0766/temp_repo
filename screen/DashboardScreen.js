@@ -15,6 +15,7 @@ import { AuthContext } from "../context/AuthContext";
 import axios from 'axios'
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Poppins_500Medium, Poppins_500Medium_Italic } from "@expo-google-fonts/poppins";
 
 var {width: SCREEN_WIDTH, height: SCREEN_HEIGHT,} = Dimensions.get('window');
 const scale = SCREEN_WIDTH / 320;
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     container: {
+        marginTop: 20,
         backgroundColor: '#FAFAFA',
         padding: 10,
         flexDirection: "column",

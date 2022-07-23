@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
+        marginTop: 20,
     },
     stretch: {
         width: 100,

@@ -217,7 +217,7 @@ const Navigation = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Profile Survey 2"
+            name="Update Profile Survey"
             component={ProfileSurvey2}
             options={{headerStyle: {
               backgroundColor: '#378C3C'
@@ -398,7 +398,7 @@ const Navigation = () => {
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name="Profile Survey 2"
+              name="Update Profile Survey"
               component={ProfileSurvey2}
               options={{headerStyle: {
                 backgroundColor: '#378C3C'

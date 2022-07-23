@@ -8,6 +8,7 @@ import {
     Platform, 
     PixelRatio,
     ScrollView,
+    Animated
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "../components/Logo";
@@ -31,20 +32,20 @@ export default function ProfileSurvey1({navigation}) {
     
     const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
-    console.log(userInfo && userInfo)
-    console.log(panelist_basic_details && panelist_basic_details)
-    if(panelist_basic_details && panelist_basic_details){
-        console.log(panelist_basic_details.Results.profilePercentage)
-        if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
-            navigation.navigate('Home')
-        }
-    }
-    if(userInfo && userInfo){
-        console.log(userInfo.Result.profilePercentage)
-        if(parseInt(userInfo.Result.profilePercentage) == 100){
-            navigation.navigate('Home')
-        }
-    }
+    // console.log(userInfo && userInfo)
+    // console.log(panelist_basic_details && panelist_basic_details)
+    // if(panelist_basic_details && panelist_basic_details){
+    //     console.log(panelist_basic_details.Results.profilePercentage)
+    //     if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
+    //         navigation.navigate('Home')
+    //     }
+    // }
+    // if(userInfo && userInfo){
+    //     console.log(userInfo.Result.profilePercentage)
+    //     if(parseInt(userInfo.Result.profilePercentage) == 100){
+    //         navigation.navigate('Home')
+    //     }
+    // }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
     const [data, setData] = useState(null)
@@ -53,7 +54,6 @@ export default function ProfileSurvey1({navigation}) {
     const [ques_idx, setQues_idx] = useState(null)
     useEffect(async () => {
 
-        let isMounted = true
         setLoading(true)
         axios
         .get(`${BASE_URL}/getCountryQuestion/100/396`)
@@ -70,15 +70,13 @@ export default function ProfileSurvey1({navigation}) {
         setLoading(false);
         });
         return () => {
-            // setQuestions({}); // This worked for me
-            isMounted = false
         };
   
     }, []);
     console.log(ques)
 
     let data_arr = null
-    if(data && data) {
+    if(data && data && userInfo.Result && userInfo.Result.answerList) {
         data_arr = data
         if(userInfo.Result.answerList.length > 0){
             for(let i=0;i<userInfo.Result.answerList.length;i++){
@@ -111,6 +109,11 @@ export default function ProfileSurvey1({navigation}) {
         }
         if(!flag){
             setQues(ques+1)
+            Animated.timing(progress, {
+                toValue: ques+1,
+                duration: 1000,
+                useNativeDriver: false
+            }).start();
         }
         return flag;
     }
@@ -175,7 +178,12 @@ export default function ProfileSurvey1({navigation}) {
                     // AsyncStorage.setItem('answers', JSON.stringify(ans));
                     handleShowResult()
                     console.log("size equal")
-                }            
+                }
+                Animated.timing(progress, {
+                    toValue: ques+1,
+                    duration: 1000,
+                    useNativeDriver: false
+                }).start();          
             }
         }
     }
@@ -225,6 +233,11 @@ export default function ProfileSurvey1({navigation}) {
             setMulti_ans("")
             setAns([...ans, obj]);
             setQues(ques+1)
+            Animated.timing(progress, {
+                toValue: ques+1,
+                duration: 1000,
+                useNativeDriver: false
+            }).start();
         }
     }
 
@@ -233,7 +246,35 @@ export default function ProfileSurvey1({navigation}) {
             setQues(ques-1)
         }
     }
+    console.log(data_arr&&data_arr.length)
+    const [progress, setProgress] = useState(new Animated.Value(0));
+    const progressAnim = progress.interpolate({
+        inputRange: [0, data_arr&&data_arr.length],
+        outputRange: ['0%','100%']
+    })
+    console.log(progress)
+    const renderProgressBar = () => {
+        return (
+            <View style={{
+                width: '100%',
+                height: 20,
+                borderRadius: 20,
+                backgroundColor: '#000000',
 
+            }}>
+                <Animated.View style={[{
+                    height: 20,
+                    borderRadius: 20,
+                    backgroundColor: "#378C3C"
+                },{
+                    width: progressAnim
+                }]}>
+
+                </Animated.View>
+
+            </View>
+        )
+    }
     console.log(ans)
     const handleShowResult=()=>{
         // let arr = ques_idx;
@@ -309,8 +350,7 @@ export default function ProfileSurvey1({navigation}) {
                 backgroundColor: "rgb(235 235 235)"
             }]}
         >
-            <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(23), textAlign: "center"}}>Profile Survey</Text>
-        
+            { renderProgressBar() }
             {
                 data_arr[ques] && data_arr[ques].Question ?
                 <>
@@ -324,9 +364,9 @@ export default function ProfileSurvey1({navigation}) {
         
             {
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 3 ?
-                <Text style={{ marginTop:10,  fontSize:normalize(20), color: '#00a4de', }}>Pick <Text style={{color: '#000000'}}>All Applicable</Text></Text>
+                <Text style={{ marginTop:10,  fontSize:normalize(16), color: '#00a4de',fontStyle: 'italic'}}>Please select all that apply</Text>
                 :
-                <Text style={{ marginTop:10,  fontSize:normalize(20), color: '#00a4de'}}>Pick <Text style={{color: '#000000'}}>One Answer</Text></Text>
+                <Text style={{ marginTop:10,  fontSize:normalize(16), color: '#00a4de',fontStyle: 'italic'}}>Please select any one</Text>
             }
             
             
@@ -339,7 +379,7 @@ export default function ProfileSurvey1({navigation}) {
                         <View key={val}>
                             <TouchableOpacity  key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code, val)}>
                                 <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                    <Text style={{ fontSize: normalize(19), }}>{ele.description}</Text>
+                                    <Text style={{ fontSize: normalize(16), }}>{ele.description}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -363,7 +403,7 @@ export default function ProfileSurvey1({navigation}) {
                                     console.log(ans_selected)
                                     handle_multiple_select(ele.profile_question_id, ele.answer_code, val)}}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                        <Text style={{ fontSize: normalize(19), }}>{ele.description}</Text>
+                                        <Text style={{ fontSize: normalize(16), }}>{ele.description}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -372,8 +412,7 @@ export default function ProfileSurvey1({navigation}) {
                 })}</ScrollView> : <Text>Loading</Text>
             }
 
-
-
+            
             {
                 ques == 0 ? 
                 <></>
@@ -463,10 +502,9 @@ const styles = StyleSheet.create({
         maxHeight: 80,
         flexDirection:'row',
         alignItems:'center',
-        borderRadius: normalize(3),
+        borderRadius: normalize(10),
         borderWidth: 1,
-        borderColor: "#2955a9"
-
+        borderColor: "#8d8d8d"
     },
     actionError: {
         flexDirection: 'row',
@@ -499,11 +537,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignSelf: 'center',
         borderRadius: 10
     },
     textSign: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
   });

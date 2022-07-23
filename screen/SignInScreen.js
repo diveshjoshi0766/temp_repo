@@ -50,12 +50,16 @@ export default function SignInScreen({navigation}) {
     React.useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 1,
-            duration: 1500,
+            duration: 3000,
             easing: Easing.linear,
             useNativeDriver: true,
         }).start();
         }, []);
-
+    
+        const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+        });
         
 
     return (
@@ -67,11 +71,10 @@ export default function SignInScreen({navigation}) {
         }]}
     >
 
-        <Image
-            style={{ width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center'  }}
-            source={require('../assets/logo_remove_bg.png')}
-        >
-        </Image>
+        <Animated.Image
+                style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center' }}
+                source={require('../assets/logo_remove_bg.png')}
+            />
         <View style={{alignItems: "center"}}>
             <View>
                 <View>
@@ -81,7 +84,7 @@ export default function SignInScreen({navigation}) {
             </View>
         </View>
 
-        <View style={styles.action}>
+        <View style={[styles.action,{marginTop: 30}]}>
             <FontAwesome 
                 name="user-o"
                 color={colors.text}
@@ -142,7 +145,7 @@ export default function SignInScreen({navigation}) {
         </View>
 
         <TouchableOpacity onPress={() => navigation.navigate('Forgot Password Screen')}>
-            <Text style={{color: '#009387', marginTop:15, paddingRight: 0, fontSize: normalize(15)}}>Forgot password?</Text>
+            <Text style={{color: '#009387', marginTop:15, paddingRight: 0, fontSize: normalize(15)}}>Forgot Password?</Text>
         </TouchableOpacity>
 
         <View style={styles.button}>
@@ -159,15 +162,15 @@ export default function SignInScreen({navigation}) {
             </TouchableOpacity>
         </View>
             
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
         <Text style={{color: '#000000', marginTop:15, textAlign: "center",  fontSize: 20}}>Or continue with</Text>
         </TouchableOpacity>
         <View style={{alignItems: "center",justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
             <Image source={require('../assets/facebook_.png')} style={{height: 50, width: 50, marginRight: 10}}></Image>
             <Image source={require('../assets/google_.png')} style={{height: 50, width: 50, marginLeft: 10}}></Image>
-        </View>
+        </View> */}
         <TouchableOpacity  onPress={() => navigation.navigate('Sign Up Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20}}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20}}>Not a Member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </ScrollView>
@@ -199,12 +202,13 @@ const styles = StyleSheet.create({
         paddingBottom: 50
     },
     footer: {
+        marginTop: SCREEN_HEIGHT*0.18,
         flex: 1,
         backgroundColor: 'rgb(235 235 235)',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 30,
     },
     text_header: {
         color: '#fff',

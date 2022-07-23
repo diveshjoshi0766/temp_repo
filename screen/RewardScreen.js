@@ -72,11 +72,12 @@ export default function RewardScreen({navigation}) {
 
    
     return (
-    <ScrollView showsVerticalScrollIndicator ={false}>
+        <ScrollView showsVerticalScrollIndicator ={false}>
         <View style={styles.container}>
             <View>
                 <Text style={styles.header}>Good Morning, {userInfo.Result && userInfo.Result.firstname}</Text>
             </View>
+            
             {/* heading */}
             <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
                 <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Reward</Text>
@@ -92,19 +93,20 @@ export default function RewardScreen({navigation}) {
                     <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
                 </View>
             </View>
+            
             {
                 comments && comments.results.map((ele, key) => {
                     return(
                         <View key={key} style={styles.reward_card}>
                             <View style={[ styles.card, {display: 'flex', flexDirection: 'row', width: SCREEN_WIDTH - 20, padding: 5, textAlign: 'center', backgroundColor:'white', flex: 1}]}>
-                                <View style={{alignItems: 'center', marginTop: 0, flex: 0.45}}>
+                                <View style={{alignItems: 'center', marginTop: 0, flex: 0.5}}>
                                     <Image
                                         style={[styles.stretch]}
                                         source={{uri: `${ele.mode_picture}`}}
                                     />
                                 </View>
-                                <View style={{flexDirection: 'column', alignItems: "center", flex: 0.55, justifyContent: "center"}}>
-                                    <Text style={{fontWeight: 'bold', fontSize: normalize(18), }}>{ele.mode_name}</Text>
+                                <View style={{flexDirection: 'column', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
+                                    <Text style={{fontWeight: 'bold', fontSize: normalize(19), }}>{ele.mode_name}</Text>
                                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
                                         <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result && userInfo.Result.current_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(2500, {ele})}}>
                                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={15} color="#fff"/></Text>
@@ -125,7 +127,7 @@ export default function RewardScreen({navigation}) {
                 <View style={styles.modal_}>
                     <View style={{alignSelf: "center", marginTop: 0, width: '70%'}}>
                         <Image
-                            style={[styles.stretch, {justifyContent: "center", alignSelf: "center"}]}
+                            style={[styles.stretch_modal, {justifyContent: "center", alignSelf: "center"}]}
                             source={{uri: `${modal_data && modal_data.api_data.ele.mode_picture}`}}
                         />
                     </View>
@@ -153,10 +155,8 @@ export default function RewardScreen({navigation}) {
 
                 </View>
             </Modal>
-
-
-    </View>
-  </ScrollView>
+            </View>
+    </ScrollView>
     );
   }
 
@@ -198,10 +198,11 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
+        marginTop: 20,
     },
     cardElement_text: {
         fontWeight: "500",
-        fontSize: 18,
+        fontSize: 16,
         color: '#fff',
         alignSelf: 'center'
         // fontFamily: 'Poppins Regular 400',
@@ -209,6 +210,14 @@ const styles = StyleSheet.create({
     stretch: {
         width: '100%' ,
         height: SCREEN_WIDTH*0.3,
+        // textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    stretch_modal: {
+        width: '100%' ,
+        height: SCREEN_WIDTH*0.35,
         // textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',

@@ -40,16 +40,16 @@ export default function ForgotPasswordScreen({navigation}) {
     React.useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 1,
-            duration: 1500,
+            duration: 3000,
             easing: Easing.linear,
             useNativeDriver: true,
         }).start();
         }, []);
-
+    
         const spin = spinValue.interpolate({
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg'],
-    });
+        });
     const { colors } = useTheme();
 
     const [email, setEmail] = useState(null);
@@ -64,12 +64,11 @@ export default function ForgotPasswordScreen({navigation}) {
         }]}
     >
 
-        <Image
-            style={{ width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center'  }}
+        <Animated.Image
+            style={{ transform: [{ rotate: spin }], width: SCREEN_WIDTH*0.28, height: SCREEN_WIDTH*0.28, alignSelf: 'center' }}
             source={require('../assets/logo_remove_bg.png')}
-        >
-        </Image>
-        <View style={{alignItems: "center"}}>
+        />
+        {/* <View style={{alignItems: "center"}}>
             <View>
                 <View>
                     <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20),}}>Welcome to <Text style={{fontWeight: 'bold'}}>SurveyOptimus!</Text></Text>
@@ -77,10 +76,10 @@ export default function ForgotPasswordScreen({navigation}) {
                 </View>
             </View>
         </View>
+ */}
+        <Text style={{color: '#009387', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold'}}>Forgot Password</Text>
 
-        <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(24), fontWeight: 'bold'}}>Forgot Password</Text>
-
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={styles.action}>
             <FontAwesome 
                 name="user-o"
                 color={colors.text}
@@ -94,19 +93,17 @@ export default function ForgotPasswordScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setEmail(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
             />
             <Animatable.View
                 animation="bounceIn"
             >
-            <Feather 
-                name="mail"
-                color="gray"
-                size={20}
-            />
+                <Feather 
+                    name="mail"
+                    color="gray"
+                    size={20}
+                />
             </Animatable.View>
         </View>
-
         <View style={styles.button}>
             <TouchableOpacity
                 onPress={() => forgotpassword(email)}
@@ -122,7 +119,7 @@ export default function ForgotPasswordScreen({navigation}) {
         </View>
             
         <TouchableOpacity  onPress={() => navigation.navigate('Sign Up Screen')}>
-            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20 }}>Not a member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
+            <Text style={{color: '#000000', marginTop:15, textAlign: "center", fontSize:20 }}>Not a Member: <Text style={{color: '#1E96F0', fontWeight: 'bold'}}>SIGN UP</Text></Text>
         </TouchableOpacity>
     </Animatable.View>
   </View>
@@ -159,7 +156,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 30,
+        marginTop: 30,
     },
     text_header: {
         color: '#fff',
@@ -172,14 +170,14 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(30),
-        height: normalize(37),
-        flex:1,
+        minHeight: normalize(37),
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: normalize(10),
         paddingLeft: 15,
         paddingRight: 15,
+        backgroundColor: '#ffffff'
     },
     actionError: {
         flexDirection: 'row',
@@ -188,7 +186,6 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     },
     textInput: {
-        height: normalize(20),
         flex: 1,
         paddingLeft: 10,
         color: '#05375a',

@@ -192,8 +192,8 @@ export default function PresonalDetailsScreen({navigation}) {
         }]}
     >
      
-        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(20)}}>Good Afternoon</Text>
-        <Text style={{color: '#000000', marginTop:normalize(5), fontSize: normalize(20)}}>Presonal Details</Text>
+        <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(20)}}>Good Afternoon, {panelist_basic_details && panelist_basic_details.Results.firstname}</Text>
+        <Text style={{color: '#378C3C', marginTop:normalize(5), fontSize: normalize(17)}}>Personal Details</Text>
     
         <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: 0
         }}>
@@ -201,7 +201,7 @@ export default function PresonalDetailsScreen({navigation}) {
                 style={styles.stretch}
                 source={require('../assets/logo_remove_bg.png')}
             />
-            <View style={{paddingLeft: normalize(10), backgroundColor: 'rgb(235 235 25)', marginTop: -35}}>
+            <View style={{paddingLeft: normalize(10), backgroundColor: 'rgb(235 235 25)', marginTop: -55}}>
                 <Text style={[styles.label, { fontSize: normalize(15)}]}>SOID: {panelist_basic_details && panelist_basic_details.Results.SOUID}{'\n'}Profile Completion: {panelist_basic_details && panelist_basic_details.Results.profilePercentage}{'\n'}Email: {panelist_basic_details && panelist_basic_details.Results.email}</Text>
             </View>
         </View>
@@ -243,7 +243,7 @@ export default function PresonalDetailsScreen({navigation}) {
         onPress={showDatePicker}
         >
         <View >
-            <Text style={{paddingLeft: 4}}>Select date of Birth</Text>
+            <Text style={{paddingLeft: 4}}>Date of Birth</Text>
             {/* <Image source={require('../assets/date.png')} size={{height: 10, width: 10}}/>  */}
         </View>
         </TouchableOpacity>
@@ -257,25 +257,28 @@ export default function PresonalDetailsScreen({navigation}) {
         </View>
         
         <View style={[styles.action]}>
-            
-            <Text style={[styles.textInput, {
-                    color: colors.text
-                }]}>Gender</Text>
-            <RadioButton
-                value="first"
-                label="Male"
-                status={ checked === 'first' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('Male')}
-            />
-            <Text>Male</Text>
-            <RadioButton
-                value="second"
-                label="Female"
-                status={ checked === 'second' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('Female')}
-            />
-            <Text>Female</Text>
-
+            <View style={{flex: 1, flexDirection: "row",justifyContent: "center", alignItems: "center"}}>
+                <Text style={[styles.textInput, {
+                        color: colors.text, flex: 0.4
+                    }]}>Gender</Text>
+                <View style={{flexDirection: "row", flex: 0.6, alignItems: "center"}}>
+                    <RadioButton
+                        value="first"
+                        label="Male"
+                        status={ checked === 'first' ? 'checked' : 'unchecked' }
+                        buttonTextActiveStyle = {{color: "#378C3C"}}
+                        onPress={() => setChecked('Male')}
+                    />
+                    <Text>Male</Text>
+                    <RadioButton
+                        value="second"
+                        label="Female"
+                        status={ checked === 'second' ? 'checked' : 'unchecked' }
+                        onPress={() => setChecked('Female')}
+                    />
+                    <Text>Female</Text>
+                </View>
+            </View>
         </View>
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
@@ -356,7 +359,7 @@ export default function PresonalDetailsScreen({navigation}) {
         ) : (
             <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Country India"
+                placeholder="City"
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -379,17 +382,19 @@ export default function PresonalDetailsScreen({navigation}) {
             />
         </View>
 
-        <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
-            <TextInput 
-                placeholder="Zipcode"
-                placeholderTextColor="#666666"
-                style={[styles.textInput, {
-                    color: colors.text
-                }]}
-                autoCapitalize="none"
-                onChangeText={(val) => setZipcode(val)}
-            />
-            <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
+        <View style={[styles.action, {justifyContent: "space-between"}]}>
+            <View style={[styles.action, {backgroundColor: '#ffffff', flex: 0.48}]}>
+                <TextInput 
+                    placeholder="ZIP Code"
+                    placeholderTextColor="#666666"
+                    style={[styles.textInput, {
+                        color: colors.text
+                    }]}
+                    autoCapitalize="none"
+                    onChangeText={(val) => setZipcode(val)}
+                />
+            </View>
+            <View style={[styles.action, {backgroundColor: '#ffffff', flex: 0.48}]}>
                 <TextInput 
                     placeholder="Phone Number"
                     placeholderTextColor="#666666"
@@ -436,7 +441,6 @@ const styles = StyleSheet.create({
       },
       label: {
         position: 'absolute',
-        backgroundColor: 'white',
         paddingHorizontal: 8,
         fontSize: 14,
       },
@@ -456,6 +460,7 @@ const styles = StyleSheet.create({
       },  
     container: {
         flex: 1, 
+        marginTop: 20,
         backgroundColor: 'rgb(235 235 235)',
         flexDirection:'row',
         alignItems:'center',

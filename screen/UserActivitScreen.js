@@ -78,7 +78,7 @@ export default function UserActivityScreen({navigation}) {
                 </View>
                 {/* heading */}
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>User Activity Screen</Text>
+                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Points History</Text>
                 <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), alignItems: "center", justifyContent: "center"}}>
                                 <Image
                                     style={{width: 25, height: 25}}
@@ -96,7 +96,7 @@ export default function UserActivityScreen({navigation}) {
                     </View>
                 </View>
                 <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-between', backgroundColor: '#d4d6d1', marginTop: 10, paddingLeft: 6, paddingRight: 6}]}>
-                    <Text style={[styles.tabel_header, {flex: 0.4}]}>Date</Text>
+                    <Text style={[{flex: 0.25, color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(16), fontWeight: 'bold'}]}>Date</Text>
                     <Text style={[styles.tabel_header, {flex: 0.4}]}>Description</Text>
                     <Text style={[styles.tabel_header, {flex: 0.2}]}>Points</Text>
                 </View>
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
+        marginTop: 20,
     },
     stretch: {
         width: 100,
@@ -287,12 +288,8 @@ const styles = StyleSheet.create({
         // marginTop: normalize(10),
         borderColor: 'black',
         borderRadius: 10,
-        shadowColor: '#000000',
-        shadowOffset: {
-        width: 0,
-        height: 1
-        },
-        shadowRadius: 5,
-        shadowOpacity: 0.1
+        borderBottomColor: '#8d8d8d',
+        borderBottomWidth: 1,
+
     }
   });

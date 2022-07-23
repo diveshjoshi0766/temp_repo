@@ -8,6 +8,7 @@ import {
     Platform, 
     PixelRatio,
     ScrollView,
+    Animated,
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "../components/Logo";
@@ -74,6 +75,11 @@ export default function ProfileSurvey2({navigation}) {
         if(!flag){
             setQues(ques+1)
         }
+        Animated.timing(progress, {
+            toValue: ques+1,
+            duration: 1000,
+            useNativeDriver: false
+        }).start();
         return flag;
     }
 
@@ -132,6 +138,11 @@ export default function ProfileSurvey2({navigation}) {
                     ans_id: ans_id
                 }
                 setQues(ques+1)
+                Animated.timing(progress, {
+                    toValue: ques+1,
+                    duration: 1000,
+                    useNativeDriver: false
+                }).start();
                 setAns([...ans, obj]);
                 if(ques == (len-1)){
                     // AsyncStorage.setItem('answers', JSON.stringify(ans));
@@ -179,7 +190,7 @@ export default function ProfileSurvey2({navigation}) {
         for(let i=0;i<temp_arr.length;i++){
             if(temp_arr[i] == ans_id){
                 console.log("I am here")
-                data_arr[ques].AnswerList[ans_idx].is_answered = false
+                // data_arr[ques].AnswerList[ans_idx].is_answered = false
                 flag = false;
             }
         }
@@ -210,6 +221,11 @@ export default function ProfileSurvey2({navigation}) {
             setMulti_ans("")
             setAns([...ans, obj]);
             setQues(ques+1)
+            Animated.timing(progress, {
+                toValue: ques+1,
+                duration: 1000,
+                useNativeDriver: false
+            }).start();
         }
     }
 
@@ -218,38 +234,37 @@ export default function ProfileSurvey2({navigation}) {
             setQues(ques-1)
         }
     }
+    console.log(data_arr&&data_arr.length)
+    const [progress, setProgress] = useState(new Animated.Value(0));
+    const progressAnim = progress.interpolate({
+        inputRange: [0, data_arr&&data_arr.length],
+        outputRange: ['0%','100%']
+    })
+    console.log(progress)
+    const renderProgressBar = () => {
+        return (
+            <View style={{
+                width: '100%',
+                height: 20,
+                borderRadius: 20,
+                backgroundColor: '#000000',
 
+            }}>
+                <Animated.View style={[{
+                    height: 20,
+                    borderRadius: 20,
+                    backgroundColor: "#378C3C"
+                },{
+                    width: progressAnim
+                }]}>
+
+                </Animated.View>
+
+            </View>
+        )
+    }
     console.log(ans)
     const handleShowResult=()=>{
-        // let arr = ques_idx;
-        // let ans_obj = []
-        // for(let i=0;i<arr.length;i++){
-        //     for(let j=0;j<data_arr[i].AnswerList.length;j++){
-        //         let flag = false;
-        //         let str = ""
-        //         if(data_arr[i].AnswerList[j].is_answered == true && data[ques].Question.question_type_id == 2){
-        //             flag = true
-        //             let temp = {
-        //                 key:`${arr[i]}`,
-        //                 value: `${data_arr[i].AnswerList[j].answer_code}`
-        //             };
-        //             ans_obj.push(temp)
-        //             continue
-        //         }
-        //         else if(data_arr[i].AnswerList[j].is_answered == true && data[ques].Question.question_type_id == 3){
-        //             str += data_arr[i].AnswerList[j].answer_code+",";
-        //         }
-                
-        //         if(flag == false){
-        //             let temp = {
-        //                 key:`${arr[i]}`,
-        //                 value: `${str}`
-        //             };
-        //             ans_obj.push(temp)
-        //         }
-        //     }   
-        // }
-        
         let arr = ans;
         for(let i=0;i<arr.length;i++){
             console.log(arr[i].ques_id)
@@ -294,8 +309,7 @@ export default function ProfileSurvey2({navigation}) {
                 backgroundColor: "rgb(235 235 235)"
             }]}
         >
-            <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(23), textAlign: "center"}}>Profile Survey</Text>
-        
+            { renderProgressBar() }
             {
                 data_arr[ques] && data_arr[ques].Question ?
                 <>
@@ -309,10 +323,11 @@ export default function ProfileSurvey2({navigation}) {
         
             {
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 3 ?
-                <Text style={{ marginTop:10,  fontSize:normalize(20), color: '#00a4de', }}>Pick <Text style={{color: '#000000'}}>All Applicable</Text></Text>
+                <Text style={{ marginTop:10,  fontSize:normalize(16), color: '#00a4de',fontStyle: 'italic'}}>Please select all that apply</Text>
                 :
-                <Text style={{ marginTop:10,  fontSize:normalize(20), color: '#00a4de'}}>Pick <Text style={{color: '#000000'}}>One Answer</Text></Text>
+                <Text style={{ marginTop:10,  fontSize:normalize(16), color: '#00a4de',fontStyle: 'italic'}}>Please select any one</Text>
             }
+            
             
             {
                 data_arr && data_arr[ques] && data_arr[ques].AnswerList ? 
@@ -323,7 +338,7 @@ export default function ProfileSurvey2({navigation}) {
                         <View key={val}>
                             <TouchableOpacity  key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code, val)}>
                                 <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                    <Text style={{ fontSize: normalize(19), }}>{ele.description}</Text>
+                                    <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -345,9 +360,11 @@ export default function ProfileSurvey2({navigation}) {
                                         ans_selected.push(ele.answer_code)
                                     }
                                     console.log(ans_selected)
-                                    handle_multiple_select(ele.profile_question_id, ele.answer_code, val)}}>
+                                    
+                                    handle_multiple_select(ele.profile_question_id, ele.answer_code, val)
+                                    }}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                        <Text style={{ fontSize: normalize(19), }}>{ele.description}</Text>
+                                        <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -359,16 +376,24 @@ export default function ProfileSurvey2({navigation}) {
             
             {
                 ques == 0 ? 
-                <></>
+                <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}> 
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius:40, marginLeft: 10 }]} onPress={() => {let ret = move_to_next() 
+                        // if(!ret){alert("Please select one of the above")}
+                    }}>
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Next</Text>
+                    </TouchableOpacity>
+                </View> 
                 :
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 2 ? 
                 <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius:40, marginLeft: 10 }]} onPress={() => {let ret = move_to_next() 
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius:40, marginLeft: 10 }]} onPress={() => {let ret = move_to_next() 
                         // if(!ret){alert("Please select one of the above")}
                     }}>
                         <Text style={[styles.textSign, {
@@ -378,7 +403,7 @@ export default function ProfileSurvey2({navigation}) {
                 </View> 
                 :
                 <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63',borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
@@ -446,9 +471,9 @@ const styles = StyleSheet.create({
         maxHeight: 80,
         flexDirection:'row',
         alignItems:'center',
-        borderRadius: normalize(3),
+        borderRadius: normalize(10),
         borderWidth: 1,
-        borderColor: "#2955a9"
+        borderColor: "#8d8d8d"
     },
     actionError: {
         flexDirection: 'row',
