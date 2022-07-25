@@ -56,7 +56,7 @@ export default function ProfileSurvey1({navigation}) {
 
         setLoading(true)
         axios
-        .get(`${BASE_URL}/getCountryQuestion/100/396`)
+        .get(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
         .then(res => {
             let responce_data = res.data;
             console.log()
@@ -461,7 +461,8 @@ const styles = StyleSheet.create({
         // alignItems:'center',
         justifyContent:'center',
         width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        height: SCREEN_HEIGHT,
+        marginTop: 20,
     },
     stretch: {
         // width: SCREEN_WIDTH*0.5,
