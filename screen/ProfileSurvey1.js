@@ -379,7 +379,7 @@ export default function ProfileSurvey1({navigation}) {
                         <View key={val}>
                             <TouchableOpacity  key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code, val)}>
                                 <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                    <Text style={{ fontSize: normalize(16), }}>{ele.description}</Text>
+                                    <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -403,7 +403,7 @@ export default function ProfileSurvey1({navigation}) {
                                     console.log(ans_selected)
                                     handle_multiple_select(ele.profile_question_id, ele.answer_code, val)}}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                        <Text style={{ fontSize: normalize(16), }}>{ele.description}</Text>
+                                        <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -419,12 +419,12 @@ export default function ProfileSurvey1({navigation}) {
                 :
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 2 ? 
                 <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63', borderRadius:40, marginLeft: 10 }]} onPress={() => {let ret = move_to_next() 
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius:40, marginLeft: 10 }]} onPress={() => {let ret = move_to_next() 
                         // if(!ret){alert("Please select one of the above")}
                     }}>
                         <Text style={[styles.textSign, {
@@ -434,7 +434,7 @@ export default function ProfileSurvey1({navigation}) {
                 </View> 
                 :
                 <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C',borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
+                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#8C6E63',borderRadius: 40, marginRight: 10}]} onPress={() => back_question()}>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Back</Text>
