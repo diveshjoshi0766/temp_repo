@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     },
     action: {
         marginTop: normalize(10),
-        minHeight: normalize(37),
+        minHeight: normalize(40),
         flex:1,
         flexDirection:'row',
         alignItems:'center',

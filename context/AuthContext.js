@@ -30,7 +30,7 @@ export const AuthProvider = ({children}) => {
         let responce = res.data;
         console.log(responce);
 
-        alert(res.data.message)
+        // alert(res.data.message)
         setIsLoading(false);
       })
       .catch(e => {
@@ -108,19 +108,20 @@ export const AuthProvider = ({children}) => {
     console.log(zip)
     console.log(phone)
     setIsLoading(true);
-      const data = JSON.stringify({
-        "firstname": firstname, 
-        "lastname": lastname,
-        "dob": date,
-        "gender": gender,
-        "address1": add1,
-        "address2": add2,
-        "countryId": 100, 
-        "state": state,
-        "city": city,
-        "zipcode": zip,
-        "phone": phone
-      })
+    const data = JSON.stringify({
+      "firstname": firstname, 
+      "lastname": lastname,
+      "dob": date,
+      "gender": gender,
+      "address1": add1,
+      "address2": add2,
+      "countryId": 100, 
+      "state": state,
+      "city": city,
+      "zipcode": zip,
+      "phone": phone
+    })
+      console.log(data)
       console.log(panelist_basic_details.Results.panelistID)
     axios
       .post(`${BASE_URL}/setBasicProfiling/${parseInt(panelist_basic_details.Results.panelistID)}`, data, {
@@ -381,11 +382,16 @@ export const AuthProvider = ({children}) => {
         console.log(userInfo);
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-        navigation.navigate('Profile Survey')
+        if(userInfo.status != 'failure'){
+          navigation.navigate('Profile Survey')
+        }else{
+          alert("Wrong Credentials")
+        }
         setIsLoading(false);
       })
       .catch(e => {
         console.log(`login error ${e}`);
+        alert("Wrong Credentials")
         setIsLoading(false);
       });
   };

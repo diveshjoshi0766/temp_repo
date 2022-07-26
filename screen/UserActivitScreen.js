@@ -78,12 +78,11 @@ export default function UserActivityScreen({navigation}) {
                 </View>
                 {/* heading */}
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Points History</Text>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), alignItems: "center", justifyContent: "center"}}>
-                                <Image
-                                    style={{width: 25, height: 25}}
-                                    source={{uri:  `${userInfo && userInfo.Result && userInfo.Result.profilePic}`}}
-                                /> Profile</Text>
+                <Text style={{color: '#378C3C', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Points History</Text>
+                <Image
+                        style={{width: 27, height: 27, marginRight: 15}}
+                        source={{uri:  `${userInfo && userInfo.Result && userInfo.Result.profilePic}`}}
+                />
                 </View>
                 <View style={styles.points}>
                     <View style={styles.center}>
@@ -254,7 +253,6 @@ const styles = StyleSheet.create({
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 20,
-        padding: 10,
     },
     items:{
         display:'flex', 

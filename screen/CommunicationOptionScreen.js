@@ -49,11 +49,12 @@ export default function CommunicationOptionScreen({navigation}) {
         }]}
     >
        
-        <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: normalize(18)}}>Email Opt out</Text>
-            <Text style={{marginTop: 6,fontSize: normalize(15)}}>Opt out of receiving future emails from SurveyOptimus. If you opt out, you will not receive these email invitations and notifications from SurveyOptimus.</Text>
+
+        <View style={[styles.action_2, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(18) }}>Email Opt out</Text>
+            <Text style={{marginTop: 6,fontSize: normalize(15), width: "90%"}}>Opt Out of receiving future emails from SurveyOptimus. If you opt out, 
+            you will not receive these email invitations and notifications from SurveyOptimus.</Text>
             <View style={[styles.button]}>
-                
             {is_subscribed ? 
                 <TouchableOpacity
                     onPress={toggleModal}
@@ -84,9 +85,10 @@ export default function CommunicationOptionScreen({navigation}) {
             </View>
         </View>
 
+
         <View style={[styles.action_2, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
-            <Text style={{fontWeight: 'bold', fontSize: normalize(18), marginTop: 5, }}>Deactivate Account</Text>
-            <Text style={{marginTop: 6,fontSize: normalize(15),}}>Deaccounting your account will disable your profile from SurveyOptimus.</Text>
+            <Text style={{fontWeight: 'bold', fontSize: normalize(18),}}>Deactivate Account</Text>
+            <Text style={{marginTop: 6,fontSize: normalize(15), width: "90%"}}>Deaccounting your account will disable your profile from SurveyOptimus.</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Deactivation Confirmation Screen')}
@@ -287,7 +289,7 @@ const styles = StyleSheet.create({
     },
     signIn: {
         width: '100%',
-        height: 50,
+        height: 40,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 25

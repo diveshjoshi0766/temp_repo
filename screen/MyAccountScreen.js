@@ -84,11 +84,11 @@ export default function MyAccountScreen({navigation}) {
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="user" color="#378C3C" size={25}></Icon>
                     </View>
                     <TouchableOpacity 
-                    style={{flex:0.6,
+                    style={{flex:0.7,
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
@@ -99,7 +99,7 @@ export default function MyAccountScreen({navigation}) {
                         <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>your presonal information</Text>
                     </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={25}></Icon>
                     </View>
             </View>
@@ -107,11 +107,11 @@ export default function MyAccountScreen({navigation}) {
             
             
             <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="group" color="#378C3C" size={25}></Icon>
                     </View>
                     <TouchableOpacity 
-                    style={{flex:0.6,
+                    style={{flex:0.7,
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
@@ -124,39 +124,39 @@ export default function MyAccountScreen({navigation}) {
                         <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>your demographic information</Text>
                     </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Image source={require('../assets/home_Gr.png')} style={{ width: 25, height: 25 }}></Image>
                     </View>
                     <TouchableOpacity 
-                    style={{flex:0.6,
+                    style={{flex:0.7,
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
-                    onPress = {() => navigation.navigate('Change Password Screen')}
+                    onPress = {() => navigation.navigate('Change Password')}
                     >
                     <View>
                         <Text style={{fontWeight: 'bold', fontSize: normalize(15)}}>Change Password</Text>
                         <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>manage your sign-in settings</Text>
                     </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={25}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff',justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="id-badge" color="#378C3C" size={25}></Icon>
                     </View>
-                    <TouchableOpacity style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.7,
                             flexDirection:'column',
                             justifyContent:'center'
                         }}
@@ -167,17 +167,17 @@ export default function MyAccountScreen({navigation}) {
                             <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>prefered means of communications</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={30}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="user-plus" color="#378C3C" size={25}></Icon>
                     </View>
-                    <TouchableOpacity style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.7,
                             flexDirection:'column',
                             justifyContent:'center'
                         }}
@@ -189,17 +189,17 @@ export default function MyAccountScreen({navigation}) {
                             <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>invite your friends to join</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={25}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="shield" color="#378C3C" size={25}></Icon>
                     </View>
-                    <TouchableOpacity style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.7,
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
@@ -210,17 +210,17 @@ export default function MyAccountScreen({navigation}) {
                         <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>how we manage privacy</Text>
                     </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={25}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff',justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="file" color="#378C3C" size={25}></Icon>
                     </View>
-                    <TouchableOpacity style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.7,
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
@@ -231,17 +231,17 @@ export default function MyAccountScreen({navigation}) {
                             <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>service providing document</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={25}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="question" color="#378C3C" size={25}></Icon>
                     </View>
-                    <TouchableOpacity style={{flex:0.6,
+                    <TouchableOpacity style={{flex:0.7,
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
@@ -252,18 +252,18 @@ export default function MyAccountScreen({navigation}) {
                             <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>frequently asked question</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={25}></Icon>
                     </View>
             </View>
 
 
             <View style={[styles.action, {backgroundColor: '#ffffff', justifyContent: "space-around"}]}>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{flex: 0.1, alignItems: 'center'}}>
                         <Icon name="sign-out" color="#378C3C" size={25}></Icon>
                     </View>
                     <TouchableOpacity 
-                    style={{flex:0.6,
+                    style={{flex:0.7,
                         flexDirection:'column',
                         justifyContent:'center'
                     }}
@@ -274,7 +274,7 @@ export default function MyAccountScreen({navigation}) {
                         <Text style={{fontStyle: 'italic', fontSize: normalize(13)}}>sign out of the application</Text>
                     </View>
                     </TouchableOpacity>
-                    <View style={{flex:0.2, alignItems: 'center', marginRight: 0}}>
+                    <View style={{flex:0.1, alignItems: 'center', marginRight: 0}}>
                         <Icon name="angle-right" color="#378C3C" size={25}></Icon>
                     </View>
             </View> 
@@ -283,13 +283,13 @@ export default function MyAccountScreen({navigation}) {
             <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
                 <View style={styles.modal_}>
                     
-                    <Text style={[styles.modal_sub_heading, {fontSize: normalize(18), marginTop: 10}]}>Are you sure you want to logout of you app ?</Text>
+                    <Text style={[styles.modal_sub_heading, {fontSize: normalize(18), marginTop: 10}]}> Are you sure you want to logout of the app.</Text>
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 50}}>
-                        <Button title="Cancel" onPress={toggleModal} style={styles.modal_btn} color='#9e9e9e'/>
-                        <Button title="YES, LOG OUT" onPress={() => {
+                        <TouchableOpacity title="Cancel" onPress={toggleModal} style={[styles.modal_btn, {backgroundColor:'#9e9e9e', alignItems: "center", justifyContent: "center", width: SCREEN_WIDTH*0.3, height: 50}]}><Text style={{alignItems: "center", justifyContent: "center", fontWeight: "500", fontSize: 18}}>Cancel</Text></TouchableOpacity>
+                        <TouchableOpacity title="YES, LOG OUT" onPress={() => {
                             logout(userInfo.Result.email, navigation)
                             toggleModal()
-                        }} style={styles.modal_btn} color='#378C3C'/>
+                        }} style={[styles.modal_btn, {backgroundColor:'#378C3C', alignItems: "center", justifyContent: "center", width: SCREEN_WIDTH*0.35, height: 50}]}><Text style={{alignItems: "center", justifyContent: "center", fontWeight: "500", fontSize: 18}}>YES, LOG OUT</Text></TouchableOpacity>
                     </View>
 
                 </View>
@@ -313,10 +313,10 @@ const styles = StyleSheet.create({
     modal_btn:{
         width: SCREEN_WIDTH*0.2,
         color: '#378C3C',
-        borderRadius: 20,
+        borderRadius: 50,
     },
     modal_sub_heading: {
-        fontWeight: "500", 
+        fontWeight: "400", 
         fontSize: normalize(15), 
     },
     modal_points:{

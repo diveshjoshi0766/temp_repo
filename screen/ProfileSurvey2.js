@@ -338,7 +338,7 @@ export default function ProfileSurvey2({navigation}) {
                         <View key={val}>
                             <TouchableOpacity  key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code, val)}>
                                 <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                    <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
+                                    <Text style={{ fontSize: normalize(15), color: ele.is_answered ? '#ffffff' : '#000000'}}>{ele.description}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -364,7 +364,7 @@ export default function ProfileSurvey2({navigation}) {
                                     handle_multiple_select(ele.profile_question_id, ele.answer_code, val)
                                     }}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                        <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
+                                        <Text style={{ fontSize: normalize(15), color: ele.is_answered ? '#ffffff' : '#000000'}}>{ele.description}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

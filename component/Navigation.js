@@ -151,7 +151,7 @@ const Navigation = () => {
             }}
           />
           <Stack.Screen
-            name="Change Password Screen"
+            name="Change Password"
             component={ChangePasswordScreen}
             options={{headerStyle: {
               backgroundColor: '#378C3C'
@@ -276,7 +276,7 @@ const Navigation = () => {
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name="Change Password Screen"
+              name="Change Password"
               component={ChangePasswordScreen}
               options={{headerStyle: {
                 backgroundColor: '#378C3C'

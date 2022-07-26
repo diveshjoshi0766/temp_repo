@@ -32,20 +32,20 @@ export default function ProfileSurvey1({navigation}) {
     
     const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
-    // console.log(userInfo && userInfo)
-    // console.log(panelist_basic_details && panelist_basic_details)
-    // if(panelist_basic_details && panelist_basic_details){
-    //     console.log(panelist_basic_details.Results.profilePercentage)
-    //     if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
-    //         navigation.navigate('Home')
-    //     }
-    // }
-    // if(userInfo && userInfo){
-    //     console.log(userInfo.Result.profilePercentage)
-    //     if(parseInt(userInfo.Result.profilePercentage) == 100){
-    //         navigation.navigate('Home')
-    //     }
-    // }
+    console.log(userInfo && userInfo)
+    console.log(panelist_basic_details && panelist_basic_details)
+    if(panelist_basic_details && panelist_basic_details){
+        console.log(panelist_basic_details.Results.profilePercentage)
+        if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
+            navigation.navigate('Home')
+        }
+    }
+    if(userInfo && userInfo){
+        console.log(userInfo.Result.profilePercentage)
+        if(parseInt(userInfo.Result.profilePercentage) == 100){
+            navigation.navigate('Home')
+        }
+    }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
     const [data, setData] = useState(null)
@@ -354,7 +354,7 @@ export default function ProfileSurvey1({navigation}) {
             {
                 data_arr[ques] && data_arr[ques].Question ?
                 <>
-                    <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(20), fontWeight: 'bold'}}>{data_arr[ques].Question.question_title}</Text> 
+                    <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(16), fontWeight: 'bold'}}>{data_arr[ques].Question.question_title}</Text> 
                 </>  
                 :
                 <View style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
@@ -379,7 +379,7 @@ export default function ProfileSurvey1({navigation}) {
                         <View key={val}>
                             <TouchableOpacity  key={ele.answer_code} onPress={() => handle_option_press(ele.profile_question_id, ele.answer_code, val)}>
                                 <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                    <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
+                                    <Text style={{ fontSize: normalize(15), color: ele.is_answered ? '#ffffff' : '#000000'}}>{ele.description}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -403,7 +403,7 @@ export default function ProfileSurvey1({navigation}) {
                                     console.log(ans_selected)
                                     handle_multiple_select(ele.profile_question_id, ele.answer_code, val)}}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
-                                        <Text style={{ fontSize: normalize(15), }}>{ele.description}</Text>
+                                        <Text style={{ fontSize: normalize(15), color: ele.is_answered ? '#ffffff' : '#000000'}}>{ele.description}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

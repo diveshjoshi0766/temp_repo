@@ -80,7 +80,7 @@ export default function RewardScreen({navigation}) {
             
             {/* heading */}
             <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', marginBottom: 6}}>
-                <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Reward</Text>
+                <Text style={{color: '#378C3C', marginTop:10, textAlign: "center", fontSize:normalize(17), }}>Reward</Text>
                 <TouchableOpacity onPress={() => {navigation.navigate('Reward History')}}><Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(17)}}><Icon name="history" size={20} style={{marginTop: 10}} color="black"/> History</Text></TouchableOpacity>
             </View>
             <View style={styles.points}>
@@ -108,10 +108,24 @@ export default function RewardScreen({navigation}) {
                                 <View style={{flexDirection: 'column', alignItems: "center", flex: 0.5, justifyContent: "center"}}>
                                     <Text style={{fontWeight: 'bold', fontSize: normalize(19), }}>{ele.mode_name}</Text>
                                     <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 8}}>
-                                        <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result && userInfo.Result.current_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(2500, {ele})}}>
+                                        <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result && userInfo.Result.current_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {
+                                            if(userInfo.Result && userInfo.Result.current_point > 2499){
+                                                coupon_button_press(2500, {ele})
+                                            }
+                                            else{
+                                                alert('You do not have sufficient points to redeem')
+                                            }
+                                            }
+                                            }>
                                             <Text style={styles.cardElement_text}>2500 <Icon name="star" size={15} color="#fff"/></Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result && userInfo.Result.current_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {coupon_button_press(5000, {ele})}}>
+                                        <TouchableOpacity style={[styles.cardElement, {backgroundColor: userInfo.Result && userInfo.Result.current_point > 2499 ?  '#378C3C' : '#8C6E63'}]} onPress={() => {
+                                            if(userInfo.Result && userInfo.Result.current_point > 4999){
+                                                coupon_button_press(5000, {ele})
+                                            }
+                                            else{
+                                                alert('You do not have sufficient points to redeem')
+                                            }}}>
                                             <Text style={styles.cardElement_text}>5000 <Icon name="star" size={15} color="#fff"/></Text>
                                         </TouchableOpacity>
                                     </View>

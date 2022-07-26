@@ -63,6 +63,8 @@ export default function PresonalDetailsScreen({navigation}) {
     const [state_,setState_data]=useState(null)
     const [state_code, setState_code] = useState(null);
     const [city, setCity] = useState(null); 
+    const [city_to_api, setCityToAPI] = useState(null)
+    const [state_to_api, setStateToAPI] = useState(null)
     useEffect(() => {
         fetchState();
     }, [])
@@ -75,7 +77,7 @@ export default function PresonalDetailsScreen({navigation}) {
         console.log(state_)
     }, [state_])
     const fetchState=async()=>{
-        const response=await axios(`${BASE_URL}/getStateList/232`);
+        const response=await axios(`${BASE_URL}/getStateList/${parseInt(panelist_basic_details.Results.countryID)}`);
         setState_data(response.data)    
     }
 
@@ -123,9 +125,10 @@ export default function PresonalDetailsScreen({navigation}) {
     const [lastName, setLastName] = useState(null)
 
     // date state
-    const [date, setDate] = useState()
+    const [date, setDate] = useState(null)
+
     
-    const [checked, setChecked] = React.useState('first');
+    const [checked, setChecked] = React.useState("");
     const [address1, setAddress1] = useState(null);
     const [address2, setAddress2] = useState(null);
     const [chooseState, setChooseState] = useState(null);
@@ -144,10 +147,15 @@ export default function PresonalDetailsScreen({navigation}) {
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
     };
-
+    const [datestr, strdatestr] = useState('Date of birth')
+    let datestring = "Date of Birth"
     const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
+        console.log(date)
+        
         setDate(date)
+        datestring = date.getDate()  + "-" + (date.getMonth()+1) + "-" + date.getFullYear()
+        console.log(datestring)
+        strdatestr(datestring)
         console.log(date)
         hideDatePicker();
     };
@@ -174,13 +182,11 @@ export default function PresonalDetailsScreen({navigation}) {
       if (value_ || isFocus_) {
         return (
           <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-            
           </Text>
         );
       }
       return null;
     };
-
 
 
     return (
@@ -191,7 +197,6 @@ export default function PresonalDetailsScreen({navigation}) {
             backgroundColor: "rgb(235 235 235)"
         }]}
     >
-     
         <Text style={{color: '#000000', marginTop:normalize(5), fontWeight: 'bold', fontSize: normalize(20)}}>Good Afternoon, {panelist_basic_details && panelist_basic_details.Results.firstname}</Text>
         <Text style={{color: '#378C3C', marginTop:normalize(5), fontSize: normalize(17)}}>Personal Details</Text>
     
@@ -202,7 +207,7 @@ export default function PresonalDetailsScreen({navigation}) {
                 source={require('../assets/logo_remove_bg.png')}
             />
             <View style={{paddingLeft: normalize(10), backgroundColor: 'rgb(235 235 25)', marginTop: -55}}>
-                <Text style={[styles.label, { fontSize: normalize(15)}]}>SOID: {panelist_basic_details && panelist_basic_details.Results.SOUID}{'\n'}Profile Completion: {panelist_basic_details && panelist_basic_details.Results.profilePercentage}{'\n'}Email: {panelist_basic_details && panelist_basic_details.Results.email}</Text>
+                <Text style={[styles.label, { fontSize: normalize(15)}]}>SOID: {panelist_basic_details && panelist_basic_details.Results.SOUID}{'\n'}Profile Completion: {panelist_basic_details && panelist_basic_details.Results.profilePercentage}%{'\n'}Email: {panelist_basic_details && panelist_basic_details.Results.email}</Text>
             </View>
         </View>
     
@@ -242,8 +247,8 @@ export default function PresonalDetailsScreen({navigation}) {
         <TouchableOpacity
         onPress={showDatePicker}
         >
-        <View >
-            <Text style={{paddingLeft: 4}}>Date of Birth</Text>
+         <View >
+            <Text style={{paddingLeft: 4}}>{datestr}</Text>
             {/* <Image source={require('../assets/date.png')} size={{height: 10, width: 10}}/>  */}
         </View>
         </TouchableOpacity>
@@ -251,10 +256,11 @@ export default function PresonalDetailsScreen({navigation}) {
             isVisible={isDatePickerVisible}
             mode="date"
             onConfirm={handleConfirm}
+            onChange={(event, date) => handleConfirm(date)}
             onCancel={hideDatePicker}
         />
-        
         </View>
+        
         
         <View style={[styles.action]}>
             <View style={{flex: 1, flexDirection: "row",justifyContent: "center", alignItems: "center"}}>
@@ -267,14 +273,14 @@ export default function PresonalDetailsScreen({navigation}) {
                         label="Male"
                         status={ checked === 'first' ? 'checked' : 'unchecked' }
                         buttonTextActiveStyle = {{color: "#378C3C"}}
-                        onPress={() => setChecked('Male')}
+                        onPress={() => setChecked('first')}
                     />
                     <Text>Male</Text>
                     <RadioButton
                         value="second"
                         label="Female"
                         status={ checked === 'second' ? 'checked' : 'unchecked' }
-                        onPress={() => setChecked('Female')}
+                        onPress={() => setChecked('second')}
                     />
                     <Text>Female</Text>
                 </View>
@@ -326,6 +332,8 @@ export default function PresonalDetailsScreen({navigation}) {
                     setValue(item.value);
                     setIsFocus(false);
                     console.log(item)
+                    console.log(item.value)
+                    setStateToAPI(item.label)
                     setState_code(item)
                 }}
             />
@@ -365,7 +373,12 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => setValue_(val)}
+                onChangeText={(val) => 
+                {
+                    setCityToAPI(val) 
+                    setValue_(val)
+                }
+               }
             />
         </View>
         )}
@@ -410,8 +423,24 @@ export default function PresonalDetailsScreen({navigation}) {
         <View style={styles.button}>
             <TouchableOpacity
                 onPress={() => {
-                    let res = update_profile(firstName, lastName, date, checked == 'first' ? 1 : 2, address1, address2, city, state, country, zipcode, phone, 1, navigation)
+                    console.log(firstName)
+                    console.log(lastName)
+                    console.log(date)
+                    console.log(checked)
+                    console.log(address1)
+                    console.log(address2)
+                    console.log(city_to_api)
+                    console.log(state_to_api)
+                    console.log(country)
+                    console.log(zipcode)
+                    navigation.navigate('Profile Survey')
+                    if(firstName != null && lastName != null && date != null && checked != null && address1 != null && address2 != null && city_to_api != null && state_to_api != null && country != null && zipcode != null){
+                        let res = update_profile(firstName, lastName, date, checked == 'first' ? 1 : 2, address1, address2, city_to_api, state_to_api, country, zipcode, phone, 1, navigation)
                         console.log(res)
+                    }
+                    else{
+                        alert('Please fill all the entries. Phone number is optional')
+                    }
                     }}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C', 

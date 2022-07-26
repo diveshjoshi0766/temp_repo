@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    ScrollView
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -42,7 +43,7 @@ export default function ChangePasswordScreen({navigation}) {
     const [confPassSec, setConfPassSec] = useState(true)
 
 
-    return (
+    return (<ScrollView>
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -67,7 +68,6 @@ export default function ChangePasswordScreen({navigation}) {
                 }]}
                 autoCapitalize="none"
                 onChangeText={(val) => setCurrentPassword(val)}
-                onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
                 secureTextEntry={curr_pass_sec} 
             />
             <TouchableOpacity onPress={() => {set_curr_pass_sec(!curr_pass_sec)}}>
@@ -165,7 +165,7 @@ export default function ChangePasswordScreen({navigation}) {
             </TouchableOpacity>
         </View>
     </Animatable.View>
-  </View>
+  </View></ScrollView>
 );
 }
 

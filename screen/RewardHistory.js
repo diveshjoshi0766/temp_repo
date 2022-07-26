@@ -64,7 +64,7 @@ export default function RewardHistory({navigation}) {
         comments && comments.map((ele, val) => {
             return(
                 <View style={styles.products} key={val}>
-            <View style={[styles.center, {width: "50%", padding: 5}]}>
+            <View style={[styles.center, {width: "50%", paddingTop: 5}]}>
                 <View style={{alignItems: 'center', marginTop: 0}}>
                     <Image
                         style={[styles.stretch]}
@@ -76,7 +76,7 @@ export default function RewardHistory({navigation}) {
             <View style={styles.center}>
                 {/* <Text style={{textAlign: 'center', fontWeight: 'bold'}}>{ele.mode_name}</Text> */}
                 <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Redeem Points</Text> : {ele.redeem_points}</Text>
-                <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Voucher worth</Text> : {ele.worth}</Text>
+                <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Voucher worth</Text> : {ele.currency_sign} {ele.worth}</Text>
                 <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Trans ID</Text> : {ele.transaction_id}</Text>
                 <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Date</Text> : {ele.request_date}</Text>
                 <Text style={[styles.reward_his_text,{}]}><Text style={{fontWeight: '600'}}>Status</Text> : {ele.status}</Text>
@@ -155,10 +155,7 @@ const styles = StyleSheet.create({
     footer: {
         flex: 1,
         backgroundColor: 'rgb(235 235 235)',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
     },
     text_header: {
         color: '#fff',
@@ -214,9 +211,10 @@ const styles = StyleSheet.create({
         fontWeight: "500",
     },
     center :{
-        justifyContent: 'center', //Centered vertically
+        // justifyContent: 'center', //Centered vertically
         // alignItems: 'center', // Centered horizontally
         flex:1, 
+        paddingTop: 5,
     },
     points: {
         display:'flex', 

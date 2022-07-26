@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { View, Platform } from 'react-native';
+import WebView from 'react-native-webview';
 
 export default function FAQs () {
 
