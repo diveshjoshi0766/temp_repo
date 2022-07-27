@@ -56,8 +56,8 @@ export default function UnsubscribeReason({navigation}) {
             <Text style={{fontWeight: 'bold', fontSize: normalize(20), marginTop: 10}}>You will be missed!?</Text>
 
             {/* Question */}
-            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>You are requesting to Unsubscribe/opt-out from receiving email survey invitations, marketing message and notices from SurveyOptimus.</Text>
-            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15)}}>Please take a monument to tell us why you no longer wish to receive email invitations, marketing messagae and notices:</Text>
+            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), lineHeight: 21,}}>You are requesting to Unsubscribe/opt-out from receiving email survey invitations, marketing message and notices from SurveyOptimus.</Text>
+            <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), lineHeight: 21,}}>Please take a monument to tell us why you no longer wish to receive email invitations, marketing messagae and notices:</Text>
 
             <TouchableOpacity style={[styles.action, {backgroundColor: number  == 1 ? "#378C3C" : "#ffffff"}]} onPress={()=>{setSelect(!select); setNumber(1)}}>
                 <Text style={styles.option}>I receive too many emails and messages from you</Text>
@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
     },
     text_header: {
         color: '#fff',

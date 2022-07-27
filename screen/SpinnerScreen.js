@@ -277,7 +277,6 @@ const styles = StyleSheet.create({
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 20,
-        padding: 10,
     },
     text_box_black_header: {
         color: '#fff', 
@@ -290,7 +289,7 @@ const styles = StyleSheet.create({
         color: '#fff', 
         // fontWeight: '500',
         textAlign: "center", 
-        fontSize: normalize(30),
+        fontSize: normalize(28),
     },
     items:{
         display:'flex', 

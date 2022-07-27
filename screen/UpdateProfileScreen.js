@@ -63,7 +63,7 @@ export default function UpdateProfileScreen({navigation}) {
     const [firstName, setFirstName] = useState(comments && comments.Results.firstname)
     const [lastName, setLastName] = useState("")
     const [isSelected, setSelection] = useState(false);
-    const [checked, setChecked] = React.useState('first');
+    const [checked, setChecked] = useState("");
 
     const [date, setDate] = useState()
     const [displaymode, setMode] = useState('date');
@@ -109,9 +109,15 @@ export default function UpdateProfileScreen({navigation}) {
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
+    const [datestr, strdatestr] = useState('Date of birth')
+    let datestring = "Date of Birth"
     const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
+        console.log(date)
+        
         setDate(date)
+        datestring = date.getDate()  + "-" + (date.getMonth()+1) + "-" + date.getFullYear()
+        console.log(datestring)
+        strdatestr(datestring)
         console.log(date)
         hideDatePicker();
     };
@@ -121,6 +127,7 @@ export default function UpdateProfileScreen({navigation}) {
 
 
     return (
+        <ScrollView>
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -128,7 +135,8 @@ export default function UpdateProfileScreen({navigation}) {
             backgroundColor: "#f0f0f0"
         }]}
     >
-    <Text style={{fontSize: normalize(20)}}>Presonal Details</Text>
+    <Text style={{fontSize: normalize(20), color: '#378C3C', 
+        marginTop: normalize(15),}}>Presonal Details</Text>
         {
                 comments && comments.Results ? 
             <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', marginTop: 0}}>
@@ -188,8 +196,8 @@ export default function UpdateProfileScreen({navigation}) {
         <TouchableOpacity
         onPress={showDatePicker}
         >
-        <View >
-            <Text style={{paddingLeft: 4}}>Select date of Birth</Text>
+         <View >
+            <Text style={{paddingLeft: 4}}>{datestr}</Text>
             {/* <Image source={require('../assets/date.png')} size={{height: 10, width: 10}}/>  */}
         </View>
         </TouchableOpacity>
@@ -197,31 +205,35 @@ export default function UpdateProfileScreen({navigation}) {
             isVisible={isDatePickerVisible}
             mode="date"
             onConfirm={handleConfirm}
+            onChange={(event, date) => handleConfirm(date)}
             onCancel={hideDatePicker}
         />
-        
         </View>
-
+        
 
         <View style={[styles.action]}>
-            
-            <Text style={[styles.textInput, {
-                    color: colors.text
-                }]}>Gender</Text>
-            <RadioButton
-                value="first"
-                label="Male"
-                status={ checked === 'first' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('first')}
-            />
-            <Text>Male</Text>
-            <RadioButton
-                value="second"
-                label="Female"
-                status={ checked === 'second' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('second')}
-            />
-            <Text>Female</Text>
+            <View style={{flex: 1, flexDirection: "row",justifyContent: "center", alignItems: "center"}}>
+                <Text style={[styles.textInput, {
+                        color: colors.text, flex: 0.4
+                    }]}>Gender</Text>
+                <View style={{flexDirection: "row", flex: 0.6, alignItems: "center"}}>
+                    <RadioButton
+                        value="first"
+                        label="Male"
+                        status={ checked === 'first' ? 'checked' : 'unchecked' }
+                        buttonTextActiveStyle = {{color: "#378C3C"}}
+                        onPress={() => setChecked('first')}
+                    />
+                    <Text>Male</Text>
+                    <RadioButton
+                        value="second"
+                        label="Female"
+                        status={ checked === 'second' ? 'checked' : 'unchecked' }
+                        onPress={() => setChecked('second')}
+                    />
+                    <Text>Female</Text>
+                </View>
+            </View>
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
@@ -269,7 +281,7 @@ export default function UpdateProfileScreen({navigation}) {
         </View>
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder={comments && comments.Results.country}
+                placeholder={comments && comments.Results.countryName}
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
@@ -340,6 +352,7 @@ export default function UpdateProfileScreen({navigation}) {
 
     </Animatable.View>
   </View>
+  </ScrollView>
 );
 }
 

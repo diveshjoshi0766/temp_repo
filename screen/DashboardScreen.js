@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
         color: '#fff', 
         // fontWeight: '500',
         textAlign: "center", 
-        fontSize: normalize(30),
+        fontSize: normalize(28),
     },
     product_sml_icon_1:{
         height: 30,

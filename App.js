@@ -3,11 +3,11 @@ import React, {useContext} from 'react';
 import { Button, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignInScreen from './screen/SignInScreen';
+// import SignInScreen from './screen/SignInScreen';
 // import DefaultScreen from './screen/DefaultScreen';
 // import ForgotPasswordScreen from './screen/ForgotPasswordScreen';
 // import SignUpScreen from './screen/SignUpScreen';
-import PresonalDetailsScreen from './screen/PresonalDetailsScreen';
+// import PresonalDetailsScreen from './screen/PresonalDetailsScreen';
 // import ProfileSurvey1 from './screen/ProfileSurvey1';
 // import ProfileSurvey2 from './screen/ProfileSurvey2';
 // import ProfileSurvey3 from './screen/ProfileSurvey3';
@@ -39,25 +39,25 @@ import Navigation from './component/Navigation';
 // import MyTabScreen from './screen/MyTabScreen';
 
 import { AuthProvider } from './context/AuthContext';
-import DashboardScreen from './screen/DashboardScreen';
-import SpinnerScreen from './screen/SpinnerScreen';
-import RewardScreen from './screen/RewardScreen';
-import RewardHistory from './screen/RewardHistory';
+// import DashboardScreen from './screen/DashboardScreen';
+// import SpinnerScreen from './screen/SpinnerScreen';
+// import RewardScreen from './screen/RewardScreen';
+// import RewardHistory from './screen/RewardHistory';
 // import DefaultScreen from './screen/DefaultScreen'
-import UserActivityScreen from './screen/UserActivitScreen';
-import MyAccountScreen from './screen/MyAccountScreen';
+// import UserActivityScreen from './screen/UserActivitScreen';
+// import MyAccountScreen from './screen/MyAccountScreen';
 // import UpdateProfileScreen from './screen/UpdateProfileScreen';
-import ChangePasswordScreen from './screen/ChangePasswordScreen';
-import CommunicationOptionScreen from './screen/CommunicationOptionScreen';
-import UnsubscribeReason from './screen/UnsubscribeReason';
-import PrivacyPolicyScreen from './screen/PrivacyPolicyScreen';
-import DefaultScreen from './screen/DefaultScreen';
-import SignUpScreen from './screen/SignUpScreen';
-import ForgotPasswordScreen from './screen/ForgotPasswordScreen';
+// import ChangePasswordScreen from './screen/ChangePasswordScreen';
+// import CommunicationOptionScreen from './screen/CommunicationOptionScreen';
+// import UnsubscribeReason from './screen/UnsubscribeReason';
+// import PrivacyPolicyScreen from './screen/PrivacyPolicyScreen';
+// import DefaultScreen from './screen/DefaultScreen';
+// import SignUpScreen from './screen/SignUpScreen';
+// import ForgotPasswordScreen from './screen/ForgotPasswordScreen';
 import ProfileSurvey1 from './screen/ProfileSurvey1';
-import ProfileSurvey2 from './screen/ProfileSurvey2';
-import OnboardingScreen from './screen/OnBoardingScreen';
-import LoadingScreen from './screen/LoadingScreen';
+// import ProfileSurvey2 from './screen/ProfileSurvey2';
+// import OnboardingScreen from './screen/OnBoardingScreen';
+// import LoadingScreen from './screen/LoadingScreen';
 import EndOfProfileSurveyScreen from './screen/EndOfProfileSurveyScreen';
 //testing fonts
 // import fontTest from './screen/FontTest';
@@ -81,8 +81,8 @@ export default function App({ navigation }) {
 //     <AuthProvider>
 //       <NavigationContainer>
 //         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-//           <Stack.Screen name="Home" component={PresonalDetailsScreen } />
-//           <Stack.Screen name="Details" component={PresonalDetailsScreen } />
+//           <Stack.Screen name="Home" component={ProfileSurvey1 } />
+//           <Stack.Screen name="End Of Profile Survey Screen" component={EndOfProfileSurveyScreen } />
 //         </Stack.Navigator>
 //       </NavigationContainer>
 //     </AuthProvider>

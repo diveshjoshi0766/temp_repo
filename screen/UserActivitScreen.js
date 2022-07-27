@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         color: '#fff', 
         // fontWeight: '500',
         textAlign: "center", 
-        fontSize: normalize(30),
+        fontSize: normalize(28),
     },
     footer: {
         flex: 1,

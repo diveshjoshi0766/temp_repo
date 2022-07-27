@@ -103,6 +103,7 @@ const Navigation = () => {
             options={{headerStyle: {
                 backgroundColor: '#378C3C'
               },
+              title: 'Communication Options',
               headerTitleStyle: {
                 color: 'white'
               },
@@ -134,6 +135,7 @@ const Navigation = () => {
             options={{headerStyle: {
               backgroundColor: '#378C3C'
             },
+            title:"Unsubscribe Reason",
             headerTitleStyle: {
               color: 'white'
             }
@@ -167,6 +169,7 @@ const Navigation = () => {
             options={{headerStyle: {
               backgroundColor: '#378C3C'
             },
+            title: 'Privacy Screen',
             headerTitleStyle: {
               color: 'white'
             }
@@ -178,6 +181,7 @@ const Navigation = () => {
             options={{headerStyle: {
               backgroundColor: '#378C3C'
             },
+            title: 'FAQs',
             headerTitleStyle: {
               color: 'white'
             }
@@ -189,6 +193,7 @@ const Navigation = () => {
             options={{headerStyle: {
               backgroundColor: '#378C3C'
             },
+            title: 'Terms And Conditions',
             headerTitleStyle: {
               color: 'white'
             }
@@ -201,6 +206,7 @@ const Navigation = () => {
             options={{headerStyle: {
               backgroundColor: '#378C3C'
             },
+            title: 'Update Profile',
             headerTitleStyle: {
               color: 'white'
             }
@@ -218,7 +224,7 @@ const Navigation = () => {
           />
           <Stack.Screen
             name="Update Profile Survey"
-            component={ProfileSurvey2}
+            component={ProfileSurvey1}
             options={{headerStyle: {
               backgroundColor: '#378C3C'
             },
@@ -297,6 +303,7 @@ const Navigation = () => {
               options={{headerStyle: {
                 backgroundColor: '#378C3C'
               },
+              title: 'Terms And Conditions',
               headerTitleStyle: {
                 color: 'white'
               }
@@ -314,6 +321,7 @@ const Navigation = () => {
               options={{headerStyle: {
                 backgroundColor: '#378C3C'
               },
+              title: 'Communication Options',
               headerTitleStyle: {
                 color: 'white'
               }
@@ -326,6 +334,7 @@ const Navigation = () => {
               options={{headerStyle: {
                 backgroundColor: '#378C3C'
               },
+              title: 'Deactivate Confirmation',
               headerTitleStyle: {
                 color: 'white'
               }
@@ -362,6 +371,7 @@ const Navigation = () => {
               options={{headerStyle: {
                 backgroundColor: '#378C3C'
               },
+              title: 'Privacy Policy',
               headerTitleStyle: {
                 color: 'white'
               }
@@ -374,6 +384,7 @@ const Navigation = () => {
               options={{headerStyle: {
                 backgroundColor: '#378C3C'
               },
+              title: 'FAQs',
               headerTitleStyle: {
                 color: 'white'
               }
@@ -381,7 +392,7 @@ const Navigation = () => {
 
             />
             <Stack.Screen
-              name="Update Profile Screen"
+              name="Update Profile"
               component={UpdateProfileScreen}
               options={{headerStyle: {
                 backgroundColor: '#378C3C'
@@ -399,7 +410,7 @@ const Navigation = () => {
             />
             <Stack.Screen
               name="Update Profile Survey"
-              component={ProfileSurvey2}
+              component={ProfileSurvey1}
               options={{headerStyle: {
                 backgroundColor: '#378C3C'
               },

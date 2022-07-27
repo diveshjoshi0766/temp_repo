@@ -88,7 +88,7 @@ export default function CommunicationOptionScreen({navigation}) {
 
         <View style={[styles.action_2, {backgroundColor: '#ffffff', justifyContent: 'space-between'}]}>
             <Text style={{fontWeight: 'bold', fontSize: normalize(18),}}>Deactivate Account</Text>
-            <Text style={{marginTop: 6,fontSize: normalize(15), width: "90%", }}>Deaccounting your account will disable your profile from SurveyOptimus.</Text>
+            <Text style={{marginTop: 6,fontSize: normalize(15), width: "90%", lineHeight:21}}>Deaccounting your account will disable your profile from SurveyOptimus.</Text>
             <View style={[styles.button]}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Deactivation Confirmation Screen')}
@@ -110,9 +110,9 @@ export default function CommunicationOptionScreen({navigation}) {
         <ScrollView>
             <View style={styles.modal_}>
                 <Text style={{fontWeight: "600", fontSize: normalize(18)}}>Are you sure you want to Unsubscribe Vimal21?</Text>
-                <Text style={styles.modal_sub_heading}>Unsubscribeing means you will no longer receive Any email messages from SurveyOptimus which includes:</Text>
+                <Text style={[styles.modal_sub_heading, {lineHeight:21}]}>Unsubscribeing means you will no longer receive Any email messages from SurveyOptimus which includes:</Text>
                 <View>
-                <Text style={styles.modal_points}>1. Invitations to survey</Text>
+                <Text style={[styles.modal_points, {marginTop: 10}]}>1. Invitations to survey</Text>
                 <Text style={styles.modal_points}>2. Redeem points request from us</Text>
                 <Text style={styles.modal_points}>3. Newsletters and offers</Text>
                 </View>
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
         marginTop: SCREEN_HEIGHT*0.21,
         backgroundColor: '#fff', 
         padding: 10,
+        paddingHorizontal: 20,
         borderRadius: 10,
     },
     modal_btn:{
@@ -215,7 +216,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
     },
     text_header: {
         color: '#fff',

@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Platform, 
-    PixelRatio
+    PixelRatio,
+    ScrollView
 } from "react-native";
 import {Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
@@ -34,6 +35,8 @@ export function normalize(size) {
 export default function DeactivationConfirmation({navigation}) {
 
     return (
+        
+    <ScrollView >
     <View style={styles.container}>
     <Animatable.View 
         animation="fadeInUpBig"
@@ -56,6 +59,7 @@ export default function DeactivationConfirmation({navigation}) {
         
     </Animatable.View>
   </View>
+  </ScrollView>
     );
   }
 
@@ -89,7 +93,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
     },
     text_header: {
         color: '#fff',
@@ -112,6 +115,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         shadowRadius: 5,
         shadowOpacity: 1,
+        marginTop: normalize(15),
     },
     actionError: {
         flexDirection: 'row',

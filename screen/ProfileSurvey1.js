@@ -28,11 +28,56 @@ export function normalize(size) {
     }
 }
 
+
+const useFetch = (userInfo) => {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [data_arr, setData_arr] = useState(null);
+    const [ques_idx, setQues_idx] = useState(null)
+  
+    // Similar to componentDidMount and componentDidUpdate:
+    let temp_data_arr = null;
+    useEffect(async () => {
+      const response = await fetch(`${BASE_URL}/getCountryQuestion/100/396`);
+      const data = await response.json();
+      temp_data_arr = Object.values(data.Results)
+    if(userInfo.Result.answerList.length > 0){
+        for(let i=0;i<userInfo.Result.answerList.length;i++){
+            let obj = userInfo.Result.answerList[i]
+            let ques_id_ = obj.ques_id
+            let ans_id_ = obj.ans_id
+            let ans_id_arr = ans_id_.split(',')
+            for(let j=0;j<temp_data_arr.length;j++){
+                if(temp_data_arr[j].AnswerList[0].profile_question_id == ques_id_){
+                    for(let k=0;k<temp_data_arr[j].AnswerList.length;k++){
+                        for(let x=0;x<ans_id_arr.length;x++){
+                            if(temp_data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
+                                temp_data_arr[j].AnswerList[k].is_answered = true
+                                console.log("HIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+      setData_arr(Object.values(data.Results))
+      setQues_idx(Object.keys(data.Results))
+      console.log(data_arr)
+    }, []);
+
+    console.log("inside FETCH Function")
+  
+    return {ques_idx, data_arr};
+};
+
+
 export default function ProfileSurvey1({navigation}) {
     
     const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
-    console.log(userInfo && userInfo)
+    console.log(userInfo && userInfo) 
     console.log(panelist_basic_details && panelist_basic_details)
     if(panelist_basic_details && panelist_basic_details){
         console.log(panelist_basic_details.Results.profilePercentage)
@@ -48,58 +93,83 @@ export default function ProfileSurvey1({navigation}) {
     }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
-    const [data, setData] = useState(null)
+    // const [data, setData] = useState(null)
     const [ques, setQues] = useState(0);
     const [ans, setAns] = useState([])
-    const [ques_idx, setQues_idx] = useState(null)
-    useEffect(async () => {
+    
+    
+    const {ques_idx, data_arr} = useFetch(userInfo)
+    console.log(ques_idx)
+    console.log(data_arr)
+    // useEffect(async () => {
 
-        setLoading(true)
-        axios
-        .get(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
-        .then(res => {
-            let responce_data = res.data;
-            console.log()
-            setData(Object.values(responce_data.Results))
-            setQues_idx(Object.keys(responce_data.Results))
-            
-            setLoading(false);
-        })
-        .catch(e => {
-        console.log(`register error ${e}`);
-        setLoading(false);
-        });
-        return () => {
-        };
+    //     setLoading(true)
+    //     axios
+    //     // .get(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
+    //     .get(`${BASE_URL}/getCountryQuestion/100/396`)
+    //     .then(res => {
+    //         let responce_data = res.data;
+    //         console.log()
+    //         setData(Object.values(responce_data.Results))
+    //         data_arr = Object.values(responce_data.Results)
+    //         
+    //         console.log(data)
+    //         console.log("Inside USEEffect")
+    //         setLoading(false);
+    //     })
+    //     .catch(e => {
+    //     console.log(`register error ${e}`);
+    //     setLoading(false);
+    //     });
+    //     return () => {
+    //     };
   
-    }, []);
-    console.log(ques)
+    // }, []);
 
-    let data_arr = null
-    if(data && data && userInfo.Result && userInfo.Result.answerList) {
-        data_arr = data
-        if(userInfo.Result.answerList.length > 0){
-            for(let i=0;i<userInfo.Result.answerList.length;i++){
-                let obj = userInfo.Result.answerList[i]
-                let ques_id_ = obj.ques_id
-                let ans_id_ = obj.ans_id
-                let ans_id_arr = ans_id_.split(',')
-                for(let j=0;j<data_arr.length;j++){
-                    if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
-                        for(let k=0;k<data_arr[j].AnswerList.length;k++){
-                            for(let x=0;x<ans_id_arr.length;x++){
-                                if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
-                                    data_arr[j].AnswerList[k].is_answered = true
-                                    console.log("hittttttttttttttttttt")
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    // let data_arr = null
+    // useEffect(async() => {
+    //     console.log("hello")
+    //     data_arr = data
+    //     console.log(data_arr)
+    // },[data])
+    
+    // if(data && data){
+    //     console.log("hello")
+    //     data_arr = data
+    // }
+
+    // if(data && data && userInfo.Result && userInfo.Result.answerList ) {
+    //     only_one_time = true;
+    //     data_arr = data
+    //     if(userInfo.Result.answerList.length > 0){
+    //         for(let i=0;i<userInfo.Result.answerList.length;i++){
+    //             let obj = userInfo.Result.answerList[i]
+    //             let ques_id_ = obj.ques_id
+    //             let ans_id_ = obj.ans_id
+    //             let ans_id_arr = ans_id_.split(',')
+    //             for(let j=0;j<data_arr.length;j++){
+    //                 if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
+    //                     for(let k=0;k<data_arr[j].AnswerList.length;k++){
+    //                         for(let x=0;x<ans_id_arr.length;x++){
+    //                             if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
+    //                                 data_arr[j].AnswerList[k].is_answered = true
+    //                                 console.log("HIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+    //                                 setData([...data, data[j].AnswerList[k].is_answered = true])
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // console.log(data_arr && data_arr)
+    let num_of_ques = null;
+    if(data_arr && data_arr){
+        num_of_ques = data_arr.length
     }
-
+    console.log(num_of_ques)
     const move_to_next = () => {
         let flag = false
         for(let i=0;i<data_arr[ques].AnswerList.length;i++){
@@ -107,13 +177,16 @@ export default function ProfileSurvey1({navigation}) {
                 flag == true
             }
         }
-        if(!flag){
+        if(flag){
             setQues(ques+1)
             Animated.timing(progress, {
                 toValue: ques+1,
                 duration: 1000,
                 useNativeDriver: false
             }).start();
+        }
+        else{
+            alert("Please select option to continue")
         }
         return flag;
     }
@@ -124,93 +197,236 @@ export default function ProfileSurvey1({navigation}) {
     //so which one to take
 
     const handle_option_press=(ques_id, ans_id, ans_idx)=>{
-        data_arr[ques].AnswerList[ans_idx].is_answered = true;
-        
-        //make every option false except answer one
+        console.log("Single select pressed");
+        console.log(ans_id)
+        console.log(data_arr[ques].AnswerList[ans_idx])
+        // for(let i=0;i<data_arr[ques].AnswerList.length;i++){
+        //     if(data_arr[ques].AnswerList[ans_idx].is_answered == true && i != ans_idx){
+        //         data_arr[ques].AnswerList[ans_idx].is_answered = false
+        //         console.log(data_arr)
+        //     }
+        // }
+        // this will deactivate the current question if answered and load the current question again
         for(let i=0;i<data_arr[ques].AnswerList.length;i++){
-            if(data_arr[ques].AnswerList[i].is_answered &&  i != ans_idx){
+            if(data_arr[ques].AnswerList[i].is_answered == true && i != ans_idx){
                 data_arr[ques].AnswerList[i].is_answered = false
+                console.log(data_arr)
             }
         }
-        // if user has not selected any options in current question state
-        let flag = false;
-        for(let i=0;i<data_arr[ques].AnswerList.length;i++){
-            if(data_arr[ques].AnswerList[i].is_answered){
-                flag = true;
+            console.log(data_arr)
+            if(data_arr[ques].AnswerList[ans_idx].is_answered == true){
+                data_arr[ques].AnswerList[ans_idx].is_answered = false
+                setQues(ques)
             }
-        }
-        if(!flag){
-            alert("Please select the updated option")
-        }
-        else{
+            data_arr[ques].AnswerList[ans_idx].is_answered = true;
+            
+            //make every option false except answer one
+            for(let i=0;i<data_arr[ques].AnswerList.length;i++){
+                if(data_arr[ques].AnswerList[i].is_answered &&  i != ans_idx){
+                    data_arr[ques].AnswerList[i].is_answered = false
+                }
+            }
+            // if user has not selected any options in current question state
+            let flag = false;
+            for(let i=0;i<data_arr[ques].AnswerList.length;i++){
+                if(data_arr[ques].AnswerList[i].is_answered){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                alert("Please select any options")
+            }
+            else{
             console.log("here ans state is updated")
-            let len = data.length
+            let len = data_arr.length
             let temp_arr = ans;
             let temp = true;
             //checking whether the ans state already contains the present ques_id or not
-            for(let i=0;i<temp_arr.length;i++){
-                if(temp_arr[i].ques_id == ques_id){
-                    let obj = {
-                        ques_id: ques_id,
-                        ans_id: ans_id
-                    }
-                    setQues(ques+1)
-                    setAns([...ans, obj]);
-                    if(ques == (len-1)){
-                        // AsyncStorage.setItem('answers', JSON.stringify(ans));
-                        handleShowResult()
-                        console.log("size equal")
-                    }            
+            // for(let i=0;i<temp_arr.length;i++){
+            //     if(temp_arr[i].ques_id == ques_id){
+            //         let obj = {
+            //             ques_id: ques_id,
+            //             ans_id: ans_id
+            //         }
+            //         setQues(ques+1)
+            //         setAns([...ans, obj]);
+            //         if(ques == (len-1)){
+            //             // AsyncStorage.setItem('answers', JSON.stringify(ans));
+            //             console.log("size equal")
+            //             handleShowResult()
+            //         }            
+            //     }
+            // }
+            
+
+            if(temp_arr.length == 0){
+                let obj = {
+                    ques_id: ques_id,
+                    ans_id: ans_id
                 }
+                setQues(ques+1)
+                setAns(temp_arr);
+                console.log(ans)
             }
-            if(temp){
-                console.log("I am ifdsafasfsafdsafsaf")
-                data_arr[ques].AnswerList[ans_idx].is_answered = true
-                console.log(len)
-                console.log(ques)
+            if(ques != (num_of_ques-1)){
                 let obj = {
                     ques_id: ques_id,
                     ans_id: ans_id
                 }
                 setQues(ques+1)
                 setAns([...ans, obj]);
-                if(ques == (len-1)){
-                    // AsyncStorage.setItem('answers', JSON.stringify(ans));
-                    handleShowResult()
-                    console.log("size equal")
+                console.log(ques)
+            }
+            if(ques == (num_of_ques-1)){
+                let obj = {
+                    ques_id: ques_id,
+                    ans_id: ans_id
                 }
+                setAns([...ans, obj]);
+
+                // AsyncStorage.setItem('answers', JSON.stringify(ans));
+                // handleShowResult()
+                // console.log("size equal")
+                let arr = ans;
+                navigation.navigate('End Of Profile Survey Screen')
+            for(let i=0;i<arr.length;i++){
+                console.log(arr[i].ques_id)
+            }
+            let final_ans = []
+
+            for(let i=0;i<data_arr.length;i++){
+                if(data_arr[i].Question.question_type_id == 2){
+                    for(let j=0;j<data_arr[i].AnswerList.length;j++){
+                        if(data_arr[i].AnswerList[j].is_answered){
+                            let obj = {
+                                ques_id: data_arr[i].AnswerList[j].profile_question_id,
+                                ans_id: data_arr[i].AnswerList[j].answer_code
+                            }
+                            final_ans.push(obj)
+                            console.log(final_ans)
+                            continue;
+                        }
+                    
+                    }
+                }else{
+                    let temp_ans_str = ""
+                    let ques_code = null
+                    for(let j=0;j<data_arr[i].AnswerList.length;j++){
+                        if(data_arr[i].AnswerList[j].is_answered){
+                            temp_ans_str += data_arr[i].AnswerList[j].answer_code
+                            ques_code = data_arr[i].AnswerList[j].profile_question_id
+                        }
+                    }
+                    let obj = {
+                        ques_id: ques_code,
+                        ans_id: temp_ans_str
+                    }
+                    final_ans.push(obj)
+                    console.log(final_ans)
+                }
+            }
+
+            //old selection of answers
+            // for(let i=0;i<arr.length;i++){
+            //     for(let j=i+1;j<arr.length-1;j++){
+            //         console.log(i)
+            //         console.log(arr[i])
+            //         console.log(j)
+            //         console.log(arr[j])
+            //         if(arr[i].ques_id == arr[j].ques_id){
+            //             console.log("HITTTTTTTTT")
+            //             arr[i] = null;
+            //         }
+            //     }
+            // }
+            // console.log(arr)
+            // let counter = 0;
+            // for(let i=0;i<arr.length;i++){
+            //     if(arr[i]!=null){
+            //         final_ans[counter] = arr[i]
+            //         counter++;
+            //     }
+            // }
+            // arr = []
+            console.log(final_ans)
+            AsyncStorage.setItem('ans_obj', JSON.stringify(final_ans));
+            // console.log(ans_obj)
+            panelist_profiling_ans(final_ans)
+            console.log("here")
+            setAns([])
+            navigation.navigate('End Of Profile Survey Screen')
+        
+                }
+                
+
                 Animated.timing(progress, {
                     toValue: ques+1,
                     duration: 1000,
                     useNativeDriver: false
-                }).start();          
-            }
-        }
+                }).start();   
+
+                //if answer is already selected
+                // if(temp){
+                //     console.log("I am ifdsafasfsafdsafsaf")
+                //     data_arr[ques].AnswerList[ans_idx].is_answered = true
+                //     console.log(len)
+                //     console.log(ques)
+                //     let obj = {
+                //         ques_id: ques_id,
+                //         ans_id: ans_id
+                //     }
+                //     setQues(ques+1)
+                //     setAns([...ans, obj]);
+                //     if(ques == (len-1)){
+                //         // AsyncStorage.setItem('answers', JSON.stringify(ans));
+                //         handleShowResult()
+                //         console.log("size equal")
+                //     }
+                //     Animated.timing(progress, {
+                //         toValue: ques+1,
+                //         duration: 1000,
+                //         useNativeDriver: false
+                //     }).start();          
+                // }
+    }
     }
     
     const [multi_ans, setMulti_ans] = useState("");
     const [isSelected, setIsSelected] = useState([])
-
+    const [toggle, setToggle] = useState(false)
     let ans_selected = []
     const handle_multiple_select = (ques_id, ans_id, ans_idx) => {
+        console.log(ques) 
+        console.log(ans_idx) 
+        if(data_arr[ques].AnswerList[ans_idx].is_answered == true){
+            console.log(data_arr[ques].AnswerList[ans_idx])
+            data_arr[ques].AnswerList[ans_idx].is_answered = false
+            console.log(data_arr[ques].AnswerList[ans_idx])
+            setToggle(!toggle)
+        }
+        else{
         // ans_selected.push(ans_id)
-        console.log(data_arr[ques].AnswerList[ans_idx] && data_arr[ques].AnswerList[ans_idx])
-        data_arr[ques].AnswerList[ans_idx].is_answered = !data_arr[ques].AnswerList[ans_idx].is_answered;
+        console.log(data_arr[ques].AnswerList[ans_idx])
+        data_arr[ques].AnswerList[ans_idx].is_answered = true
         console.log(ans_selected)
+        console.log(data_arr)
         let temp_arr = isSelected
         let flag = true;
-        for(let i=0;i<temp_arr.length;i++){
-            if(temp_arr[i] == ans_id){
-                console.log("I am here")
-                data_arr[ques].AnswerList[ans_idx].is_answered = false
-                flag = false;
-            }
-        }
+        //here I am putting ans ID
+        // for(let i=0;i<temp_arr.length;i++){
+        //     if(temp_arr[i] == ans_id){
+        //         console.log("I am here")
+        //         data_arr[ques].AnswerList[ans_idx].is_answered = false
+        //         flag = false;
+        //     }
+        // }
         if(flag){
             setIsSelected([...isSelected, ans_id])
             setMulti_ans(multi_ans+ans_id+",")
             console.log(multi_ans)
             console.log(isSelected)
+        }
         }
     }
 
@@ -386,21 +602,22 @@ export default function ProfileSurvey1({navigation}) {
                         )
                     }
                     else{
+                        console.log(data_arr[ques].AnswerList[val])
                         return (
                             <View key={val}>
                                 <TouchableOpacity key={ele.answer_code} onPress={() => {
-                                    console.log(ele.answer_code)
-                                    let flag = false;
-                                    for(let i=0;i<ans_selected.length;i++){
-                                        if(ans_selected[i] == ele.answer_code){
-                                            ans_selected[i] = null;
-                                            flag = true
-                                        }
-                                    }
-                                    if(flag == false){
-                                        ans_selected.push(ele.answer_code)
-                                    }
-                                    console.log(ans_selected)
+                                    // console.log(ele.answer_code)
+                                    // let flag = false;
+                                    // for(let i=0;i<ans_selected.length;i++){
+                                    //     if(ans_selected[i] == ele.answer_code){
+                                    //         ans_selected[i] = null;
+                                    //         flag = true
+                                    //     }
+                                    // }
+                                    // if(flag == false){
+                                    //     ans_selected.push(ele.answer_code)
+                                    // }
+                                    // console.log(ans_selected)
                                     handle_multiple_select(ele.profile_question_id, ele.answer_code, val)}}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
                                         <Text style={{ fontSize: normalize(15), color: ele.is_answered ? '#ffffff' : '#000000'}}>{ele.description}</Text>
