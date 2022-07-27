@@ -8,7 +8,7 @@ import {
     Platform, 
     PixelRatio,
     ScrollView,
-    Animated,
+    Animated
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "../components/Logo";
@@ -74,22 +74,9 @@ const useFetch = (userInfo) => {
 
 
 export default function ProfileSurvey2({navigation}) {
+    
     const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
-    console.log(userInfo && userInfo) 
-    console.log(panelist_basic_details && panelist_basic_details)
-    if(panelist_basic_details && panelist_basic_details){
-        console.log(panelist_basic_details.Results.profilePercentage)
-        if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
-            navigation.navigate('Home')
-        }
-    }
-    if(userInfo && userInfo){
-        console.log(userInfo.Result.profilePercentage)
-        if(parseInt(userInfo.Result.profilePercentage) == 100){
-            navigation.navigate('Home')
-        }
-    }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
     // const [data, setData] = useState(null)
@@ -550,8 +537,8 @@ export default function ProfileSurvey2({navigation}) {
         console.log("here")
         setAns([])
         navigation.navigate('End Of Profile Survey Screen')
-    }    
-        if(data_arr == null){
+    }
+    if(data_arr == null){
         return (
             <Text></Text>
         )
@@ -569,7 +556,7 @@ export default function ProfileSurvey2({navigation}) {
             {
                 data_arr[ques] && data_arr[ques].Question ?
                 <>
-                    <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(20), fontWeight: 'bold'}}>{data_arr[ques].Question.question_title}</Text> 
+                    <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(16), fontWeight: 'bold'}}>{data_arr[ques].Question.question_title}</Text> 
                 </>  
                 :
                 <View style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
@@ -601,24 +588,23 @@ export default function ProfileSurvey2({navigation}) {
                         )
                     }
                     else{
+                        console.log(data_arr[ques].AnswerList[val])
                         return (
                             <View key={val}>
                                 <TouchableOpacity key={ele.answer_code} onPress={() => {
-                                    console.log(ele.answer_code)
-                                    let flag = false;
-                                    for(let i=0;i<ans_selected.length;i++){
-                                        if(ans_selected[i] == ele.answer_code){
-                                            ans_selected[i] = null;
-                                            flag = true
-                                        }
-                                    }
-                                    if(flag == false){
-                                        ans_selected.push(ele.answer_code)
-                                    }
-                                    console.log(ans_selected)
-                                    
-                                    handle_multiple_select(ele.profile_question_id, ele.answer_code, val)
-                                    }}>
+                                    // console.log(ele.answer_code)
+                                    // let flag = false;
+                                    // for(let i=0;i<ans_selected.length;i++){
+                                    //     if(ans_selected[i] == ele.answer_code){
+                                    //         ans_selected[i] = null;
+                                    //         flag = true
+                                    //     }
+                                    // }
+                                    // if(flag == false){
+                                    //     ans_selected.push(ele.answer_code)
+                                    // }
+                                    // console.log(ans_selected)
+                                    handle_multiple_select(ele.profile_question_id, ele.answer_code, val)}}>
                                     <View style={[styles.action, {backgroundColor: ele.is_answered ? '#378C3C' : '#ffffff'}]}>
                                         <Text style={{ fontSize: normalize(15), color: ele.is_answered ? '#ffffff' : '#000000'}}>{ele.description}</Text>
                                     </View>
@@ -632,15 +618,7 @@ export default function ProfileSurvey2({navigation}) {
             
             {
                 ques == 0 ? 
-                <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}> 
-                    <TouchableOpacity style={[styles.signIn, {backgroundColor: '#378C3C', borderRadius:40, marginLeft: 10 }]} onPress={() => {let ret = move_to_next() 
-                        // if(!ret){alert("Please select one of the above")}
-                    }}>
-                        <Text style={[styles.textSign, {
-                            color: '#fff'
-                        }]}>Next</Text>
-                    </TouchableOpacity>
-                </View> 
+                <></>
                 :
                 data_arr && data_arr[ques] && data_arr[ques].Question.question_type_id == 2 ? 
                 <View style={[styles.button, {display: 'flex', flexDirection: 'row', justifyContent: "center"}]}>
@@ -686,7 +664,8 @@ const styles = StyleSheet.create({
         // alignItems:'center',
         justifyContent:'center',
         width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        height: SCREEN_HEIGHT,
+        marginTop: 20,
     },
     stretch: {
         // width: SCREEN_WIDTH*0.5,
