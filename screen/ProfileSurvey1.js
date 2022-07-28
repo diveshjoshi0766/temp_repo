@@ -30,11 +30,14 @@ export function normalize(size) {
 
 
 const useFetch = (userInfo) => {
+    console.log("Profile Survey 2")
+    console.log("It is during login time and to update profile answers")
+    console.log(userInfo && userInfo) 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [data_arr, setData_arr] = useState(null);
     const [ques_idx, setQues_idx] = useState(null)
-  
+    
     // Similar to componentDidMount and componentDidUpdate:
     let temp_data_arr = null;
     useEffect(async () => {
@@ -75,7 +78,7 @@ const useFetch = (userInfo) => {
 
 export default function ProfileSurvey1({navigation}) {
     
-    const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
+    const {userInfo, panelist_profiling_ans, panelist_basic_details, } = useContext(AuthContext);
 
     console.log(userInfo && userInfo) 
     console.log(panelist_basic_details && panelist_basic_details)
@@ -85,22 +88,25 @@ export default function ProfileSurvey1({navigation}) {
             navigation.navigate('Home')
         }
     }
-    if(userInfo && userInfo){
-        console.log(userInfo.Result.profilePercentage)
-        if(parseInt(userInfo.Result.profilePercentage) == 100){
-            navigation.navigate('Home')
-        }
-    }
+    // if(userInfo && userInfo){
+    //     console.log(userInfo.Result.profilePercentage)
+    //     if(parseInt(userInfo.Result.profilePercentage) == 100){
+    //         navigation.navigate('Home')
+    //     }
+    // }
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
     // const [data, setData] = useState(null)
     const [ques, setQues] = useState(0);
     const [ans, setAns] = useState([])
-    
-    
     const {ques_idx, data_arr} = useFetch(userInfo)
-    console.log(ques_idx)
-    console.log(data_arr)
+
+    // if(userInfo && userInfo){
+    //     {ques_idx, data_arr} = useFetch(userInfo)
+    //     console.log(ques_idx && ques_idx)
+    //     console.log(data_arr  && data_arr)
+    // }
+
     // useEffect(async () => {
 
     //     setLoading(true)
@@ -165,6 +171,7 @@ export default function ProfileSurvey1({navigation}) {
     // }
 
     // console.log(data_arr && data_arr)
+
     let num_of_ques = null;
     if(data_arr && data_arr){
         num_of_ques = data_arr.length

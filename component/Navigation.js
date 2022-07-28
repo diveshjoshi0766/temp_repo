@@ -35,6 +35,7 @@ import OnboardingScreen from '../screen/OnBoardingScreen';
 import { TouchableOpacity } from 'react-native-web';
 import Icon from "react-native-vector-icons/FontAwesome";
 import WebViewScreen from '../screen/WebViewScreen';
+import ProfileSurvey3 from '../screen/ProfileSurvey3';
 
 const Stack = createNativeStackNavigator();
 
@@ -107,14 +108,6 @@ const Navigation = () => {
               headerTitleStyle: {
                 color: 'white'
               },
-            }}
-            navigationOptions = {{
-              headerLeft:(
-                <TouchableOpacity onPress={() => navigation.toggleDrawer()} 
-                    style={{padding:10}}>
-                    <Icon color="#fff" size={27} name='user'/>
-                </TouchableOpacity>
-              )
             }}
             headerLeft={<Icon name="angle-right" color="#fff" size={25} ></Icon>}
           />
@@ -213,6 +206,11 @@ const Navigation = () => {
             }}
           />
           <Stack.Screen
+            name="User Profile Survey"
+            component={ProfileSurvey3}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
             name="Profile Survey"
             component={ProfileSurvey1}
             options={{headerShown: false}}
@@ -281,6 +279,11 @@ const Navigation = () => {
               component={ProfileSurvey1}
               options={{headerShown: false}}
             />
+            <Stack.Screen
+            name="User Profile Survey"
+            component={ProfileSurvey3}
+            options={{headerShown: false}}
+          />
             <Stack.Screen
               name="Change Password"
               component={ChangePasswordScreen}
@@ -418,8 +421,19 @@ const Navigation = () => {
                 color: 'white'
               }
               }}
-
             />
+            {/* <Stack.Screen
+              name="User Profile Survey"
+              component={ProfileSurvey3}
+              options={{headerStyle: {
+                backgroundColor: '#378C3C'
+              },
+              title: 'User Profile Survey',
+              headerTitleStyle: {
+                color: 'white'
+              }
+              }}
+            /> */}
             </Stack.Navigator>
           </NavigationContainer>
         )}

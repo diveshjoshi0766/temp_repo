@@ -74,7 +74,7 @@ export default function UnsubscribeReason({navigation}) {
             <TouchableOpacity style={[styles.action, {backgroundColor: number  == 5 ? "#378C3C" : "#ffffff"}]} onPress={()=>{setSelect(!select); setNumber(5)}}>
                 <Text style={styles.option}>Email Survey don't interest me</Text>
             </TouchableOpacity>
-            <View style={[styles.action, {backgroundColor: '#ffffff', display: number != null ? 'none' : 'flex'}]}>
+            <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
                 <TextInput 
                     placeholder="Other (Please explain below)"
                     placeholderTextColor="#666666"

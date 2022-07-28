@@ -8,7 +8,7 @@ import {
     Platform, 
     PixelRatio,
     ScrollView,
-    Animated
+    Animated,
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "../components/Logo";
@@ -28,135 +28,74 @@ export function normalize(size) {
     }
 }
 
+export default function ProfileSurvey3({navigation}) {
+    console.log("Profile Survey 3")
+    console.log("It is only for new User")
+    const {userInfo, panelist_profiling_ans} = useContext(AuthContext);
 
-const useFetch = (userInfo) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [data_arr, setData_arr] = useState(null);
-    const [ques_idx, setQues_idx] = useState(null)
-    console.log(userInfo)
-    // Similar to componentDidMount and componentDidUpdate:
-    let temp_data_arr = null;
-    useEffect(async () => {
-      const response = await fetch(`${BASE_URL}/getCountryQuestion/100/396`);
-      const data = await response.json();
-      temp_data_arr = Object.values(data.Results)
-    if(userInfo.Result.answerList.length > 0){
-        for(let i=0;i<userInfo.Result.answerList.length;i++){
-            let obj = userInfo.Result.answerList[i]
-            let ques_id_ = obj.ques_id
-            let ans_id_ = obj.ans_id
-            let ans_id_arr = ans_id_.split(',')
-            for(let j=0;j<temp_data_arr.length;j++){
-                if(temp_data_arr[j].AnswerList[0].profile_question_id == ques_id_){
-                    for(let k=0;k<temp_data_arr[j].AnswerList.length;k++){
-                        for(let x=0;x<ans_id_arr.length;x++){
-                            if(temp_data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
-                                temp_data_arr[j].AnswerList[k].is_answered = true
-                                console.log("HIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-      setData_arr(temp_data_arr)
-      setQues_idx(Object.keys(data.Results))
-      console.log(data_arr)
-    }, []);
-
-    console.log("inside FETCH Function")
-  
-    return {ques_idx, data_arr};
-};
-
-
-export default function ProfileSurvey2({navigation}) {
-    console.log("Profile Survey 2")
-    console.log("It is only to Update the profile Survey")
-    const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
+    console.log(userInfo && userInfo)
 
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
-    // const [data, setData] = useState(null)
+    const [data, setData] = useState(null)
     const [ques, setQues] = useState(0);
     const [ans, setAns] = useState([])
-    
-    
-    const {ques_idx, data_arr} = useFetch(userInfo)
-    console.log(ques_idx)
-    console.log(data_arr)
-    // useEffect(async () => {
-
-    //     setLoading(true)
-    //     axios
-    //     // .get(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
-    //     .get(`${BASE_URL}/getCountryQuestion/100/396`)
-    //     .then(res => {
-    //         let responce_data = res.data;
-    //         console.log()
-    //         setData(Object.values(responce_data.Results))
-    //         data_arr = Object.values(responce_data.Results)
-    //         
-    //         console.log(data)
-    //         console.log("Inside USEEffect")
-    //         setLoading(false);
-    //     })
-    //     .catch(e => {
-    //     console.log(`register error ${e}`);
-    //     setLoading(false);
-    //     });
-    //     return () => {
-    //     };
+    const [ques_idx, setQues_idx] = useState(null)
+    useEffect(async () => {
+        setLoading(true)
+        axios
+        .get(`${BASE_URL}/getCountryQuestion/100/396`)
+        .then(res => {
+            let responce_data = res.data;
+            console.log(responce_data)
+            setData(Object.values(responce_data.Results))
+            setQues_idx(Object.keys(responce_data.Results))
+            
+            setLoading(false);
+        })
+        .catch(e => {
+        console.log(`register error ${e}`);
+        setLoading(false);
+        });
   
-    // }, []);
+    }, []);
+    console.log(ques)
 
-    // let data_arr = null
-    // useEffect(async() => {
-    //     console.log("hello")
-    //     data_arr = data
-    //     console.log(data_arr)
-    // },[data])
+    let data_arr = null
+    if(data && data) {
+        data_arr = data
+        // if(userInfo.Result.answerList.length > 0){
+        //     for(let i=0;i<userInfo.Result.answerList.length;i++){
+        //         let obj = userInfo.Result.answerList[i]
+        //         let ques_id_ = obj.ques_id
+        //         let ans_id_ = obj.ans_id
+        //         let ans_id_arr = ans_id_.split(',')
+        //         for(let j=0;j<data_arr.length;j++){
+        //             if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
+        //                 for(let k=0;k<data_arr[j].AnswerList.length;k++){
+        //                     for(let x=0;x<ans_id_arr.length;x++){
+        //                         if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
+        //                             data_arr[j].AnswerList[k].is_answered = true
+        //                             console.log("HIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+        //                             setData([...data, data[j].AnswerList[k].is_answered = true])
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
     
-    // if(data && data){
-    //     console.log("hello")
-    //     data_arr = data
-    // }
-
-    // if(data && data && userInfo.Result && userInfo.Result.answerList ) {
-    //     only_one_time = true;
-    //     data_arr = data
-    //     if(userInfo.Result.answerList.length > 0){
-    //         for(let i=0;i<userInfo.Result.answerList.length;i++){
-    //             let obj = userInfo.Result.answerList[i]
-    //             let ques_id_ = obj.ques_id
-    //             let ans_id_ = obj.ans_id
-    //             let ans_id_arr = ans_id_.split(',')
-    //             for(let j=0;j<data_arr.length;j++){
-    //                 if(data_arr[j].AnswerList[0].profile_question_id == ques_id_){
-    //                     for(let k=0;k<data_arr[j].AnswerList.length;k++){
-    //                         for(let x=0;x<ans_id_arr.length;x++){
-    //                             if(data_arr[j].AnswerList[k].answer_code == ans_id_arr[x]){
-    //                                 data_arr[j].AnswerList[k].is_answered = true
-    //                                 console.log("HIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-    //                                 setData([...data, data[j].AnswerList[k].is_answered = true])
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    // console.log(data_arr && data_arr)
+    
+    console.log(data_arr && data_arr)
     let num_of_ques = null;
     if(data_arr && data_arr){
         num_of_ques = data_arr.length
     }
     console.log(num_of_ques)
+
     const move_to_next = () => {
         let flag = false
         for(let i=0;i<data_arr[ques].AnswerList.length;i++){
@@ -666,6 +605,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT,
+        marginTop: 20,
     },
     stretch: {
         // width: SCREEN_WIDTH*0.5,

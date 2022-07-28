@@ -37,14 +37,14 @@ const spinValue = new Animated.Value(0);
 
 export default function PresonalDetailsScreen({navigation}) {
 
-    const {userInfo, panelist_basic_details,update_profile, panelistBasicDetails_func} = useContext(AuthContext);
+    const {regCre, panelist_basic_details,update_profile, panelistBasicDetails_func} = useContext(AuthContext);
         // console.log(userInfo.Result.countryID)
         // console.log(userInfo.Result.panelistID)
     // const [data, setData] = useState([])
-    console.log(userInfo)
+    console.log(regCre)
     console.log(panelist_basic_details && panelist_basic_details)
     React.useEffect(() => {
-        panelistBasicDetails_func(userInfo.results && userInfo.results.panelistID)
+        panelistBasicDetails_func(regCre.results && regCre.results.panelistID)
         Animated.timing(spinValue, {
             toValue: 1,
             duration: 1500,
@@ -100,6 +100,7 @@ export default function PresonalDetailsScreen({navigation}) {
         }
         console.log(state_data)
     }
+    console.log(state_)
 
     console.log(city)
 
@@ -121,8 +122,8 @@ export default function PresonalDetailsScreen({navigation}) {
 
     console.log(state_code && state_code.value ? state_code.value + " <- state code" : ' no state_code')
 
-    const [firstName, setFirstName] = useState(null)
-    const [lastName, setLastName] = useState(null)
+    const [firstName, setFirstName] = useState(panelist_basic_details && panelist_basic_details.Results.firstname)
+    const [lastName, setLastName] = useState(panelist_basic_details && panelist_basic_details.Results.lastname)
 
     // date state
     const [date, setDate] = useState(null)
@@ -213,25 +214,23 @@ export default function PresonalDetailsScreen({navigation}) {
     
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder={panelist_basic_details && panelist_basic_details.Results.firstname}
-                placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => setFirstName(val)}
+                onChangeText={(val) => setFirstName(panelist_basic_details && panelist_basic_details.Results.firstname)}
+                value={panelist_basic_details && panelist_basic_details.Results.firstname}
             />
         </View>
     
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder={panelist_basic_details && panelist_basic_details.Results.lastname}
-                placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => setLastName(val)}
+                onChangeText={(val) => setLastName(panelist_basic_details && panelist_basic_details.Results.lastname)}
+                value={panelist_basic_details && panelist_basic_details.Results.lastname}
             />
         </View>
 
@@ -385,13 +384,13 @@ export default function PresonalDetailsScreen({navigation}) {
 
         <View style={[styles.action, {backgroundColor: '#ffffff'}]}>
             <TextInput 
-                placeholder="Country"
                 placeholderTextColor="#666666"
                 style={[styles.textInput, {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => setCountry(val)}
+                onChangeText={(val) => setCountry(panelist_basic_details && panelist_basic_details.Results.countryName)}
+                value={panelist_basic_details && panelist_basic_details.Results.countryName}
             />
         </View>
 
@@ -433,9 +432,8 @@ export default function PresonalDetailsScreen({navigation}) {
                     console.log(state_to_api)
                     console.log(country)
                     console.log(zipcode)
-                    navigation.navigate('Profile Survey')
-                    if(firstName != null && lastName != null && date != null && checked != null && address1 != null && address2 != null && city_to_api != null && state_to_api != null && country != null && zipcode != null){
-                        let res = update_profile(firstName, lastName, date, checked == 'first' ? 1 : 2, address1, address2, city_to_api, state_to_api, country, zipcode, phone, 1, navigation)
+                    if(firstName != null && lastName != null && date != null && checked != null && address1 != null && address2 != null && city_to_api != null && state_to_api != null  && zipcode != null){
+                        let res = update_profile(firstName, lastName, date, checked == 'first' ? 1 : 2, address1, address2, city_to_api, state_to_api, panelist_basic_details.Results.countryID, zipcode, phone, 1, navigation)
                         console.log(res)
                     }
                     else{

@@ -59,6 +59,7 @@ import ProfileSurvey1 from './screen/ProfileSurvey1';
 // import OnboardingScreen from './screen/OnBoardingScreen';
 // import LoadingScreen from './screen/LoadingScreen';
 import EndOfProfileSurveyScreen from './screen/EndOfProfileSurveyScreen';
+import ProfileSurvey3 from './screen/ProfileSurvey3';
 //testing fonts
 // import fontTest from './screen/FontTest';
 
@@ -81,7 +82,7 @@ export default function App({ navigation }) {
 //     <AuthProvider>
 //       <NavigationContainer>
 //         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-//           <Stack.Screen name="Home" component={ProfileSurvey1 } />
+//           <Stack.Screen name="Home" component={ProfileSurvey3 } />
 //           <Stack.Screen name="End Of Profile Survey Screen" component={EndOfProfileSurveyScreen } />
 //         </Stack.Navigator>
 //       </NavigationContainer>

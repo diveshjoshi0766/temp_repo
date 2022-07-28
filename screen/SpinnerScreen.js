@@ -40,7 +40,7 @@ export default function SpinnerScreen({navigation}) {
     }, [])
     useEffect(() => {
       console.log(comments)
-    }, [comments])
+    }, [])
     const fetchComments=async()=>{
         // const response=await axios(`${BASE_URL}/surveyListing/${parseInt(userInfo.Result.panelistID)}`);
         axios.get(`${BASE_URL}/surveySpinner/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`)
