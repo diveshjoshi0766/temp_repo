@@ -335,7 +335,6 @@ const styles = StyleSheet.create({
         paddingLeft: normalize(5),
         paddingRight: normalize(5),
         borderRadius: 20,
-        padding: 10,
     },
     items:{
         display:'flex', 

@@ -63,9 +63,23 @@ export default function UpdateProfileScreen({navigation}) {
     const [firstName, setFirstName] = useState(comments && comments.Results.firstname)
     const [lastName, setLastName] = useState("")
     const [isSelected, setSelection] = useState(false);
-    const [checked, setChecked] = useState("");
-
-    const [date, setDate] = useState()
+    console.log(comments && comments.Results.gender)
+    if(comments && comments.Results.gender == 1){
+        console.log('here fond gender')
+    }
+    const [checked, setChecked] = useState(comments && comments.Results.gender === 1 ? 'second' : 'first');
+    // let def_date = null
+    // const date_default_selected = (date) => {
+    //     console.log(date)
+        
+    //     def_date = date.getDate()  + "-" + (date.getMonth()+1) + "-" + date.getFullYear()
+    //     console.log(def_date)
+    // }
+    // console.log(def_date)
+    if(comments && comments.Results.dob){
+        // date_default_selected(comments.Results.dob)
+    }
+    const [date, setDate] = useState(null)
     const [displaymode, setMode] = useState('date');
     const [isDisplayDate, setShow] = useState(false);
     const changeSelectedDate = (event, selectedDate) => {
@@ -113,7 +127,6 @@ export default function UpdateProfileScreen({navigation}) {
     let datestring = "Date of Birth"
     const handleConfirm = (date) => {
         console.log(date)
-        
         setDate(date)
         datestring = date.getDate()  + "-" + (date.getMonth()+1) + "-" + date.getFullYear()
         console.log(datestring)

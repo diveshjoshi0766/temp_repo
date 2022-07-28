@@ -340,7 +340,7 @@ export const AuthProvider = ({ children }) => {
       email: email,
       password: password,
       subscription: 1,
-      registration_mode: 2,
+      registration_mode: 12,
       ipaddress: `${getIP}`,
       firstName: firstName,
       lastName: lastName,

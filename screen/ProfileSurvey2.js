@@ -173,7 +173,8 @@ export default function ProfileSurvey2({navigation}) {
             }).start();
         }
         else{
-            alert("Please select option to continue")
+            // alert("Please select option to continue")
+            setQues(ques+1)
         }
         return flag;
     }
@@ -301,7 +302,7 @@ export default function ProfileSurvey2({navigation}) {
                     let ques_code = null
                     for(let j=0;j<data_arr[i].AnswerList.length;j++){
                         if(data_arr[i].AnswerList[j].is_answered){
-                            temp_ans_str += data_arr[i].AnswerList[j].answer_code
+                            temp_ans_str += data_arr[i].AnswerList[j].answer_code+","
                             ques_code = data_arr[i].AnswerList[j].profile_question_id
                         }
                     }

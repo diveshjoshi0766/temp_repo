@@ -82,9 +82,9 @@ export default function ProfileSurvey1({navigation}) {
 
     console.log(userInfo && userInfo) 
     console.log(panelist_basic_details && panelist_basic_details)
-    if(panelist_basic_details && panelist_basic_details){
-        console.log(panelist_basic_details.Results.profilePercentage)
-        if(parseInt(panelist_basic_details.Results.profilePercentage) == 100){
+    if(userInfo && userInfo){
+        console.log(userInfo.Result.profilePercentage)
+        if(parseInt(userInfo.Result.profilePercentage) == 100){
             navigation.navigate('Home')
         }
     }
@@ -193,7 +193,90 @@ export default function ProfileSurvey1({navigation}) {
             }).start();
         }
         else{
-            alert("Please select option to continue")
+            // alert("Please select option to continue")
+            if(ques == (num_of_ques-1)){
+                let obj = {
+                    ques_id: ques_id,
+                    ans_id: ans_id
+                }
+                setAns([...ans, obj]);
+
+                // AsyncStorage.setItem('answers', JSON.stringify(ans));
+                // handleShowResult()
+                // console.log("size equal")
+                let arr = ans;
+                navigation.navigate('End Of Profile Survey Screen')
+            for(let i=0;i<arr.length;i++){
+                console.log(arr[i].ques_id)
+            }
+            let final_ans = []
+
+            for(let i=0;i<data_arr.length;i++){
+                if(data_arr[i].Question.question_type_id == 2){
+                    for(let j=0;j<data_arr[i].AnswerList.length;j++){
+                        if(data_arr[i].AnswerList[j].is_answered){
+                            let obj = {
+                                ques_id: data_arr[i].AnswerList[j].profile_question_id,
+                                ans_id: data_arr[i].AnswerList[j].answer_code
+                            }
+                            final_ans.push(obj)
+                            console.log(final_ans)
+                            continue;
+                        }
+                    
+                    }
+                }else{
+                    let temp_ans_str = ""
+                    let ques_code = null
+                    for(let j=0;j<data_arr[i].AnswerList.length;j++){
+                        if(data_arr[i].AnswerList[j].is_answered){
+                            temp_ans_str += data_arr[i].AnswerList[j].answer_code+","
+                            ques_code = data_arr[i].AnswerList[j].profile_question_id
+                        }
+                    }
+                    let obj = {
+                        ques_id: ques_code,
+                        ans_id: temp_ans_str
+                    }
+                    final_ans.push(obj)
+                    console.log(final_ans)
+                }
+            }
+
+            //old selection of answers
+            // for(let i=0;i<arr.length;i++){
+            //     for(let j=i+1;j<arr.length-1;j++){
+            //         console.log(i)
+            //         console.log(arr[i])
+            //         console.log(j)
+            //         console.log(arr[j])
+            //         if(arr[i].ques_id == arr[j].ques_id){
+            //             console.log("HITTTTTTTTT")
+            //             arr[i] = null;
+            //         }
+            //     }
+            // }
+            // console.log(arr)
+            // let counter = 0;
+            // for(let i=0;i<arr.length;i++){
+            //     if(arr[i]!=null){
+            //         final_ans[counter] = arr[i]
+            //         counter++;
+            //     }
+            // }
+            // arr = []
+                console.log(final_ans)
+                AsyncStorage.setItem('ans_obj', JSON.stringify(final_ans));
+                // console.log(ans_obj)
+                panelist_profiling_ans(final_ans)
+                console.log("here")
+                setAns([])
+                navigation.navigate('End Of Profile Survey Screen')
+        
+                }
+                else{
+            setQues(ques+1)
+                }
         }
         return flag;
     }
@@ -285,6 +368,8 @@ export default function ProfileSurvey1({navigation}) {
                 setAns([...ans, obj]);
                 console.log(ques)
             }
+
+            
             if(ques == (num_of_ques-1)){
                 let obj = {
                     ques_id: ques_id,
@@ -321,7 +406,7 @@ export default function ProfileSurvey1({navigation}) {
                     let ques_code = null
                     for(let j=0;j<data_arr[i].AnswerList.length;j++){
                         if(data_arr[i].AnswerList[j].is_answered){
-                            temp_ans_str += data_arr[i].AnswerList[j].answer_code
+                            temp_ans_str += data_arr[i].AnswerList[j].answer_code+","
                             ques_code = data_arr[i].AnswerList[j].profile_question_id
                         }
                     }
@@ -356,13 +441,13 @@ export default function ProfileSurvey1({navigation}) {
             //     }
             // }
             // arr = []
-            console.log(final_ans)
-            AsyncStorage.setItem('ans_obj', JSON.stringify(final_ans));
-            // console.log(ans_obj)
-            panelist_profiling_ans(final_ans)
-            console.log("here")
-            setAns([])
-            navigation.navigate('End Of Profile Survey Screen')
+                console.log(final_ans)
+                AsyncStorage.setItem('ans_obj', JSON.stringify(final_ans));
+                // console.log(ans_obj)
+                panelist_profiling_ans(final_ans)
+                console.log("here")
+                setAns([])
+                navigation.navigate('End Of Profile Survey Screen')
         
                 }
                 

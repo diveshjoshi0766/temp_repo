@@ -237,6 +237,7 @@ const Navigation = () => {
             options={{headerStyle: {
               backgroundColor: '#378C3C'
             },
+            title: 'Spinner Survey',
             headerTitleStyle: {
               color: 'white'
             }

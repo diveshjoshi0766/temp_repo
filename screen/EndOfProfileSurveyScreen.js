@@ -45,7 +45,7 @@ export default function EndOfProfileSurveyScreen({navigation}) {
         </View>
 
         <TouchableOpacity>
-            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Congratulation!</Text>
+            <Text style={{color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(20), fontWeight: 'bold'}}>Congratulations!</Text>
         </TouchableOpacity>
         
         <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), }}>You have successfully updated your profile{'\n'}

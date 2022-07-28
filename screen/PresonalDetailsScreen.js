@@ -117,7 +117,7 @@ export default function PresonalDetailsScreen({navigation}) {
             // data.push(obj)
             city_data.push(obj)
         }
-        console.log(data)
+        // console.log(data)
     }
 
     console.log(state_code && state_code.value ? state_code.value + " <- state code" : ' no state_code')
@@ -163,7 +163,9 @@ export default function PresonalDetailsScreen({navigation}) {
 
 
     const [value, setValue] = useState(null);
+    const [value2, setValue2] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
+    const [isFocus2, setIsFocus2] = useState(false)
 
     const renderLabel = () => {
       if (value || isFocus) {
@@ -218,7 +220,7 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => setFirstName(panelist_basic_details && panelist_basic_details.Results.firstname)}
+                // onChangeText={(val) => setFirstName(panelist_basic_details && panelist_basic_details.Results.firstname)}
                 value={panelist_basic_details && panelist_basic_details.Results.firstname}
             />
         </View>
@@ -229,7 +231,7 @@ export default function PresonalDetailsScreen({navigation}) {
                     color: colors.text
                 }]}
                 autoCapitalize="none"
-                onChangeText={(val) => setLastName(panelist_basic_details && panelist_basic_details.Results.lastname)}
+                // onChangeText={(val) => setLastName(panelist_basic_details && panelist_basic_details.Results.lastname)}
                 value={panelist_basic_details && panelist_basic_details.Results.lastname}
             />
         </View>
@@ -352,14 +354,17 @@ export default function PresonalDetailsScreen({navigation}) {
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
-                placeholder={!isFocus ? 'Select City' : '...'}
+                placeholder={!isFocus2 ? 'Select City' : '...'}
                 searchPlaceholder="Search..."
-                value={value}
+                value={value2}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 onChange={item => {
                     setValue_(item.value);
-                    setIsFocus_(false);
+                    setValue2(item.value)
+                    // setIsFocus_(false);
+                    setIsFocus2(false)
+                    setCityToAPI(item.label)
                 }}
             />
         </View>
@@ -432,14 +437,15 @@ export default function PresonalDetailsScreen({navigation}) {
                     console.log(state_to_api)
                     console.log(country)
                     console.log(zipcode)
-                    if(firstName != null && lastName != null && date != null && checked != null && address1 != null && address2 != null && city_to_api != null && state_to_api != null  && zipcode != null){
-                        let res = update_profile(firstName, lastName, date, checked == 'first' ? 1 : 2, address1, address2, city_to_api, state_to_api, panelist_basic_details.Results.countryID, zipcode, phone, 1, navigation)
+                    if(panelist_basic_details && panelist_basic_details.Results.firstname != null && panelist_basic_details && panelist_basic_details.Results.lastname != null && date != null && checked != null && address1 != null && address2 != null && city_to_api != null && state_to_api != null  && zipcode != null){
+                        let res = update_profile(panelist_basic_details && panelist_basic_details.Results.firstname, panelist_basic_details && panelist_basic_details.Results.lastname, date, checked == 'first' ? 1 : 2, address1, address2, city_to_api, state_to_api, panelist_basic_details.Results.countryID, zipcode, phone, 1, navigation)
                         console.log(res)
                     }
                     else{
                         alert('Please fill all the entries. Phone number is optional')
                     }
                     }}
+                
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C', 
                 }]}
