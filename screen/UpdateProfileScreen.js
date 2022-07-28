@@ -115,7 +115,7 @@ export default function UpdateProfileScreen({navigation}) {
     setAvatar(response.data)    
     }
 
-    console.log(comments && comments.Results.firstname)
+    
 
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -123,8 +123,11 @@ export default function UpdateProfileScreen({navigation}) {
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
-    const [datestr, strdatestr] = useState('Date of birth')
-    let datestring = "Date of Birth"
+    const [datestr, strdatestr] = useState(null)
+    // let datestring = "Date of Birth"
+    // if(comments && comments.Results.dob){
+    //     strdatestr(comments && comments.Results.dob)
+    // }
     const handleConfirm = (date) => {
         console.log(date)
         setDate(date)
@@ -210,7 +213,7 @@ export default function UpdateProfileScreen({navigation}) {
         onPress={showDatePicker}
         >
          <View >
-            <Text style={{paddingLeft: 4}}>{datestr}</Text>
+            {datestr == null ? <Text style={{paddingLeft: 4}}>{comments && comments.Results.dob == null ? 'DOB' : `${comments && comments.Results.dob}`}</Text> : <Text style={{paddingLeft: 4}}>{datestr}</Text>}
             {/* <Image source={require('../assets/date.png')} size={{height: 10, width: 10}}/>  */}
         </View>
         </TouchableOpacity>

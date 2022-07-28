@@ -67,7 +67,7 @@ export default function PresonalDetailsScreen({navigation}) {
     const [state_to_api, setStateToAPI] = useState(null)
     useEffect(() => {
         fetchState();
-    }, [])
+    }, [panelist_basic_details])
     useEffect(() => {
         if(state_code != 0){
             fetchCity();
