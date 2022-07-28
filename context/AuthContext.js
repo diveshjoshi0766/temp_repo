@@ -2,15 +2,28 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { BASE_URL, X_ACCESS_TOKEN } from "../config";
-import {NetworkInfo} from 'react-native-network-info';
+// import {NetworkInfo} from 'react-native-network-info';
+import publicIP from 'react-native-public-ip';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [getIP, setIP] = useState();
-  NetworkInfo.getIPAddress().then(ipAddress => {
-    setIP(ipAddress)
+  publicIP()
+  .then(ip => {    
+    console.log(ip);
+    setIP(ip)
+    // '47.122.71.234'
+  })
+  .catch(error => {
+    console.log(error);
+    // 'Unable to get IP address.'
   });
+
+  // NetworkInfo.getIPAddress().then(ipAddress => {
+  //   setIP(ipAddress)
+  // });
+  // console.log(getIP)
   
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
