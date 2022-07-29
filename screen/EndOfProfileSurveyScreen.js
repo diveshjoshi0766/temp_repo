@@ -28,6 +28,7 @@ export function normalize(size) {
 
 export default function EndOfProfileSurveyScreen({navigation}) {
     const {userInfo} = useContext(AuthContext);
+    console.log(userInfo)
     return (
     <View style={styles.container}>
     <Animatable.View 
@@ -50,7 +51,7 @@ export default function EndOfProfileSurveyScreen({navigation}) {
         
         <Text style={{color: '#000000', marginTop:10,  fontSize:normalize(15), lineHeight: 21}}>You have successfully updated your profile{'\n'}
 To activate your account & start receving exiting survey, an "Account Conformation" email has been send to{'\n'}</Text>
-        <Text style={{color: '#000000', color: '#1E96F0', alignSelf: "center"}}> {userInfo && userInfo.Result.email}{'\n'} </Text>
+        <Text style={{color: '#000000', color: '#1E96F0', alignSelf: "center"}}> {userInfo && userInfo.Result  && userInfo.Result.email}{'\n'} </Text>
         {/* <Text style={{color: '#000000', color: '#1E96F0', alignSelf: "center"}}> dvieshjoshi34@gmail.com{'\n'} </Text> */}
         <Text>Please click on the <Text style={{fontStyle: 'italic', lineHeight: 21}}>"Active Account" button in the email Kindly check your Spam/Junk folder as well for the confirmation email</Text>
         </Text>

@@ -31,9 +31,10 @@ export function normalize(size) {
 export default function ProfileSurvey3({navigation}) {
     console.log("Profile Survey 3")
     console.log("It is only for new User")
-    const {userInfo, panelist_profiling_ans} = useContext(AuthContext);
+    const {userInfo, panelist_profiling_ans, panelist_basic_details} = useContext(AuthContext);
 
     console.log(userInfo && userInfo)
+    console.log(panelist_basic_details && panelist_basic_details)
 
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState([])
@@ -41,10 +42,12 @@ export default function ProfileSurvey3({navigation}) {
     const [ques, setQues] = useState(0);
     const [ans, setAns] = useState([])
     const [ques_idx, setQues_idx] = useState(null)
-    useEffect(async () => {
+    useEffect(() => {
         setLoading(true)
+        // console.log(userInfo && userInfo.Result.countryID)
+        // console.log(userInfo && userInfo.Result.panelistID)
         axios
-        .get(`${BASE_URL}/getCountryQuestion/100/396`)
+        .get(`${BASE_URL}/getCountryQuestion/${parseInt(panelist_basic_details && panelist_basic_details.Results.countryID)}/${parseInt(panelist_basic_details && panelist_basic_details.Results.panelistID)}`)
         .then(res => {
             let responce_data = res.data;
             console.log(responce_data)
@@ -58,7 +61,7 @@ export default function ProfileSurvey3({navigation}) {
         setLoading(false);
         });
   
-    }, []);
+    }, [userInfo]);
     console.log(ques)
 
     let data_arr = null
@@ -113,7 +116,92 @@ export default function ProfileSurvey3({navigation}) {
         }
         else{
             // alert("Please select option to continue")
+            if(ques == (num_of_ques-1)){
+                // let obj = {
+                //     ques_id: ques_id,
+                //     ans_id: ans_id
+                // }
+                // setAns([...ans, obj]);
+
+                // AsyncStorage.setItem('answers', JSON.stringify(ans));
+                // handleShowResult()
+                // console.log("size equal")
+                let arr = ans;
+                navigation.navigate('End Of Profile Survey Screen')
+            for(let i=0;i<arr.length;i++){
+                console.log(arr[i].ques_id)
+            }
+            let final_ans = []
+
+            for(let i=0;i<data_arr.length;i++){
+                if(data_arr[i].Question.question_type_id == 2){
+                    for(let j=0;j<data_arr[i].AnswerList.length;j++){
+                        if(data_arr[i].AnswerList[j].is_answered){
+                            let obj = {
+                                ques_id: data_arr[i].AnswerList[j].profile_question_id,
+                                ans_id: data_arr[i].AnswerList[j].answer_code
+                            }
+                            final_ans.push(obj)
+                            console.log(final_ans)
+                            continue;
+                        }
+                    
+                    }
+                }else{
+                    let temp_ans_str = ""
+                    let ques_code = null
+                    for(let j=0;j<data_arr[i].AnswerList.length;j++){
+                        if(data_arr[i].AnswerList[j].is_answered){
+                            temp_ans_str += data_arr[i].AnswerList[j].answer_code+","
+                            ques_code = data_arr[i].AnswerList[j].profile_question_id
+                        }
+                    }
+                    let obj 
+                    if(ques_code != null){
+                    obj = {
+                        ques_id: ques_code,
+                        ans_id: temp_ans_str
+                    }
+                    final_ans.push(obj)
+                    }
+                    console.log(final_ans)
+                }
+            }
+
+            //old selection of answers
+            // for(let i=0;i<arr.length;i++){
+            //     for(let j=i+1;j<arr.length-1;j++){
+            //         console.log(i)
+            //         console.log(arr[i])
+            //         console.log(j)
+            //         console.log(arr[j])
+            //         if(arr[i].ques_id == arr[j].ques_id){
+            //             console.log("HITTTTTTTTT")
+            //             arr[i] = null;
+            //         }
+            //     }
+            // }
+            // console.log(arr)
+            // let counter = 0;
+            // for(let i=0;i<arr.length;i++){
+            //     if(arr[i]!=null){
+            //         final_ans[counter] = arr[i]
+            //         counter++;
+            //     }
+            // }
+            // arr = []
+                console.log(final_ans)
+                AsyncStorage.setItem('ans_obj', JSON.stringify(final_ans));
+                // console.log(ans_obj)
+                panelist_profiling_ans(final_ans)
+                console.log("here")
+                setAns([])
+                navigation.navigate('End Of Profile Survey Screen')
+        
+                }
+                else{
             setQues(ques+1)
+                }
         }
         return flag;
     }

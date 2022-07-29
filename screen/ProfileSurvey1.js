@@ -41,7 +41,7 @@ const useFetch = (userInfo) => {
     // Similar to componentDidMount and componentDidUpdate:
     let temp_data_arr = null;
     useEffect(async () => {
-      const response = await fetch(`${BASE_URL}/getCountryQuestion/100/396`);
+      const response = await fetch(`${BASE_URL}/getCountryQuestion/${parseInt(userInfo.Result.countryID)}/${parseInt(userInfo.Result.panelistID)}`);
       const data = await response.json();
       temp_data_arr = Object.values(data.Results)
     if(userInfo.Result.answerList.length > 0){
@@ -77,6 +77,8 @@ const useFetch = (userInfo) => {
 
 
 export default function ProfileSurvey1({navigation}) {
+
+    console.log("It is during login Screen")
     
     const {userInfo, panelist_profiling_ans, panelist_basic_details, } = useContext(AuthContext);
 
@@ -195,11 +197,11 @@ export default function ProfileSurvey1({navigation}) {
         else{
             // alert("Please select option to continue")
             if(ques == (num_of_ques-1)){
-                let obj = {
-                    ques_id: ques_id,
-                    ans_id: ans_id
-                }
-                setAns([...ans, obj]);
+                // let obj = {
+                //     ques_id: ques_id,
+                //     ans_id: ans_id
+                // }
+                // setAns([...ans, obj]);
 
                 // AsyncStorage.setItem('answers', JSON.stringify(ans));
                 // handleShowResult()
@@ -234,11 +236,14 @@ export default function ProfileSurvey1({navigation}) {
                             ques_code = data_arr[i].AnswerList[j].profile_question_id
                         }
                     }
-                    let obj = {
+                    let obj 
+                    if(ques_code != null){
+                    obj = {
                         ques_id: ques_code,
                         ans_id: temp_ans_str
                     }
                     final_ans.push(obj)
+                    }
                     console.log(final_ans)
                 }
             }
