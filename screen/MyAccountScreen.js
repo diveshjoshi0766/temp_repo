@@ -33,7 +33,7 @@ export function normalize(size) {
 
 export default function MyAccountScreen({navigation}) {
     
-    const {isLoading, logout, userInfo} = useContext(AuthContext);
+    const {isLoading, logout, userInfo, login_to_update_profile_question} = useContext(AuthContext);
     console.log(userInfo)
 
       const onShare = async () => {
@@ -116,6 +116,7 @@ export default function MyAccountScreen({navigation}) {
                         justifyContent:'center'
                     }}
                     onPress = {() => {
+                        login_to_update_profile_question(userInfo.Result.email);
                         check_for_survey(navigation.navigate('Update Profile Survey'))
                     }}
                     >

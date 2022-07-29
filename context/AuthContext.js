@@ -405,12 +405,45 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+
+  const login_to_update_profile_question = (email) => {
+    setIsLoading(true);
+    if(temp_password != null){
+    const data = JSON.stringify({
+      email: email,
+      password: temp_password,
+    });
+    console.log(data);
+    axios
+      .post(`${BASE_URL}/login`, data, {
+        Headers: {
+          "Content-Type": "application/json",
+          "x-access-token": X_ACCESS_TOKEN,
+        },
+      })
+      .then((res) => {
+        let userInfo = res.data;
+        console.log(userInfo);
+        setUserInfo(userInfo);
+        console.log("Hey I am a new User and I am logged In");
+        AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+        setIsLoading(false);
+      })
+      .catch((e) => {
+        console.log(`login error ${e}`);
+        setIsLoading(false);
+      });
+    }
+  };
+  
+
   const login_after_update_profile = (email, password) => {
     setIsLoading(true);
     const data = JSON.stringify({
       email: email,
       password: password,
     });
+    setTemp_password(password)
     console.log(data);
     axios
       .post(`${BASE_URL}/login`, data, {
@@ -440,6 +473,7 @@ export const AuthProvider = ({ children }) => {
       password: password,
     });
     console.log(data);
+    setTemp_password(password)
     axios
       .post(`${BASE_URL}/login`, data, {
         Headers: {
@@ -585,6 +619,7 @@ export const AuthProvider = ({ children }) => {
         panelist_basic_details,
         setTemp_password,
         regCre,
+        login_to_update_profile_question,
       }}
     >
       {children}
