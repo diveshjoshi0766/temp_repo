@@ -52,9 +52,10 @@ export default function UserActivityScreen({navigation}) {
 
     // console.log(tableData)
 
-    const {userInfo, redeem_request} = useContext(AuthContext);
+    const {userInfo, redeem_request, panelist_basic_details} = useContext(AuthContext);
 
     console.log(userInfo)
+    console.log(panelist_basic_details)
     const [comments,setComments]=useState(null)
     useEffect(() => {
     fetchComments();
@@ -87,13 +88,14 @@ export default function UserActivityScreen({navigation}) {
                 <View style={styles.points}>
                     <View style={styles.center}>
                         <Text style={styles.text_box_black_header}>My Points</Text>
-                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.current_point}</Text>
+                        <Text style={styles.text_box_black_points}>{panelist_basic_details == null ? userInfo.Result && userInfo.Result.current_point : panelist_basic_details.Results.current_point}</Text>
                     </View>
                     <View style={styles.center}>
                         <Text style={styles.text_box_black_header}>My Profile</Text>
-                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
+                        <Text style={styles.text_box_black_points}>{panelist_basic_details == null ? userInfo.Result && userInfo.Result.profilePercentage : panelist_basic_details.Results.profilePercentage}%</Text>
                     </View>
                 </View>
+            
                 <View style={[styles.products, {display:'flex', flexDirection:'row', justifyContent: 'space-between', backgroundColor: '#d4d6d1', marginTop: 10, paddingLeft: 6, paddingRight: 6}]}>
                     <Text style={[{flex: 0.25, color: '#000000', marginTop:10, textAlign: "center", fontSize:normalize(16), fontWeight: 'bold'}]}>Date</Text>
                     <Text style={[styles.tabel_header, {flex: 0.4}]}>Description</Text>

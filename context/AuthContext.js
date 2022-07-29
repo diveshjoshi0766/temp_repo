@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         let responce = res.data;
         console.log(responce);
-
+        panelistBasicDetails_func(parseInt(userInfo.Result.panelistID))
         // alert(res.data.message)
         setIsLoading(false);
       })
@@ -451,6 +451,7 @@ export const AuthProvider = ({ children }) => {
         let userInfo = res.data;
         console.log(userInfo);
         setUserInfo(userInfo);
+        panelistBasicDetails_func(userInfo.Result.panelistID) // to update current profile percentage
         AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
         if (userInfo.status != "failure") {
           navigation.navigate("Profile Survey");

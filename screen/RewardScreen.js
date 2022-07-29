@@ -27,7 +27,7 @@ export function normalize(size) {
     }
 }
 export default function RewardScreen({navigation}) {
-    const {userInfo, redeem_request} = useContext(AuthContext);
+    const {userInfo, redeem_request, panelist_basic_details} = useContext(AuthContext);
 
     console.log(userInfo)
     const [comments,setComments]=useState(null)
@@ -86,11 +86,11 @@ export default function RewardScreen({navigation}) {
             <View style={styles.points}>
                 <View style={styles.center}>
                     <Text style={styles.text_box_black_header}>My Points</Text>
-                    <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.current_point}</Text>
+                    <Text style={styles.text_box_black_points}>{panelist_basic_details == null ? userInfo.Result && userInfo.Result.current_point : panelist_basic_details.Results.current_point}</Text>
                 </View>
                 <View style={styles.center}>
                     <Text style={styles.text_box_black_header}>My Profile</Text>
-                    <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
+                    <Text style={styles.text_box_black_points}>{panelist_basic_details == null ? userInfo.Result && userInfo.Result.profilePercentage : panelist_basic_details.Results.profilePercentage}%</Text>
                 </View>
             </View>
             
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
         color: '#fff', 
         // fontWeight: '500',
         textAlign: "center", 
-        fontSize: normalize(30),
+        fontSize: normalize(28),
     },
     footer: {
         flex: 1,

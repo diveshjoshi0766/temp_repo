@@ -252,7 +252,7 @@ const Navigation = () => {
             >
             <Stack.Screen
               name="Defualt Screen"
-              component={DefaultScreen}
+              component={SignUpScreen}
               options={{headerShown: false}}
             />
             <Stack.Screen

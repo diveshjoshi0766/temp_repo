@@ -32,7 +32,7 @@ export function normalize(size) {
 
 
 export default function SpinnerScreen({navigation}) {
-    const {userInfo} = useContext(AuthContext);
+    const {userInfo, panelist_basic_details} = useContext(AuthContext);
     const [comments,setComments]=useState(null)
     const [link, setLink] = useState(null)
     useEffect(() => {
@@ -76,11 +76,11 @@ export default function SpinnerScreen({navigation}) {
                 <View style={styles.points}>
                     <View style={styles.center}>
                         <Text style={styles.text_box_black_header}>My Points</Text>
-                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.current_point}</Text>
+                        <Text style={styles.text_box_black_points}>{panelist_basic_details == null ? userInfo.Result && userInfo.Result.current_point : panelist_basic_details.Results.current_point}</Text>
                     </View>
                     <View style={styles.center}>
                         <Text style={styles.text_box_black_header}>My Profile</Text>
-                        <Text style={styles.text_box_black_points}>{userInfo.Result && userInfo.Result.profilePercentage}%</Text>
+                        <Text style={styles.text_box_black_points}>{panelist_basic_details == null ? userInfo.Result && userInfo.Result.profilePercentage : panelist_basic_details.Results.profilePercentage}%</Text>
                     </View>
                 </View>
                     
