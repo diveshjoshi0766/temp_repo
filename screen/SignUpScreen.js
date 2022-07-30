@@ -224,12 +224,17 @@ export default function SignUpScreen({navigation}) {
                     console.log(lastName)
                     console.log(lastName)
                     setTemp_password(password)
-                    const responce = await register(email, password, confirmPassword, firstName, lastName, navigation)
+                    if(email != null && password != null && firstName != null && lastName != null && isSelected){
+                        const responce = await register(email, password, confirmPassword, firstName, lastName, navigation)
+                    }
+                    else{
+                        alert('Please fill all the credentials')
+                    }
                     }}
                 style={[styles.signIn, {
                     backgroundColor: '#378C3C',
                 }]}
-                disabled={!isSelected}
+                // disabled={!isSelected}
             >
                 <Text style={[styles.textSign, {
                     color: '#fff'
