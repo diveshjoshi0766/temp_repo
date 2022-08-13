@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: '#FAFAFA',
         padding: 10,
-        flexDirection: "column",
+        flexDirection: "col",
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
       },

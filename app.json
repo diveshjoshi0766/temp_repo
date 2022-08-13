@@ -2,9 +2,9 @@
   "expo": {
     "name": "survey_optimus",
     "slug": "survey_optimus",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/company_logo.png",
+    "icon": "./assets/Star_1024.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash_screen_survey_optimus.png",
@@ -22,10 +22,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo_remove_bg.png",
+        "foregroundImage": "./assets/Star_1024.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.surveyoptimus.surveyoptimus"
+      "package": "com.survey__optimus.survey__optimus",
+      "versionCode": 2,
+      "permissions": []
     },
     "web": {
       "favicon": "./assets/company_logo.png"

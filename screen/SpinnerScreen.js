@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#FAFAFA',
         padding: 10,
-        flexDirection:'column',
+        flexDirection:'col',
         minHeight: SCREEN_HEIGHT,
         minWidth: SCREEN_WIDTH,
         marginTop: 20,
