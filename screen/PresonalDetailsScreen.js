@@ -43,14 +43,19 @@ export default function PresonalDetailsScreen({navigation}) {
     // const [data, setData] = useState([])
     console.log(regCre)
     console.log(panelist_basic_details && panelist_basic_details)
-    React.useEffect(() => {
+        React.useEffect(() => {
         panelistBasicDetails_func(regCre.results && regCre.results.panelistID)
-        Animated.timing(spinValue, {
-            toValue: 1,
-            duration: 1500,
-            easing: Easing.linear,
-            useNativeDriver: true,
-        }).start();
+        Animated.loop(
+            Animated.timing(
+              spinValue,
+              {
+               toValue: 1,
+               duration: 3000,
+               easing: Easing.linear,
+               useNativeDriver: true
+              }
+            )
+           ).start();
         }, []);
 
         const spin = spinValue.interpolate({
