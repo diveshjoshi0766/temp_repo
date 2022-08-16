@@ -24,15 +24,19 @@ export function normalize(size) {
 }
 const spinValue = new Animated.Value(0);
 export default function LoadingScreen({navigation}) {
-
     React.useEffect(() => {
-    Animated.timing(spinValue, {
-        toValue: 1,
-        duration: 3000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-    }).start();
-    }, []);
+        Animated.loop(
+            Animated.timing(
+              spinValue,
+              {
+               toValue: 1,
+               duration: 3000,
+               easing: Easing.linear,
+               useNativeDriver: true
+              }
+            )
+           ).start();
+        }, []);
 
     const spin = spinValue.interpolate({
     inputRange: [0, 1],
