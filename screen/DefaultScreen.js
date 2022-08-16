@@ -37,13 +37,18 @@ const spinValue = new Animated.Value(0);
 
 export default function DefaultScreen({navigation}) {
 
-    React.useEffect(() => {
-        Animated.timing(spinValue, {
-            toValue: 1,
-            duration: 1500,
-            easing: Easing.linear,
-            useNativeDriver: true,
-        }).start();
+       React.useEffect(() => {
+        Animated.loop(
+            Animated.timing(
+              spinValue,
+              {
+               toValue: 1,
+               duration: 3000,
+               easing: Easing.linear,
+               useNativeDriver: true
+              }
+            )
+           ).start();
         }, []);
 
         const spin = spinValue.interpolate({
